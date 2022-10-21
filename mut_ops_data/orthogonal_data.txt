@@ -1,0 +1,208 @@
+[
+   {
+      "run_id": 1,
+      "total_test_cases": 8,
+      "test_suite_strength": 0.875,
+      "mutations_not_killed": {},
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 4,
+         "ConstructorCallMutator": 4,
+         "InlineConstantMutator": 8,
+         "InvertNegsMutator": 5,
+         "MathMutator": 19,
+         "NegateConditionalsMutator": 5,
+         "NonVoidMethodCallMutator": 4,
+         "RemoveConditionalMutator_EQUAL_ELSE": 1,
+         "RemoveConditionalMutator_EQUAL_IF": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 4,
+         "RemoveConditionalMutator_ORDER_IF": 4,
+         "ArgumentPropagationMutator": 3,
+         "NullReturnValsMutator": 3
+      },
+      "test_cases_picked": [
+         2,
+         7,
+         3,
+         6,
+         8,
+         4,
+         5
+      ],
+      "test_cases_not_picked": [
+         1
+      ]
+   },
+   {
+      "run_id": 2,
+      "total_test_cases": 8,
+      "test_suite_strength": 0.625,
+      "mutations_not_killed": {},
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 4,
+         "ConstructorCallMutator": 4,
+         "InlineConstantMutator": 8,
+         "InvertNegsMutator": 5,
+         "MathMutator": 19,
+         "NegateConditionalsMutator": 5,
+         "NonVoidMethodCallMutator": 4,
+         "RemoveConditionalMutator_EQUAL_ELSE": 1,
+         "RemoveConditionalMutator_EQUAL_IF": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 4,
+         "RemoveConditionalMutator_ORDER_IF": 4,
+         "ArgumentPropagationMutator": 3,
+         "NullReturnValsMutator": 3
+      },
+      "test_cases_picked": [
+         8,
+         3,
+         5,
+         6,
+         7
+      ],
+      "test_cases_not_picked": [
+         4,
+         1,
+         2
+      ]
+   },
+   {
+      "run_id": 3,
+      "total_test_cases": 8,
+      "test_suite_strength": 0.5,
+      "mutations_not_killed": {},
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 4,
+         "ConstructorCallMutator": 4,
+         "InlineConstantMutator": 8,
+         "InvertNegsMutator": 5,
+         "MathMutator": 19,
+         "NegateConditionalsMutator": 5,
+         "NonVoidMethodCallMutator": 4,
+         "RemoveConditionalMutator_EQUAL_ELSE": 1,
+         "RemoveConditionalMutator_EQUAL_IF": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 4,
+         "RemoveConditionalMutator_ORDER_IF": 4,
+         "ArgumentPropagationMutator": 3,
+         "NullReturnValsMutator": 3
+      },
+      "test_cases_picked": [
+         7,
+         5,
+         3,
+         1
+      ],
+      "test_cases_not_picked": [
+         4,
+         6,
+         8,
+         2
+      ]
+   },
+   {
+      "run_id": 4,
+      "total_test_cases": 8,
+      "test_suite_strength": 0.75,
+      "mutations_not_killed": {
+         "ConditionalsBoundaryMutator": 2,
+         "InvertNegsMutator": 1
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 2,
+         "ConstructorCallMutator": 4,
+         "InlineConstantMutator": 8,
+         "InvertNegsMutator": 4,
+         "MathMutator": 19,
+         "NegateConditionalsMutator": 5,
+         "NonVoidMethodCallMutator": 4,
+         "RemoveConditionalMutator_EQUAL_ELSE": 1,
+         "RemoveConditionalMutator_EQUAL_IF": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 4,
+         "RemoveConditionalMutator_ORDER_IF": 4,
+         "ArgumentPropagationMutator": 3,
+         "NullReturnValsMutator": 3
+      },
+      "test_cases_picked": [
+         6,
+         4,
+         1,
+         8,
+         7,
+         5
+      ],
+      "test_cases_not_picked": [
+         2,
+         3
+      ]
+   },
+   {
+      "run_id": 5,
+      "total_test_cases": 8,
+      "test_suite_strength": 0.875,
+      "mutations_not_killed": {},
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 4,
+         "ConstructorCallMutator": 4,
+         "InlineConstantMutator": 8,
+         "InvertNegsMutator": 5,
+         "MathMutator": 19,
+         "NegateConditionalsMutator": 5,
+         "NonVoidMethodCallMutator": 4,
+         "RemoveConditionalMutator_EQUAL_ELSE": 1,
+         "RemoveConditionalMutator_EQUAL_IF": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 4,
+         "RemoveConditionalMutator_ORDER_IF": 4,
+         "ArgumentPropagationMutator": 3,
+         "NullReturnValsMutator": 3
+      },
+      "test_cases_picked": [
+         4,
+         3,
+         7,
+         1,
+         6,
+         8,
+         5
+      ],
+      "test_cases_not_picked": [
+         2
+      ]
+   }
+]
+=======================================
+Median run is:
+{
+   "run_id": 4,
+   "total_test_cases": 8,
+   "test_suite_strength": 0.75,
+   "mutations_not_killed": {
+      "ConditionalsBoundaryMutator": 2,
+      "InvertNegsMutator": 1
+   },
+   "mutations_killed": {
+      "ConditionalsBoundaryMutator": 2,
+      "ConstructorCallMutator": 4,
+      "InlineConstantMutator": 8,
+      "InvertNegsMutator": 4,
+      "MathMutator": 19,
+      "NegateConditionalsMutator": 5,
+      "NonVoidMethodCallMutator": 4,
+      "RemoveConditionalMutator_EQUAL_ELSE": 1,
+      "RemoveConditionalMutator_EQUAL_IF": 1,
+      "RemoveConditionalMutator_ORDER_ELSE": 4,
+      "RemoveConditionalMutator_ORDER_IF": 4,
+      "ArgumentPropagationMutator": 3,
+      "NullReturnValsMutator": 3
+   },
+   "test_cases_picked": [
+      6,
+      4,
+      1,
+      8,
+      7,
+      5
+   ],
+   "test_cases_not_picked": [
+      2,
+      3
+   ]
+}

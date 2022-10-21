@@ -1,0 +1,104 @@
+#+STARTUP: showall
+
+* Equivalent Mutants
+
+** Major 
+
+| Mutant | Line | Original Statement      | Mutated Statement      |
+|--------+------+-------------------------+------------------------|
+| 7_ROR  |   28 | wrapLength < 1          | wrapLength <= 1        |
+| 13_LVR |   33 | inputLineLength + 32    | inputLineLength + 0    |
+| 15_AOR |   33 | inputLineLength + 32    | inputLineLength % 32   |
+| 16_AOR |   33 | inputLineLength + 32    | inputLineLength * 32   |
+| 18_AOR |   33 | inputLineLength + 32    | inputLineLength / 32   |
+| 35_ROR |   40 | spaceToWrapAt >= offset | spaceToWrapAt > offset |
+| 58_LVR |   51 | spaceToWrapAt >= 0      | spaceToWrapAt >= 1     |
+| 61_ROR |   51 | spaceToWrapAt >= 0      | spaceToWrapAt > 0      |
+|--------+------+-------------------------+------------------------|
+| Total  |    8 |                         |                        |
+#+TBLFM: @10$2=vcount(@I..II)
+
+
+** PIT: Default Mutation Operators
+
+| Mutant                                               | Line | Original Statement      | Mutated Statement      |
+|------------------------------------------------------+------+-------------------------+------------------------|
+| CONDITIONALS_BOUNDARY_IF_LESS_TO_LESS_EQUAL_28       |   28 | wrapLength < 1          | wrapLength <= 1        |
+| CONDITIONALS_BOUNDARY_IF_GREATER_EQUAL_TO_GREATER_40 |   40 | spaceToWrapAt >= offset | spaceToWrapAt > offset |
+| CONDITIONALS_BOUNDARY_IF_GREATER_EQUAL_TO_GREATER_51 |   51 | spaceToWrapAt >= 0      | spaceToWrapAt > 0      |
+|------------------------------------------------------+------+-------------------------+------------------------|
+| Total                                                |    3 |                         |                        |
+
+** PIT: ALL Mutation Operators: Equivalents
+
+| Mutant                         | Line | Original Statement      | Mutated Statement      |
+|--------------------------------+------+-------------------------+------------------------|
+| ConditionalsBoundaryMutator_28 |   28 | wrapLength < 1          | wrapLength <= 1        |
+| InlineConstantMutator_33       |   33 | inputLineLength + 32    | inputLineLength + 33   |
+| ConditionalsBoundaryMutator_40 |   40 | spaceToWrapAt >= offset | spaceToWrapAt > offset |
+| ConditionalsBoundaryMutator_51 |   51 | spaceToWrapAt >= 0      | spaceToWrapAt > 0      |
+|--------------------------------+------+-------------------------+------------------------|
+| Total                          |    4 |                         |                        |
+
+
+** Mujava3
+
+| Mutant  | Line | Original Statement      | Mutated Statement      |
+|---------+------+-------------------------+------------------------|
+| AORB_1  |   33 | inputLineLength + 32    | inputLineLength * 32   |
+| ROR_17  |   40 | spaceToWrapAt >= offset | spaceToWrapAt > offset |
+| ROR_24  |   51 | spaceToWrapAt >= 0      | spaceToWrapAt > 0      |
+| AOIS_83 |   56 | offset                  | offset++               |
+| AORB_3  |   33 | inputLineLength + 32    | inputLineLength % 32   |
+| AOIS_82 |   54 | spaceToWrapAt + 1       | spaceToWrapAt-- + 1    |
+| AOIS_87 |   57 | inputLineLength         | inputLineLength++      |
+| AOIS_89 |   62 | offset                  | offset++               |
+| AOIS_48 |   43 | spaceToWrapAt + 1       | spaceToWrapAt-- + 1    |
+| AOIS_88 |   57 | inputLineLength         | inputLineLength--      |
+| AOIS_90 |   62 | offset                  | offset--               |
+| AOIS_42 |   41 | offset                  | offset--               |
+| AOIS_47 |   43 | spaceToWrapAt + 1       | spaceToWrapAt++ + 1    |
+| AOIS_41 |   41 | offset                  | offset++               |
+| AOIS_76 |   52 | offset                  | offset--               |
+| AOIS_75 |   52 | offset                  | offset++               |
+| AOIS_81 |   54 | spaceToWrapAt + 1       | spaceToWrapAt++ + 1    |
+| AOIS_84 |   56 | offset                  | offset--               |
+| AORB_2  |   33 | inputLineLength + 32    | inputLineLength / 32   |
+|---------+------+-------------------------+------------------------|
+| Total   |   19 |                         |                        |
+#+TBLFM: @21$2=vcount(@I..II)
+
+
+* Common Equivalent
+
+** Major - PIT ALL
+
+| Major  | PIT ALL                        |
+|--------+--------------------------------|
+| 7_ROR  | ConditionalsBoundaryMutator_28 |
+| 35_ROR | ConditionalsBoundaryMutator_40 |
+| 61_ROR | ConditionalsBoundaryMutator_51 |
+
+** Major - Mujava3
+
+| Major  | Mujava3 |
+|--------+---------|
+| 15_AOR | AORB_3  |
+| 16_AOR | AORB_1  |
+| 18_AOR | AORB_2  |
+| 35_ROR | ROR_17  |
+| 61_ROR | ROR_24  |
+
+** PIT ALL - Mujava3
+
+| PIT ALL                        | Mujava3 |
+|--------------------------------+---------|
+| ConditionalsBoundaryMutator_40 | ROR_17  |
+| ConditionalsBoundaryMutator_51 | ROR_24  |
+
+** Common equivs among all tools
+
+| Major  | PIT ALL                        | Mujava3 |
+|--------+--------------------------------+---------|
+| 35_ROR | ConditionalsBoundaryMutator_40 | ROR_17  |
+| 61_ROR | ConditionalsBoundaryMutator_51 | ROR_24  |

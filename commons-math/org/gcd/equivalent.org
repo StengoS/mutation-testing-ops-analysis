@@ -1,0 +1,133 @@
+#+STARTUP: showall
+
+* Equivalent Mutants
+
+** Major
+
+| Mutant  | Line | Original Statement                     | Mutated Statement                        |
+|---------+------+----------------------------------------+------------------------------------------|
+| 15_LVR  |  410 | 0                                      | -1                                       |
+| 17_ROR  |  410 | u > 0                                  | u >= 0                                   |
+| 22_LVR  |  413 | 0                                      | -1                                       |
+| 24_ROR  |  413 | v > 0                                  | v >= 0                                   |
+| 36_ROR  |  418 | (u & 1) == 0                           | (u & 1) <= 0                             |
+| 45_ROR  |  418 | (v & 1) == 0                           | (v & 1) <= 0                             |
+| 54_ROR  |  418 | k < 31                                 | k != 31                                  |
+| 55_ROR  |  418 | k < 31                                 | k <= 31                                  |
+| 57_COR  |  418 | (u & 1) == 0 && (v & 1) == 0 && k < 31 | ((u & 1) == 0 && (v & 1) == 0) == k < 31 |
+| 59_COR  |  418 | (u & 1) == 0 && (v & 1) == 0 && k < 31 | (u & 1) == 0 && (v & 1) == 0             |
+| 69_LVR  |  424 | 31                                     | -31                                      |
+| 71_ROR  |  424 | k == 31                                | k >= 31                                  |
+| 72_ROR  |  424 | k == 31                                | false                                    |
+| 80_ROR  |  429 | (u & 1) == 1                           | (u & 1) >= 1                             |
+| 96_ROR  |  435 | (t & 1) == 0                           | (t & 1) <= 0                             |
+| 103_LVR |  439 | 0                                      | -1                                       |
+| 105_ROR |  439 | t > 0                                  | t >= 0                                   |
+|         |      |                                        |                                          |
+|---------+------+----------------------------------------+------------------------------------------|
+| Total   |   17 |                                        |                                          |
+#+TBLFM: @20$2=vcount (@I$1..@II$1)
+
+
+** PIT: Default Mutation Operators
+
+| Mutant                          | Line | Original Statement | Mutated Statement |
+|---------------------------------+------+--------------------+-------------------|
+| ConditionalsBoundaryMutator_410 |  410 | u > 0              | u >= 0            |
+| ConditionalsBoundaryMutator_413 |  413 | v > 0              | v >= 0            |
+| ConditionalsBoundaryMutator_418 |  418 | k < 31             | k <= 31           |
+| ConditionalsBoundaryMutator_414 |  414 | t > 0              | t >= 0            |
+|---------------------------------+------+--------------------+-------------------|
+| Total                           |    4 |                    |                   |
+
+
+** PIT: ALL Mutation Operators: Equivalents
+
+| Mutant                                  | Line | Original Statement     | Mutated Statement |
+|-----------------------------------------+------+------------------------+-------------------|
+| ConditionalsBoundaryMutator_410         |  410 | u > 0                  | u >= 0            |
+| ConditionalsBoundaryMutator_413         |  413 | v > 0                  | v >= 0            |
+| ConditionalsBoundaryMutator_418         |  418 | k < 31                 | k <= 31           |
+| InlineConstantMutator_418               |  418 | k < 31                 | k < 32            |
+| RemoveConditionalMutator_ORDER_IF_418   |  418 | (v & 1) == 0 && k < 31 | (v & 1) == 0      |
+| InlineConstantMutator_424               |  424 | k == 31                | k == 32           |
+| RemoveConditionalMutator_EQUAL_ELSE_424 |  424 | k == 31                | false             |
+| ConstructorCallMutator_425              |  425 | throw new Exception    | -                 |
+| ConditionalsBoundaryMutator_439         |  439 | t > 0                  | t >= 0            |
+|-----------------------------------------+------+------------------------+-------------------|
+| Total                                   |    9 |                        |                   |
+
+
+** Mujava3
+
+| Mutant   | Line | Original Statement                               | Mutated Statement                                 |
+|----------+------+--------------------------------------------------+---------------------------------------------------|
+| AOIS_319 |  181 | return Math.abs( u ) + Math.abs( v );            | return Math.abs( u++ ) + Math.abs( v );           |
+| AOIS_320 |  181 | return Math.abs( u ) + Math.abs( v );            | return Math.abs( u-- ) + Math.abs( v );           |
+| AOIS_323 |  181 | return Math.abs( u ) + Math.abs( v );            | return Math.abs( u ) + Math.abs( v++ );           |
+| AOIS_324 |  181 | return Math.abs( u ) + Math.abs( v );            | return Math.abs( u ) + Math.abs( v-- );           |
+| AOIS_353 |  198 | int t = (u & 1) == 1 ? v : -(u / 2);             | int t = (u & 1) == 1 ? v++ : -(u / 2);            |
+| AOIS_354 |  198 | int t = (u & 1) == 1 ? v : -(u / 2);             | int t = (u & 1) == 1 ? v-- : -(u / 2);            |
+| AOIS_365 |  206 | v = t;                                           | v = t++;                                          |
+| AOIS_366 |  206 | v = t;                                           | v = t--;                                          |
+| AOIS_381 |  210 | return -u * (1 << k);                            | return -u * (1 << k++);                           |
+| AOIS_382 |  210 | return -u * (1 << k);                            | return -u * (1 << k--);                           |
+| AOIU_28  |  181 | return Math.abs( u ) + Math.abs( v );            | return Math.abs( -u ) + Math.abs( v );            |
+| LOI_102  |  190 | while ((u & 1) == 0 && (v & 1) == 0 && k < 31) { | while ((u & 1) == 0 && (v & 1) == 0 && ~k < 31) { |
+| LOI_104  |  195 | if (k == 31) {                                   | if (~k == 31) {                                   |
+| ROR_145  |  183 | if (u > 0) {                                     | if (u >= 0) {                                     |
+| ROR_152  |  186 | if (v > 0) {                                     | if (v >= 0) {                                     |
+| ROR_162  |  190 | while ((u & 1) == 0 && (v & 1) == 0 && k < 31) { | while ((u & 1) <= 0 && (v & 1) == 0 && k < 31) {  |
+| ROR_169  |  190 | while ((u & 1) == 0 && (v & 1) == 0 && k < 31) { | while ((u & 1) == 0 && (v & 1) <= 0 && k < 31) {  |
+| ROR_173  |  195 | if (k == 31) {                                   | if (k > 31) {                                     |
+| ROR_174  |  195 | if (k == 31) {                                   | if (k >= 31) {                                    |
+| ROR_179  |  195 | if (k == 31) {                                   | if (false) {                                      |
+| ROR_181  |  198 | int t = (u & 1) == 1 ? v : -(u / 2);             | int t = (u & 1) >= 1 ? v : -(u / 2);              |
+| ROR_190  |  200 | while ((t & 1) == 0) {                           | while ((t & 1) <= 0) {                            |
+| ROR_194  |  203 | if (t > 0) {                                     | if (t >= 0) {                                     |
+|          |      |                                                  |                                                   |
+|----------+------+--------------------------------------------------+---------------------------------------------------|
+| Total    |   23 |                                                  |                                                   |
+#+TBLFM: @32$2=vcount (@I..II)
+
+* Common Equivalent
+
+** Major - PIT ALL
+
+| Major   | PIT ALL                                 |
+|---------+-----------------------------------------|
+| 17_ROR  | ConditionalsBoundaryMutator_410         |
+| 24_ROR  | ConditionalsBoundaryMutator_413         |
+| 55_ROR  | ConditionalsBoundaryMutator_418         |
+| 72_ROR  | RemoveConditionalMutator_EQUAL_ELSE_424 |
+| 105_ROR | ConditionalsBoundaryMutator_439         |
+
+** Major - Mujava3
+
+| Major      | Mujava3 |
+|------------+---------|
+| 17_ROR     | ROR_145 |
+| 24_ROR     | ROR_152 |
+| 71_ROR     | ROR_174 |
+| 72_ROR     | ROR_179 |
+| 80_ROR     | ROR_181 |
+| 96_ROR     | ROR_190 |
+| 105_ROR    | ROR_194 |
+
+** PIT ALL - Mujava3
+
+| PIT ALL                                 | Mujava3 |
+|-----------------------------------------+---------|
+| ConditionalsBoundaryMutator_410         | ROR_145 |
+| ConditionalsBoundaryMutator_413         | ROR_152 |
+| RemoveConditionalMutator_EQUAL_ELSE_424 | ROR_179 |
+| ConditionalsBoundaryMutator_439         | ROR_194 |
+
+** Common equivs among all tools
+
+| Major   | PIT ALL                                 | Mujava3 |
+|---------+-----------------------------------------+---------|
+| 17_ROR  | ConditionalsBoundaryMutator_410         | ROR_145 |
+| 24_ROR  | ConditionalsBoundaryMutator_413         | ROR_152 |
+| 72_ROR  | RemoveConditionalMutator_EQUAL_ELSE_424 | ROR_179 |
+| 105_ROR | ConditionalsBoundaryMutator_439         | ROR_194 |

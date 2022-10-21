@@ -1,0 +1,68 @@
+#+STARTUP: showall
+
+* Equivalent Mutants
+
+** Major
+
+| Mutant | Line | Original Statement | Mutated Statement |
+|--------+------+--------------------+-------------------|
+| 3_LVR  | 1282 | startIndex < 0     | startIndex < -1   |
+| 6_ROR  | 1282 | startIndex < 0     | false             |
+|--------+------+--------------------+-------------------|
+| Total  |    2 |                    |                   |
+
+
+** PIT: Default Mutation Operators
+
+| Mutant                               | Line | Original Statement | Mutated Statement |
+|------------------------------------------+------+--------------------+-------------------|
+| -                                        |    - |                    |                   |
+
+** PIT: ALL Mutation Operators: Equivalents
+
+| Mutant                                   | Line | Original Statement | Mutated Statement |
+|------------------------------------------+------+--------------------+-------------------|
+| RemoveConditionalMutator_ORDER_ELSE_1282 | 1282 | startIndex < 0     | false             |
+|------------------------------------------+------+--------------------+-------------------|
+| Total                                    |    1 |                    |                   |
+
+
+
+** Mujava3
+
+| Mutant   | Line | Original Statement | Mutated Statement |
+|----------+------+--------------------+-------------------|
+| AOIS_757 |  662 | return i           | return i++        |
+| AOIS_750 |  656 | return i           | return i--        |
+| AOIS_758 |  662 | return i           | return i--        |
+| AOIS_749 |  656 | return i           | return i++        |
+|----------+------+--------------------+-------------------|
+| Total    |    4 |                    |                   |
+
+
+* Common Equivalent
+
+** Major - PIT ALL
+
+| Major  | PIT ALL                                  |
+|--------+------------------------------------------|
+| 6_ROR  | RemoveConditionalMutator_ORDER_ELSE_1282 |
+
+
+** Major - Mujava3
+
+| Major      | Mujava3 |
+|------------+---------|
+|  -         | -       |
+
+** PIT ALL - Mujava3
+
+| PIT ALL | Mujava3 |
+|---------+---------|
+| -       | -       |
+
+** Common equivs among all tools
+
+| Major | PIT ALL | Mujava3 |
+|-------+---------+---------|
+| -     | -       | -       |

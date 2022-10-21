@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MobileNode.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pamvotis</a> &gt; <a href="index.source.html" class="el_package">pamvotis.core</a> &gt; <span class="el_source">MobileNode.java</span></div><h1>MobileNode.java</h1><pre class="source lang-java linenums">package pamvotis.core;
+
+import java.util.Vector;
+
+import pamvotis.exceptions.ElementDoesNotExistException;
+import pamvotis.exceptions.ElementExistsException;
+import pamvotis.sources.Source;
+
+/**
+ * Simulates a mobile node
+ * @author Dimitris El. Vassis - Vassilis Zafeiris
+ */
+public class MobileNode{
+	
+	/**
+	 * Instantiates a new node and creates a packet buffer on the node. The capacity of the buffer
+	 * is the MAX_PKT_QUEUE_LNGTH parameter, specified in the specParams.xml configuration file.
+	 */
+<span class="fc" id="L19">	MobileNode(){</span>
+<span class="fc" id="L20">		_pktBuffer = new PacketBuffer(SpecParams.MAX_PKT_QUEUE_LNGTH);</span>
+<span class="fc" id="L21">	}</span>
+		
+<span class="fc" id="L23">	int backoffCounter=0;	//The backoff counter.</span>
+
+<span class="fc" id="L25">	long collisions=0;	//The total number of collisions a station had.</span>
+			//Devided with the number of successful transmissions
+			// gives the mean number of retransmission attempts.
+	
+<span class="fc" id="L29">	long totCollisions=0; //The total number of collisions in the whole simulation.</span>
+			//Used for calculating the mean values.
+	
+<span class="fc" id="L32">	int pktLength=0;	//The length of each packet.</span>
+	
+<span class="fc" id="L34">	boolean requestTransmit=false; //Represents if a station wants to transmit.</span>
+			//Used for finding the number of nodes that want to
+			//transmit in a specific slot.
+	
+<span class="fc" id="L38">	long successfulBits=0;	//The number of successfully transmitted bits.</span>
+			//Devided with the total time gives the throughput.
+<span class="fc" id="L40">	long totSuccessfulBits=0; //The total number of successful bits in the whole simulation.</span>
+			//Used for calculating the mean values.
+	
+<span class="fc" id="L43">	long successfulTransmissions=0; //The number of successfully</span>
+			//transmitted packets.
+	
+<span class="fc" id="L46">	long totSuccessfulTransmissions=0; //The total succcessful transmisions in the whole simulation.</span>
+	//Used for calculating the mean values.
+	
+<span class="fc" id="L49">	static long timer=0;//The timer. It has the same value for all stations.</span>
+			//It is the currentSlot value.
+	
+<span class="fc" id="L52">	int transmissionDuration=0; //The duration from the first </span>
+			//transmission attempt of a packet until the end of
+			//the successful transmission. This variable
+			//holds the sum of all transmission durations.
+			//At the end it will be devided with the number of
+			//transmissions for finding the mean media access delay.
+	
+<span class="fc" id="L59">	long totTransmissionDurations=0; //The total duration of transmissions in the whole simulation.</span>
+	//Used for calculating the mean values. 
+	
+<span class="fc" id="L62">	long transmissionStart=0; //The starting time of a transmission</span>
+
+<span class="fc" id="L64">	boolean successfullyTransmitting=false; //A flag which shows</span>
+			//if a transmission is successful or collision.
+	
+<span class="fc" id="L67">	int contWind=0;	//The contention window. We initialize it on Simulator class because we don't</span>
+	//know the node's AC yet.
+	
+<span class="fc" id="L70">	boolean havePktToSend= false; // Flag which indicates if a station has a</span>
+			//packet in the transmitter.
+	
+<span class="fc" id="L73">	long queuingDelay=0; //The delay of a packet from the start of</span>
+			//its birth until its first transmission attempt.
+			//This variable holds the sum of all queuing delays.
+			//At the end it will be devided with the number of
+			//transmissions for finding the mean queuing delay.
+	
+<span class="fc" id="L79">	long totQueuingDelay=0; //The total sum of queuing delays in the whole simulation.</span>
+			//Used for calculating the mean values.
+	
+<span class="fc" id="L82">	long queueLength=0; //The sum of the packet queue size in each slot. Used for calculating</span>
+		//the average queue length with the following formula: If, in each slot the queue size
+		//is e.g. q1, q2, q3... then the average size is (q1+q2+q3)/3. So at the end we devide
+		//the sum of all queues with the number of slots.
+<span class="fc" id="L86">	long totQueueLength=0; //The sum of queue sizes in the whole simulation. Used for calculating the mean values.</span>
+	
+<span class="fc" id="L88">	Vector&lt;Packet&gt; pktQueue = new Vector&lt;Packet&gt;(); //The vector that simulates the packet queue</span>
+	
+	public static java.util.Random generator;
+			
+<span class="fc" id="L92">	long lastPktTrans=0;	//Indicates the time the last packet was</span>
+			//transmitted. Used in the  for the TakePacketFromQueue
+			//routine for the implementation of the backoff procedure.
+
+<span class="fc" id="L96">	Params params = new Params(); //The data rate, packet generation parameters, </span>
+			// coordinates and coverage of a node.
+
+<span class="fc" id="L99">	boolean startTransmitting=false;	//Shows if a station initiated a transmission.</span>
+			//Used only in the Collision procedure.
+
+<span class="fc" id="L102">	boolean nowTransmitting=false;	//Shows if a station transmits in the</span>
+		//current slot. Used globally.
+
+<span class="fc" id="L105">	long jitter=0;	//Variable which holds the sum of the square of</span>
+		//the total delay of each packet. At the end it will be
+		//devided with the mean total delay to find the delay jitter.
+	
+<span class="fc" id="L109">	long totJitter=0; //Holds the sum of all jitter (see above) values in the whole simulation.</span>
+	//Used for calculating the mean values.
+		
+
+	//Initializes the backoff inter. pCw is the contention window value.
+	int InitBackoff(int pCw)
+	{
+		//We consider cw_min as 16, 32 64 etc, meaning that the backoff counter is between 0 and 15,31,63 e.t.c
+<span class="nc" id="L117">		return generator.nextInt(pCw);</span>
+	}
+	
+	/*
+	 * Manages all packet generation sources of a node. Can be used instead of
+	 * source if multiple sources need to generate packets.
+	 */
+<span class="fc" id="L124">	SourceManager _srcManager = new SourceManager(this);</span>
+
+	
+<span class="fc" id="L127">	PacketBuffer _pktBuffer = null; //The packet buffer of a node</span>
+	
+	
+	/**
+	 * Returns a source identified by its Id. The Id of a source is the element number at the source manager
+	 * @param sourceId The Id of the source
+	 * @return The source the id of which is 'sourceId'.
+	 * @throws ElementDoesNotExistException 
+	 * @see SourceManager#getSource(int)
+	 */
+	public Source getSource(int sourceId) throws ElementDoesNotExistException {
+<span class="nc" id="L138">		return _srcManager.getSource(sourceId);</span>
+	}
+
+	/**
+	 * Adds a new source to the source manager
+	 * @param s The source to be added
+	 * @throws ElementExistsException 
+	 * @see SourceManager#addSource(Source)
+	 */
+	public void addSource(Source s) throws ElementExistsException {
+<span class="nc" id="L148">		_srcManager.addSource(s);</span>
+<span class="nc" id="L149">	}</span>
+	
+	/**
+	 * Removes a source from the source manager
+	 * @param sourceId The Id of the source to be removed.
+	 * @throws ElementDoesNotExistException 
+	 * @see SourceManager#removeSource(int)
+	 */
+	public void removeSource(int sourceId) throws ElementDoesNotExistException{		
+<span class="nc" id="L158">			_srcManager.removeSource(sourceId);</span>
+<span class="nc" id="L159">	}</span>
+
+
+	/**
+	 * Calls the corresponding function of the source manager to poll one packet from each source
+	 * @return A vector with the packets that are polled from the sources.
+	 * @see SourceManager#pollPacketsFromSources()
+	 */
+	public Vector&lt;Packet&gt; pollPacketsFromSources() {
+<span class="nc" id="L168">		return _srcManager.pollPacketsFromSources();</span>
+	}
+
+	/**
+	 * Gets the packet buffer of the node.
+	 * @return The packet buffer of the node.
+	 * @see PacketBuffer
+	 */
+	public PacketBuffer getPacketBuffer() {
+<span class="nc" id="L177">		return _pktBuffer;</span>
+	}
+	
+	/**
+	 * Removes all the sources of a node.
+	 * @see SourceManager#clear()
+	 */
+	public void removeAllSources(){
+<span class="nc" id="L185">		_srcManager.clear();</span>
+<span class="nc" id="L186">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

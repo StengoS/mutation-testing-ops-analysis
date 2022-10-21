@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Lisence.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pamvotis</a> &gt; <a href="index.source.html" class="el_package">pamvotis.intf</a> &gt; <span class="el_source">Lisence.java</span></div><h1>Lisence.java</h1><pre class="source lang-java linenums">package pamvotis.intf;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.io.File;
+import java.net.URL;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.border.BevelBorder;
+
+public class Lisence extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+<span class="nc" id="L24">	private JPanel jContentPane = null;</span>
+<span class="nc" id="L25">	private JLabel jLblIcon = null;</span>
+<span class="nc" id="L26">	private JTextPane jTextPane = null;</span>
+<span class="nc" id="L27">	private JButton jButton = null;</span>
+<span class="nc" id="L28">	private Pamvotis pm=null;</span>
+<span class="nc" id="L29">	private JPanel jPanel = null;</span>
+<span class="nc" id="L30">	private JPanel jPanel1 = null;</span>
+
+	public Lisence(Pamvotis pmarg) {
+<span class="nc" id="L33">		super();</span>
+<span class="nc" id="L34">		pm=pmarg;</span>
+<span class="nc" id="L35">		initialize();</span>
+<span class="nc" id="L36">	}</span>
+
+
+	private void initialize() {
+<span class="nc" id="L40">		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="nc" id="L41">		this.setSize(660, 207);</span>
+<span class="nc" id="L42">		URL iconURL = getClass().getResource(&quot;/resources&quot; + File.separator + &quot;icons&quot;+File.separator+&quot;logo.jpg&quot;);</span>
+<span class="nc" id="L43">		this.setIconImage(Toolkit.getDefaultToolkit().getImage(iconURL));</span>
+<span class="nc" id="L44">		this.setResizable(false);</span>
+<span class="nc" id="L45">		this.setLocation(new Point((d.width-this.getSize().width)/2, (d.height-this.getSize().height)/2));</span>
+<span class="nc" id="L46">		this.setContentPane(getJContentPane());</span>
+<span class="nc" id="L47">		this.setTitle(&quot;Pamvotis - Lisence Information&quot;);</span>
+<span class="nc" id="L48">		this.addWindowListener(new java.awt.event.WindowAdapter() {</span>
+			public void windowClosing(java.awt.event.WindowEvent e) {
+<span class="nc" id="L50">				Lisence.this.setVisible(false);</span>
+<span class="nc" id="L51">				pm.setEnabled(true);</span>
+<span class="nc" id="L52">				pm.setVisible(true);</span>
+<span class="nc" id="L53">			}</span>
+		});
+<span class="nc" id="L55">	}</span>
+
+	private JPanel getJContentPane() {
+<span class="nc bnc" id="L58" title="All 2 branches missed.">		if (jContentPane == null) {</span>
+<span class="nc" id="L59">			jLblIcon = new JLabel();</span>
+<span class="nc" id="L60">			URL iconURL = getClass().getResource(&quot;/resources&quot; + File.separator + &quot;icons&quot;+File.separator+&quot;cuffs.jpg&quot;);</span>
+<span class="nc" id="L61">			jLblIcon.setIcon(new ImageIcon(iconURL));</span>
+<span class="nc" id="L62">			jLblIcon.setBounds(new Rectangle(4, 3, 120, 80));</span>
+<span class="nc" id="L63">			jLblIcon.setText(&quot;&quot;);</span>
+<span class="nc" id="L64">			jContentPane = new JPanel();</span>
+<span class="nc" id="L65">			jContentPane.setLayout(null);</span>
+<span class="nc" id="L66">			jContentPane.add(getJButton(), null);</span>
+<span class="nc" id="L67">			jContentPane.add(getJPanel(), null);</span>
+<span class="nc" id="L68">			jContentPane.add(getJPanel1(), null);</span>
+		}
+<span class="nc" id="L70">		return jContentPane;</span>
+	}
+
+	private JTextPane getJTextPane() {
+<span class="nc bnc" id="L74" title="All 2 branches missed.">		if (jTextPane == null) {</span>
+<span class="nc" id="L75">			jTextPane = new JTextPane();</span>
+<span class="nc" id="L76">			jTextPane.setText(&quot;Pamvotis was designed for academic purposes only. It is not a commercial application. The application and the source code may be distributed or modified under the terms of the GNU General Public Lisence. See the Lisence.txt file located in the 'doc' folder of the application directory for more information.&quot;);</span>
+<span class="nc" id="L77">			jTextPane.setBackground(new Color(153, 255, 153));</span>
+<span class="nc" id="L78">			jTextPane.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L79">			jTextPane.setForeground(new Color(0, 0, 153));</span>
+<span class="nc" id="L80">			jTextPane.setBounds(new Rectangle(2, 2, 477, 83));</span>
+<span class="nc" id="L81">			jTextPane.setEditable(false);</span>
+		}
+<span class="nc" id="L83">		return jTextPane;</span>
+	}
+
+	private JButton getJButton() {
+<span class="nc bnc" id="L87" title="All 2 branches missed.">		if (jButton == null) {</span>
+<span class="nc" id="L88">			jButton = new JButton();</span>
+<span class="nc" id="L89">			jButton.setBounds(new Rectangle(261, 135, 124, 23));</span>
+<span class="nc" id="L90">			jButton.setText(&quot;OK&quot;);</span>
+<span class="nc" id="L91">			jButton.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L93">					Lisence.this.setVisible(false);</span>
+<span class="nc" id="L94">					pm.setEnabled(true);</span>
+<span class="nc" id="L95">					pm.setVisible(true);</span>
+<span class="nc" id="L96">				}</span>
+			});
+		}
+<span class="nc" id="L99">		return jButton;</span>
+	}
+
+
+	/**
+	 * This method initializes jPanel	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getJPanel() {
+<span class="nc bnc" id="L109" title="All 2 branches missed.">		if (jPanel == null) {</span>
+<span class="nc" id="L110">			jPanel = new JPanel();</span>
+<span class="nc" id="L111">			jPanel.setLayout(null);</span>
+<span class="nc" id="L112">			jPanel.setBounds(new Rectangle(148, 22, 480, 85));</span>
+<span class="nc" id="L113">			jPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));</span>
+<span class="nc" id="L114">			jPanel.add(getJTextPane(), null);</span>
+		}
+<span class="nc" id="L116">		return jPanel;</span>
+	}
+
+
+	/**
+	 * This method initializes jPanel1	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getJPanel1() {
+<span class="nc bnc" id="L126" title="All 2 branches missed.">		if (jPanel1 == null) {</span>
+<span class="nc" id="L127">			jPanel1 = new JPanel();</span>
+<span class="nc" id="L128">			jPanel1.setLayout(null);</span>
+<span class="nc" id="L129">			jPanel1.setBounds(new Rectangle(11, 22, 127, 84));</span>
+<span class="nc" id="L130">			jPanel1.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));</span>
+<span class="nc" id="L131">			jPanel1.add(jLblIcon, null);</span>
+		}
+<span class="nc" id="L133">		return jPanel1;</span>
+	}
+
+}  //  @jve:decl-index=0:visual-constraint=&quot;10,10&quot;
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

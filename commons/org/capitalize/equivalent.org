@@ -1,0 +1,84 @@
+#+STARTUP: showall
+
+* Equivalent Mutants
+
+** Major
+
+| Mutant | Line | Original Statement                          | Mutated Statement                          |
+|--------+------+---------------------------------------------+--------------------------------------------|
+| 3_LVR  |   73 | delimiters == null ? -1 : delimiters.length | delimiters == null ? 1 : delimiters.length |
+| 6_LVR  |   74 | str.length() == 0                           | str.length() == -1                         |
+| 7_ROR  |   74 | str.length() == 0                           | str.length() <= 0                          |
+| 9_ROR  |   74 | str.length() == 0                           | false                                      |
+| 11_COR |   74 | str == null ¦¦ str.length() == 0            | str == null                                |
+| 26_ROR |   80 | i < strLen                                  | i != strLen                                |
+|--------+------+---------------------------------------------+--------------------------------------------|
+| Total  |    6 |                                             |                                            |
+
+
+** PIT: Default Mutation Operators
+
+| Mutant                               | Line | Original Statement | Mutated Statement |
+|--------------------------------------+------+--------------------+-------------------|
+| -                                    |      |                    |                   |
+
+
+** PIT: ALL Mutation Operators: Equivalents
+
+| Mutant                               | Line | Original Statement               | Mutated Statement |
+|--------------------------------------+------+----------------------------------+-------------------|
+| RemoveConditionalMutator_EQUAL_IF_74 |   74 | str == null ¦¦ str.length() == 0 | str == null       |
+|--------------------------------------+------+----------------------------------+-------------------|
+| Total                                |    1 |                                  |                   |
+
+
+** Mujava3
+
+| Mutant   | Line |            Original Statement                |             Mutated Statement                  |
+|----------+------+----------------------------------------------+------------------------------------------------|
+| AOIS_111 |   83 | buffer.append( ch )                          | buffer.append( ch++ )                          |
+| AOIS_115 |   90 | buffer.append( ch )                          | buffer.append( ch++ )                          |
+| AOIS_95  |   74 | delimLen == 0                                | delimLen++ == 0                                |
+| ROR_35   |   74 | str.length() == 0                            | str.length() < 0                               |
+| AOIS_114 |   87 | buffer.append( Character.toTitleCase( ch ) ) | buffer.append( Character.toTitleCase( ch-- ) ) |
+| AOIS_116 |   90 | buffer.append( ch )                          | buffer.append( ch-- );                         |
+| AOIU_17  |   34 | delimiters.length                            | -delimiters.length                             |
+| AOIS_113 |   87 | buffer.append( Character.toTitleCase( ch ) ) | buffer.append( Character.toTitleCase( ch++ ) ) |
+| AOIS_96  |   74 | delimLen == 0                                | delimLen-- == 0                                |
+| ROR_36   |   74 | str.length() == 0                            | str.length() <= 0                              |
+| LOI_29   |   73 | delimiters.length                            | -delimiters.length                             |
+| ROR_39   |   74 | str.length() == 0                            | false                                          |
+| AODU_1   |   73 | delimiters == null ? -1 : delimiters.length  | delimiters == null ? 1 : delimiters.length     |
+| AOIS_112 |   83 | buffer.append( ch )                          | buffer.append( ch-- )                          |
+|----------+------+----------------------------------------------+------------------------------------------------|
+| Total    |   14 |                                              |                                                |
+
+* Common Equivalent
+
+** Major - PIT ALL
+
+| Major  | PIT ALL                               |
+|--------+---------------------------------------|
+| 11_COR | RemoveConditionalMutator_EQUAL_IF_74  |
+
+
+** Major - Mujava3
+
+| Major | Mujava3 |
+|-------+---------|
+| 3_LVR | AODU_1  |
+| 7_ROR | ROR_36  |
+| 9_ROR | ROR_39  |
+
+** PIT ALL - Mujava3
+
+| PIT ALL | Mujava3 |
+|---------+---------|
+| -       | -       |
+
+** Common equivs among all tools
+
+| Major | PIT ALL | Mujava3 |
+|-------+---------+---------|
+| -     | -       | -       |
+

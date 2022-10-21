@@ -1,0 +1,85 @@
+#+STARTUP: showall
+
+* Equivalent Mutants
+
+** Major
+
+| Mutant | Line | Original Statement                | Mutated Statement                 | 
+|--------+------+-----------------------------------+-----------------------------------|
+| 2_LVR  |  445 | startIndexInclusive < 0           | startIndexInclusive < 1           |
+| 5_ROR  |  445 | startIndexInclusive < 0           | startIndexInclusive <= 0          |
+| 10_ROR |  448 | endIndexExclusive > array.length  | endIndexExclusive >= array.length |
+| 17_LVR |  453 | newSize <= 0                      | newSize <= -1                     |
+| 18_ROR |  453 | newSize <= 0                      | newSize < 0                       |
+|--------+------+-----------------------------------+-----------------------------------|
+| Total  |    5 |                                   |                                   |
+
+
+** PIT: Default Mutation Operators
+
+| Mutant                          | Line | Original Statement               | Mutated Statement                 |
+|---------------------------------+------+----------------------------------+-----------------------------------|
+| ConditionalsBoundaryMutator_445 |  445 | startIndexInclusive < 0          | startIndexInclusive <= 0          |
+| ConditionalsBoundaryMutator_448 |  448 | endIndexExclusive > array.length | endIndexExclusive >= array.length |
+| ConditionalsBoundaryMutator_453 |  453 | newSize <= 0                     | newSize < 0                       |
+|---------------------------------+------+----------------------------------+-----------------------------------|
+| Total                           |    3 |                                  |                                   |
+
+
+** PIT: ALL Mutation Operators: Equivalents
+
+| Mutant                          | Line | Original Statement               | Mutated Statement                 |
+|---------------------------------+------+----------------------------------+-----------------------------------|
+| ConditionalsBoundaryMutator_445 |  445 | startIndexInclusive < 0          | startIndexInclusive <= 0          |
+| ConditionalsBoundaryMutator_448 |  448 | endIndexExclusive > array.length | endIndexExclusive >= array.length |
+| ConditionalsBoundaryMutator_453 |  453 | newSize <= 0                     | newSize < 0                       |
+|---------------------------------+------+----------------------------------+-----------------------------------|
+| Total                           |    3 |                                  |                                   |
+
+
+** Mujava3
+
+| Mutant  | Line | Original Statement                                | Mutated Statement                                   |
+|---------+------+---------------------------------------------------+-----------------------------------------------------|
+| AOIS_60 |  202 | newSize                                           | newSize--                                           |
+| ROR_22  |  198 | newSize <= 0                                      | newSize < 0                                         |
+| AOIS_46 |  196 | newSize = endIndexExclusive - startIndexInclusive | newSize = endIndexExclusive-- - startIndexInclusive |
+| AOIS_57 |  202 | startIndexInclusive                               | startIndexInclusive++                               |
+| AOIS_58 |  202 | startIndexInclusive                               | startIndexInclusive--                               |
+| ROR_13  |  193 | endIndexExclusive > array.length                  | endIndexExclusive >= array.length                   |
+| AOIS_45 |  196 | newSize = endIndexExclusive - startIndexInclusive | newSize = endIndexExclusive++ - startIndexInclusive |
+| AOIS_59 |  202 | newSize                                           | newSize++                                           |
+|---------+------+---------------------------------------------------+-----------------------------------------------------|
+| Total   |    8 |                                                   |                                                     |
+#+TBLFM: @10$2=vcount(@I..II)
+
+* Common Equivalent
+
+** Major - PIT ALL
+
+| Major  | PIT ALL                         |
+|--------+---------------------------------|
+| 5_ROR  | ConditionalsBoundaryMutator_445 |
+| 10_ROR | ConditionalsBoundaryMutator_448 |
+| 18_ROR | ConditionalsBoundaryMutator_453 |
+
+** Major - Mujava3
+
+| Major  | Mujava3 |
+|--------+---------|
+| 10_ROR | ROR_13  |
+| 18_ROR | ROR_22  |
+
+** PIT ALL - Mujava3
+
+| PIT ALL                          | Mujava3 |
+|----------------------------------+---------|
+| ConditionalsBoundaryMutator_448  | ROR_13  |
+| ConditionalsBoundaryMutator_453  | ROR_22  |
+
+** Common equivs among all tools
+
+| Major  | PIT ALL                         | Mujava3 |
+|--------+---------------------------------+---------|
+| 10_ROR | ConditionalsBoundaryMutator_448 | ROR_13  |
+| 18_ROR | ConditionalsBoundaryMutator_453 | ROR_22  |

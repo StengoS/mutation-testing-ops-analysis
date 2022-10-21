@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RandomGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pamvotis</a> &gt; <a href="index.source.html" class="el_package">pamvotis.sources</a> &gt; <span class="el_source">RandomGenerator.java</span></div><h1>RandomGenerator.java</h1><pre class="source lang-java linenums">package pamvotis.sources;
+
+import java.util.Random;
+
+<span class="nc" id="L5">public class RandomGenerator {</span>
+	
+	
+	
+	public static final char PARETO_DISTR = 'p';
+
+	public static final char LOGNORMAL_DISTR = 'l';
+
+	public static final char EXPONENTIAL_DISTR = 'e';
+
+	public static final char UNIFORM_DISTR = 'u';
+
+	public static final char CONSTANT_DISTR = 'c';
+
+	/**
+	 * Generator for generating random variables
+	 */
+	public static java.util.Random generator;
+	
+	private static RandomGenerator instance;
+	
+	public static RandomGenerator getInstance(){
+<span class="nc bnc" id="L27" title="All 2 branches missed.">		if (instance == null){</span>
+<span class="nc" id="L28">			instance = new RandomGenerator();</span>
+		}
+<span class="nc" id="L30">		return instance;</span>
+	}
+	
+	/**
+	 * Generates a random variable obeying a specific distribution.
+	 * @param distr The distribution which the random variable will obey: 'c' for constant, 'e' for exponential,
+	 * 'p' for Pareto, 'l' for lognormal
+	 * @param mean Mean value of the distribution
+	 * @param stDev Standard deviation of the distribution
+	 * @param max Maximum value. If this value is set, truncation will occur using the accept/reject method and the variable will obviously obey
+	 * a truncated distribution.
+	 * @param min Minimum value. If this value is set, truncation will occur using the accept/reject method and the variable will obviously obey
+	 * a truncated distribution.
+	 * @return A float which obeys the distribution set by 'dist'
+	 */
+	private float generateRandomVariable(char distr, float mean, float stDev, float max, float min){
+<span class="nc" id="L46">		float rnd = 0;</span>
+<span class="nc bnc" id="L47" title="All 6 branches missed.">		switch (distr) {</span>
+		case CONSTANT_DISTR: {
+<span class="nc" id="L49">			rnd = (int) mean; //Casted because in most cases this value must be integer</span>
+<span class="nc" id="L50">			return rnd;</span>
+		}
+		case UNIFORM_DISTR: {
+			do{
+<span class="nc" id="L54">			rnd = mean*generator.nextFloat();</span>
+<span class="nc bnc" id="L55" title="All 4 branches missed.">			}while((rnd&gt;max)||(rnd&lt;min));</span>
+<span class="nc" id="L56">			return rnd;</span>
+		}
+		case EXPONENTIAL_DISTR: // exponential
+		{
+			do{
+<span class="nc" id="L61">			rnd = - (float) (mean * Math.log(generator.nextDouble()));</span>
+<span class="nc bnc" id="L62" title="All 4 branches missed.">			}while((rnd&gt;max)||(rnd&lt;min));</span>
+<span class="nc" id="L63">			return rnd;</span>
+		}
+		case LOGNORMAL_DISTR: // lognormal
+		{
+<span class="nc" id="L67">			double R1 = 0, R2 = 0, rNormal = 0, rLogNormal = 0, ml = 0, sl = 0;</span>
+			// Generate uniform
+			do {
+				// transform lognormal parameters to normal parameters
+<span class="nc" id="L71">				ml = 2</span>
+<span class="nc" id="L72">				* java.lang.Math.log((double) mean)</span>
+<span class="nc" id="L73">				- java.lang.Math.log(java.lang.Math.pow((double) stDev,</span>
+						2)
+<span class="nc" id="L75">						+ java.lang.Math.pow((double) mean, 2)) / 2;</span>
+<span class="nc" id="L76">				sl = java.lang.Math.sqrt(-2</span>
+<span class="nc" id="L77">						* java.lang.Math.log((double) mean)</span>
+<span class="nc" id="L78">						+ java.lang.Math.log(java.lang.Math.pow((double) stDev,</span>
+								2)
+<span class="nc" id="L80">								+ java.lang.Math.pow((double) mean, 2)));</span>
+				// generate normal
+<span class="nc" id="L82">				R1 = generator.nextDouble();</span>
+<span class="nc" id="L83">				R2 = generator.nextDouble();</span>
+<span class="nc" id="L84">				rNormal = ml + sl * java.lang.Math.cos(2 * 3.14 * R1)</span>
+<span class="nc" id="L85">				* java.lang.Math.sqrt(-java.lang.Math.log(R2));</span>
+				// generate lognormal
+<span class="nc" id="L87">				rLogNormal = java.lang.Math.exp(rNormal);</span>
+<span class="nc bnc" id="L88" title="All 4 branches missed.">			} while ((rLogNormal &gt;= max)||(rLogNormal&lt;=min)); // truncate</span>
+<span class="nc" id="L89">			rnd = (float)rLogNormal;</span>
+<span class="nc" id="L90">			return rnd;</span>
+		}
+		case PARETO_DISTR: //Pareto
+		{
+<span class="nc" id="L94">			double alfa = 1.2d; //alfa parameter of pareto is 1.2 for the video case. Is good in other telecom</span>
+			//stochastic cases as well.
+<span class="nc" id="L96">			double b = 20*8;//(double)mean*(alfa-1d)/alfa;</span>
+<span class="nc" id="L97">			double d=0;</span>
+<span class="nc" id="L98">				d = generator.nextDouble();</span>
+				//generate a pareto distributed number 
+<span class="nc" id="L100">				d = b/Math.pow(d,1d/alfa);</span>
+<span class="nc" id="L101">			rnd = (float) (d+b);//System.out.println(rnd);</span>
+<span class="nc" id="L102">			return rnd;</span>
+		}
+		default:
+		{
+<span class="nc" id="L106">			System.out.println(&quot;Distribution type configuration error. Use one of c,e,l or p.&quot;);</span>
+<span class="nc" id="L107">			System.exit(0);</span>
+<span class="nc" id="L108">			return rnd;</span>
+		}
+		}
+	}
+	
+	/**
+	 * Generates a random variable obeying a specific distribution.
+	 * @param distr The distribution which the random variable will obey: 'c' for constant, 'e' for exponential,
+	 * 'p' for Pareto, 'l' for lognormal. For Pareto, alfa=1.2 is always assumed.
+	 * @param mean Mean value of the distribution
+	 * @param stDev Standard deviation of the distribution (only available for some distributions)
+	 * @param max Maximum value. If this value is set, truncation will occur using the accept/reject method and the variable will obviously obey
+	 * a truncated distribution. If you want to ommit this parameter, set it to Integer.MAX_VALUE
+	 * @param min Minimum value. If this value is set, truncation will occur using the accept/reject method and the variable will obviously obey
+	 * a truncated distribution. If you want to ommit this parameter, set it to -1.
+	 * @return A float which obeys the distribution set by 'dist'
+	 */
+	public float genRv(char distr, float mean, float stDev, float max, float min){
+<span class="nc" id="L126">			return generateRandomVariable(distr, mean, stDev, max, min);</span>
+	}
+	
+	/**
+	 * Generates a random variable obeying a specific distribution. Should only be used for constant or exponential distribution.
+	 * If used for Pareto, alfa=1.2 alway assumed.
+	 * @param distr The distribution which the random variable will obey: 'c' for constant, 'e' for exponential,
+	 * 'p' for Pareto.
+	 * @param mean Mean value of the distribution
+	 * @return A float which obeys the distribution set by 'dist'
+	 */
+	public float genRv(char distr, float mean){
+<span class="nc" id="L138">			return generateRandomVariable(distr, mean, 0, Integer.MAX_VALUE, -1);</span>
+	}
+	
+	/**
+	 * Generates a random variable obeying a specific distribution.
+	 * @param distr The distribution which the random variable will obey: 'c' for constant, 'e' for exponential,
+	 * 'p' for Pareto, 'l' for lognormal. For Pareto, alfa=1.2 is always assumed.
+	 * @param mean Mean value of the distribution
+	 * @param stDev Standard deviation of the distribution (only available for some distributions)
+	 * @return A float which obeys the distribution set by 'dist'
+	 */
+	public float genRv(char distr, float mean, float stDev){
+<span class="nc" id="L150">			return generateRandomVariable(distr, mean, stDev, Integer.MAX_VALUE, -1);</span>
+	}
+	
+	/**
+	 * Generates a random variable obeying a specific distribution.
+	 * @param distr The distribution which the random variable will obey: 'c' for constant, 'e' for exponential,
+	 * 'p' for Pareto, 'l' for lognormal. For Pareto, alfa=1.2 is always assumed.
+	 * @param mean Mean value of the distribution
+	 * @param max Maximum value. If this value is set, truncation will occur using the accept/reject method and the variable will obviously obey
+	 * a truncated distribution.
+	 * @param min Minimum value. If this value is set, truncation will occur using the accept/reject method and the variable will obviously obey
+	 * a truncated distribution.
+	 * @return A float which obeys the distribution set by 'dist'
+	 */
+	public float genRv(char distr, float mean, float max, float min){
+<span class="nc" id="L165">			return generateRandomVariable(distr, mean, 0, max, min);</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

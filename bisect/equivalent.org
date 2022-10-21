@@ -1,0 +1,91 @@
+#+STARTUP: showall
+
+* Equivalent Mutants
+
+** Major 
+
+| Mutant | Line | Original Statement | Mutated Statement |
+|--------+------+--------------------+-------------------|
+| 17_ROR |   32 |  diff < 0          | diff <= 0         |
+| 30_LVR |   36 |  diff > 0          | diff > -1         |
+| 31_ROR |   36 |  diff > 0          | diff != 0         |
+| 32_ROR |   36 |  diff > 0          | diff >= 0         |
+|--------+------+--------------------+-------------------|
+| Total  |    4 |                    |                   |
+#+TBLFM: @6$2=vcount(@I..II)
+
+
+** PIT: Default Mutation Operators
+
+| Mutant                      | Line | Original Statement | Mutated Statement |
+|-----------------------------+------+--------------------+-------------------|
+| ConditionalsBoundaryMutator |   32 | diff < 0           | diff <= 0         |
+| ConditionalsBoundaryMutator |   36 | diff > 0           | diff >= 0         |
+
+
+** PIT: ALL Mutation Operators: Equivalents
+
+| Mutant                               | Line | Original Statement | Mutated Statement |
+|--------------------------------------+------+--------------------+-------------------|
+| ConditionalsBoundaryMutator_32       |   32 | diff < 0           | diff <= 0         |
+| ConditionalsBoundaryMutator_36       |   36 | diff > 0           | diff >= 0         |
+| RemoveConditionalMutator_ORDER_IF_36 |   36 | diff > 0           | true              |
+|--------------------------------------+------+--------------------+-------------------|
+| Total                                |    3 |                    |                   |
+#+TBLFM: @5$2=vcount(@I..II)
+
+
+** Mujava3
+
+| Mutant  | Line | Original Statement | Mutated Statement |
+|---------+------+--------------------+-------------------|
+| AOIS_31 |   32 | diff < 0           | diff++ < 0        |
+| AOIS_43 |   34 | x = (M + x) / 2;   | x = (M + x++) / 2 |
+| AOIS_44 |   34 | x = (M + x) / 2;   | x = (M + x--) / 2 |
+| AOIS_45 |   36 | diff > 0           | ++diff > 0        |
+| AOIS_47 |   36 | diff > 0           | diff++ > 0        |
+| AOIS_48 |   36 | diff > 0           | diff-- > 0        |
+| AOIS_59 |   38 | x = (m + x) / 2    | x = (m + x++) / 2 |
+| AOIS_60 |   38 | x = (m + x) / 2    | x = (m + x--) / 2 |
+| AOIS_73 |   43 | r = x;             | r = x++;          |
+| AOIS_74 |   43 | r = x;             | r = x--;          |
+| AOIS_79 |   45 | return r;          | return r++;       |
+| AOIS_80 |   45 | return r;          | return r--;       |
+| AOIU_3  |   27 | M = N              | M = -N            |
+| AOIU_4  |   29 | r = x              | r = -x            |
+| ROR_8   |   36 | diff > 0           | diff >= 0         |
+| ROR_12  |   36 | diff > 0           | diff != 0         |
+| ROR_13  |   36 | diff > 0           | true              |
+|---------+------+--------------------+-------------------|
+| Total   |   17 |                    |                   |
+#+TBLFM: @20$2=vcount(@I..II)
+
+* Common Equivalent
+
+** Major - PIT ALL
+
+| Major  | PIT ALL                        |
+|--------+--------------------------------|
+| 17_ROR | ConditionalsBoundaryMutator_32 |
+| 32_ROR | ConditionalsBoundaryMutator_36 |
+
+** Major - Mujava3
+
+| Major  | Mujava3 |
+|--------+---------|
+| 31_ROR | ROR_12  |
+| 32_ROR | ROR_8   |
+
+** PIT ALL - Mujava3
+
+| PIT ALL                           | Mujava3 |
+|-----------------------------------+---------|
+| ConditionalsBoundaryMutator_36    | ROR_8   |
+| RemoveConditionalMutator_ORDER_IF | ROR_13  |
+
+** Common equivs among all tools
+
+| Major  | PIT ALL                        | Mujava3 |
+|--------+--------------------------------+---------|
+| 32_ROR | ConditionalsBoundaryMutator_36 | ROR_8   |
+

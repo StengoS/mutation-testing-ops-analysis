@@ -1,0 +1,78 @@
+#+STARTUP: showall
+
+* Equivalent Mutants
+
+** Major
+
+| Mutant | Line | Original Statement | Mutated Statement  |
+|--------+------+--------------------+--------------------|
+| 2_LVR  |  240 | array.length * 1.5 | array.length * 0.0 |
+| 4_AOR  |  240 | array.length * 1.5 | array.length % 1.5 |
+| 5_AOR  |  240 | array.length * 1.5 | array.length + 1.5 |
+| 7_AOR  |  240 | array.length * 1.5 | array.length / 1.5 |
+| 10_ROR |  241 | i < array.length   | i != array.length  |
+|--------+------+--------------------+--------------------|
+| Total  |    5 |                    |                    |
+
+
+** PIT: Default Mutation Operators
+
+| Mutant          | Line | Original Statement | Mutated Statement  |
+|-----------------+------+--------------------+--------------------|
+| MathMutator_240 |  240 | array.length * 1.5 | array.length / 1.5 |
+|-----------------+------+--------------------+--------------------|
+| Total           |    1 |                    |                    |
+
+
+** PIT: ALL Mutation Operators: Equivalents
+
+| Mutant                    | Line | Original Statement | Mutated Statement  |
+|---------------------------+------+--------------------+--------------------|
+| InlineConstantMutator_240 |  240 | array.length * 1.5 | array.length * 1.0 |
+| MathMutator_240           |  240 | array.length * 1.5 | array.length / 1.5 |
+|---------------------------+------+--------------------+--------------------|
+| Total                     |    2 |                    |                    |
+
+
+** Mujava3
+
+| Mutant  | Line | Original Statement   | Mutated Statement      |
+|---------+------+----------------------+------------------------|
+| AORB_1  |   92 | array.length * 1.5   | array.length / 1.5     |
+| AORB_3  |   92 | array.length * 1.5   | array.length + 1.5     |
+| AOIS_25 |  106 | "Array element " + i | "Array element " + i++ |
+| AOIS_22 |  102 | "Array element " + i | "Array element " + i-- |
+| AOIS_26 |  106 | "Array element " + i | "Array element " + i-- |
+| AORB_2  |   92 | array.length * 1.5   | array.length % 1.5     |
+| AOIS_21 |  102 | "Array element " + i | "Array element " + i++ |
+|---------+------+----------------------+------------------------|
+| Total   |    7 |                      |                        |
+
+* Common Equivalent
+
+** Major - PIT ALL
+
+| Major  | PIT ALL         |
+|--------+-----------------|
+| 7_AOR  | MathMutator_240 |
+
+** Major - Mujava3
+
+| Major | Mujava3 |
+|-------+---------|
+| 4_AOR | AORB_2  |
+| 5_AOR | AORB_3  |
+| 7_AOR | AORB_1  |
+
+** PIT ALL - Mujava3
+
+| PIT ALL         | Mujava3 |
+|-----------------+---------|
+| MathMutator_240 | AORB_1  |
+
+** Common equivs among all tools
+
+| Major | PIT ALL         | Mujava3 |
+|-------+-----------------+---------|
+| 7_AOR | MathMutator_240 | AORB_1  |
+

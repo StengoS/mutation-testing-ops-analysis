@@ -1,0 +1,64 @@
+#+STARTUP: showall
+
+* Equivalent Mutants
+
+** Major 
+
+| Mutant | Line | Original Statement   | Mutated Statement     |
+|--------+------+----------------------+-----------------------|
+| 5_ROR  | 1471 | i < nodesList.size() | i != nodesList.size() |
+| 14_ROR | 1477 | position != -1       | position > -1         |
+|--------+------+----------------------+-----------------------|
+| Total  |    2 |                      |                       |
+
+** PIT: Default Mutation Operators
+
+| Mutant | Line |
+|--------+------|
+
+** PIT: ALL Mutation Operators: Equivalents
+
+| Mutant | Line |
+|--------+------|
+
+
+** Mujava3
+
+| Mutant    | Line | Original Statement                                                                                   | Mutated Statement                                                                                      |
+|-----------+------+------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------|
+| AOIS_2301 | 1146 | throw new pamvotis.exceptions.ElementDoesNotExistException( "Node " + nodeId + " does not exist." ); | throw new pamvotis.exceptions.ElementDoesNotExistException( "Node " + nodeId++ + " does not exist." ); |
+| ROR_456   | 1141 | if (position != -1) {                                                                                | if (position > -1) {                                                                                   |
+| AOIS_2297 | 1142 | nodesList.removeElementAt( position );                                                               | nodesList.removeElementAt( position++ );                                                               |
+| AOIS_2302 | 1146 | throw new pamvotis.exceptions.ElementDoesNotExistException( "Node " + nodeId + " does not exist." ); | throw new pamvotis.exceptions.ElementDoesNotExistException( "Node " + nodeId-- + " does not exist." ); |
+| AOIS_2291 | 1137 | position = i;                                                                                        | position = i++;                                                                                        |
+| AOIS_2292 | 1137 | position = i;                                                                                        | position = i--;                                                                                        |
+| AOIS_2298 | 1142 | nodesList.removeElementAt( position );                                                               | nodesList.removeElementAt( position-- );                                                               |
+|-----------+------+------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------|
+| Total     |    7 |                                                                                                      |                                                                                                        |
+#+TBLFM: @9$2=vcount(@I..II)
+
+* Common Equivalent
+
+** Major - PIT ALL
+
+| Major  | PIT ALL |
+|--------+---------|
+| -      | -       |
+
+** Major - Mujava3
+
+| Major  | Mujava3 |
+|--------+---------|
+| 14_ROR | ROR_456 |
+
+** PIT ALL - Mujava3
+
+| PIT ALL | Mujava3 |
+|---------+---------|
+| -       | -       |
+
+** Common equivs among all tools
+
+| Major | PIT ALL | Mujava3 |
+|-------+---------+---------|
+| -     | -       | -       |

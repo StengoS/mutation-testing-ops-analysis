@@ -1,0 +1,68 @@
+#+STARTUP: showall
+
+* Equivalent Mutants
+
+** Major
+
+| Mutant | Line | Original Statement                    | Mutated Statement                     |
+|--------+------+---------------------------------------+---------------------------------------|
+| 9_ROR  |  265 | threshold == 0                        | threshold <= 0                        |
+| 19_COR |  269 | (x >= -threshold) && (x <= threshold) | (x >= -threshold) == (x <= threshold) |
+| 59_COR |  272 | (y >= -threshold) && (y <= threshold) | (y >= -threshold) == (y <= threshold) |
+|--------+------+---------------------------------------+---------------------------------------|
+| Total  |      |                                       |                                       |
+
+
+** PIT: Default Mutation Operators
+
+| Mutant | Line | Original Statement | Mutated Statement |
+|--------+------+--------------------+-------------------|
+|        |      |                    |                   |
+
+
+** PIT: ALL Mutation Operators: Equivalents
+
+| Mutant | Line | Original Statement | Mutated Statement |
+|--------+------+--------------------+-------------------|
+| -      |      |                    |                   |
+|--------+------+--------------------+-------------------|
+| Total  |      |                    |                   |
+
+
+** Mujava3
+
+| Mutant   | Line | Original Statement                                                                    | Mutated Statement                                                                       |
+|----------+------+---------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------|
+| AOIS_495 |  146 | if (y >= -threshold && y <= threshold) {                                              | if (y >= -threshold && y <= threshold++) {                                              |
+| AOIS_496 |  146 | if (y >= -threshold && y <= threshold) {                                              | if (y >= -threshold && y <= threshold--) {                                              |
+| AOIS_519 |  148 | return new org.apache.commons.math.geometry.Vector3D( -inverse * z, 0, inverse * x ); | return new org.apache.commons.math.geometry.Vector3D( -inverse * z, 0, inverse++ * x ); |
+| AOIS_520 |  148 | return new org.apache.commons.math.geometry.Vector3D( -inverse * z, 0, inverse * x ); | return new org.apache.commons.math.geometry.Vector3D( -inverse * z, 0, inverse-- * x ); |
+| ROR_11   |  139 | if (threshold == 0) {                                                                 | if (threshold <= 0) {                                                                   |
+|----------+------+---------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------|
+| Total    |      |                                                                                       |                                                                                         |
+
+* Common Equivalent
+
+** Major - PIT ALL
+
+| Major  | PIT ALL  |
+|--------+----------|
+| -      | -        |
+
+** Major - Mujava3
+
+| Major | Mujava3 |
+|-------+---------|
+| 9_ROR | ROR_11  |
+
+** PIT ALL - Mujava3
+
+| PIT ALL | Mujava3 |
+|---------+---------|
+| -       | -       |
+
+** Common equivs among all tools
+
+| Major | PIT ALL | Mujava3 |
+|-------+---------+---------|
+| -     | -       | -       |

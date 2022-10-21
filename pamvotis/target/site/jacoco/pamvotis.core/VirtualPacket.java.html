@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VirtualPacket.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pamvotis</a> &gt; <a href="index.source.html" class="el_package">pamvotis.core</a> &gt; <span class="el_source">VirtualPacket.java</span></div><h1>VirtualPacket.java</h1><pre class="source lang-java linenums">package pamvotis.core;
+
+/**
+ * Simulates a packet generated from a session. Be careful, this packet is not yet generated. It is just a prediction
+ * of what the source will generate. More specifically, when we want to generate a session of packets, then a
+ * row of virtual packets is generated, each one having a field called interarrival. When this time expires, then the
+ * real packet is generated and added to the packet queue through the Source.getNextPacket fuction.
+ * @see pamvotis.sources.Source#getNextPacket()
+ * @author Dimitris El. Vassis
+ */
+public class VirtualPacket {
+	/**
+	 * The packet length in bits.
+	 */
+	public int length;
+	/**
+	 * The interarrival time of a packet. When this time expires, the real packet will be generated.
+	 */
+	public int interarrival;
+	/**
+	 * The ID of the packet that will be generated.
+	 */
+	public int id;
+	
+	/**
+	 * Creates a virtual packet.
+	 * @param length The packet length in bits.
+	 * @param interarrival The interarrival time of a packet. When this time expires, the real packet will be generated.
+	 * @param id The ID of the packet that will be generated.
+	 */
+<span class="nc" id="L31">	public VirtualPacket(int length, int interarrival, int id){</span>
+<span class="nc" id="L32">		this.length=length;</span>
+<span class="nc" id="L33">		this.interarrival = interarrival;</span>
+<span class="nc" id="L34">		this.id=id;</span>
+<span class="nc" id="L35">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Edca.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pamvotis</a> &gt; <a href="index.source.html" class="el_package">pamvotis.intf</a> &gt; <span class="el_source">Edca.java</span></div><h1>Edca.java</h1><pre class="source lang-java linenums">package pamvotis.intf;
+
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
+import java.io.File;
+import java.net.URL;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.TitledBorder;
+
+public class Edca extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+<span class="nc" id="L25">	private JPanel jContentPane = null;</span>
+<span class="nc" id="L26">	private JLabel jLblIcon = null;</span>
+<span class="nc" id="L27">	private JPanel jPanel1 = null;</span>
+<span class="nc" id="L28">	private JPanel jPCwMin = null;</span>
+<span class="nc" id="L29">	private JPanel jPCwMax = null;</span>
+<span class="nc" id="L30">	private JPanel jPAifs = null;</span>
+<span class="nc" id="L31">	private JLabel jLblAc0 = null;</span>
+<span class="nc" id="L32">	private JLabel jLblAc1 = null;</span>
+<span class="nc" id="L33">	private JLabel jLblAc3 = null;</span>
+<span class="nc" id="L34">	private JLabel jLblAc2 = null;</span>
+<span class="nc" id="L35">	private JLabel jLblAc01 = null;</span>
+<span class="nc" id="L36">	private JLabel jLblAc11 = null;</span>
+<span class="nc" id="L37">	private JLabel jLblAc31 = null;</span>
+<span class="nc" id="L38">	private JLabel jLblAc21 = null;</span>
+<span class="nc" id="L39">	private JLabel jLblAc011 = null;</span>
+<span class="nc" id="L40">	private JLabel jLblAc111 = null;</span>
+<span class="nc" id="L41">	private JLabel jLblAc311 = null;</span>
+<span class="nc" id="L42">	private JLabel jLblAc211 = null;</span>
+<span class="nc" id="L43">	private JTextField jTxtCwMin0 = null;</span>
+<span class="nc" id="L44">	private JTextField jTxtCwMin1 = null;</span>
+<span class="nc" id="L45">	private JTextField jTxtCwMin2 = null;</span>
+<span class="nc" id="L46">	private JTextField jTxtCwMin3 = null;</span>
+<span class="nc" id="L47">	private JTextField jTxtCwMax0 = null;</span>
+<span class="nc" id="L48">	private JTextField jTxtCwMax1 = null;</span>
+<span class="nc" id="L49">	private JTextField jTxtCwMax2 = null;</span>
+<span class="nc" id="L50">	private JTextField jTxtCwMax3 = null;</span>
+<span class="nc" id="L51">	private JTextField jTxtAifs0 = null;</span>
+<span class="nc" id="L52">	private JTextField jTxtAifs1 = null;</span>
+<span class="nc" id="L53">	private JTextField jTxtAifs2 = null;</span>
+<span class="nc" id="L54">	private JTextField jTxtAifs3 = null;</span>
+<span class="nc" id="L55">	private JButton jBtnOK = null;</span>
+<span class="nc" id="L56">	private JButton jBtnCancel = null;</span>
+<span class="nc" id="L57">	private Pamvotis pm=null;</span>
+<span class="nc" id="L58">	private MakeNtConf mk=null;</span>
+<span class="nc" id="L59">	private String cwmin0=null;</span>
+<span class="nc" id="L60">	private String cwmin1=null;</span>
+<span class="nc" id="L61">	private String cwmin2=null;</span>
+<span class="nc" id="L62">	private String cwmin3=null;</span>
+<span class="nc" id="L63">	private String cwmax0=null;</span>
+<span class="nc" id="L64">	private String cwmax1=null;</span>
+<span class="nc" id="L65">	private String cwmax2=null;</span>
+<span class="nc" id="L66">	private String cwmax3=null;</span>
+<span class="nc" id="L67">	private String aifs0=null;</span>
+<span class="nc" id="L68">	private String aifs1=null;</span>
+<span class="nc" id="L69">	private String aifs2=null;</span>
+<span class="nc" id="L70">	private String aifs3=null;</span>
+<span class="nc" id="L71">	private JPanel jPnIcon = null;</span>
+<span class="nc" id="L72">	private JLabel jLabel = null;</span>
+<span class="nc" id="L73">	private JLabel jLabel1 = null;</span>
+<span class="nc" id="L74">	private JLabel jLabel11 = null;</span>
+<span class="nc" id="L75">	private JLabel jLabel111 = null;</span>
+	
+
+
+	public Edca(Pamvotis pmarg, MakeNtConf mkarg) {
+<span class="nc" id="L80">		super();</span>
+<span class="nc" id="L81">		this.pm = pmarg; //Pass the arguement of the parent window</span>
+<span class="nc" id="L82">		this.mk = mkarg; //Pass the MakeNtConf arguement of the parent window</span>
+<span class="nc" id="L83">		initialize();</span>
+<span class="nc" id="L84">	}</span>
+
+	private void initialize() {
+<span class="nc" id="L87">		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="nc" id="L88">		this.setSize(682, 322);</span>
+<span class="nc" id="L89">		this.setResizable(false);</span>
+<span class="nc" id="L90">		URL iconURL = getClass().getResource(&quot;/resources&quot; + File.separator + &quot;icons&quot;+File.separator+&quot;logo.jpg&quot;);</span>
+<span class="nc" id="L91">		this.setIconImage(Toolkit.getDefaultToolkit().getImage(iconURL));</span>
+<span class="nc" id="L92">		this.setLocation(new Point((d.width-this.getSize().width)/2, (d.height-this.getSize().height)/2));</span>
+<span class="nc" id="L93">		this.setContentPane(getJContentPane());</span>
+<span class="nc" id="L94">		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); //A listener is defined</span>
+<span class="nc" id="L95">		this.setTitle(&quot;Pamvotis - 802.11e QoS Configuration&quot;);</span>
+<span class="nc" id="L96">		this.addWindowListener(new java.awt.event.WindowAdapter() {</span>
+			public void windowClosing(java.awt.event.WindowEvent e) {
+<span class="nc" id="L98">				getInitParams(); //Set the values that the window had when it was opened</span>
+<span class="nc" id="L99">				Edca.this.setVisible(false); //Close the window</span>
+<span class="nc" id="L100">				pm.setEnabled(true); //Open the parent window</span>
+<span class="nc" id="L101">				pm.setVisible(true); //Added because otherwise the parent window opens minimized</span>
+<span class="nc" id="L102">			}</span>
+		});
+<span class="nc" id="L104">	}</span>
+
+	private JPanel getJContentPane() {
+<span class="nc bnc" id="L107" title="All 2 branches missed.">		if (jContentPane == null) {</span>
+<span class="nc" id="L108">			jLblIcon = new JLabel();</span>
+<span class="nc" id="L109">			URL iconURL = getClass().getResource(&quot;/resources&quot; + File.separator + &quot;icons&quot;+File.separator+&quot;edca.jpg&quot;);</span>
+<span class="nc" id="L110">			jLblIcon.setIcon(new ImageIcon(iconURL));</span>
+<span class="nc" id="L111">			jLblIcon.setBounds(new Rectangle(2, 2, 89, 83));</span>
+<span class="nc" id="L112">			jLblIcon.setText(&quot;&quot;);</span>
+<span class="nc" id="L113">			jContentPane = new JPanel();</span>
+<span class="nc" id="L114">			jContentPane.setLayout(null);</span>
+<span class="nc" id="L115">			jContentPane.add(getJPanel1(), null);</span>
+<span class="nc" id="L116">			jContentPane.add(getJPCwMin(), null);</span>
+<span class="nc" id="L117">			jContentPane.add(getJPCwMax(), null);</span>
+<span class="nc" id="L118">			jContentPane.add(getJPAifs(), null);</span>
+<span class="nc" id="L119">			jContentPane.add(getJBtnOK(), null);</span>
+<span class="nc" id="L120">			jContentPane.add(getJBtnCancel(), null);</span>
+<span class="nc" id="L121">			jContentPane.add(getJPnIcon(), null);</span>
+		}
+<span class="nc" id="L123">		return jContentPane;</span>
+	}
+
+	private JPanel getJPanel1() {
+<span class="nc bnc" id="L127" title="All 2 branches missed.">		if (jPanel1 == null) {</span>
+<span class="nc" id="L128">			jLabel111 = new JLabel();</span>
+<span class="nc" id="L129">			jLabel111.setBounds(new Rectangle(7, 60, 523, 20));</span>
+<span class="nc" id="L130">			jLabel111.setText(&quot;Correct parameter specification is at your own risk. See the documentation for details.&quot;);</span>
+<span class="nc" id="L131">			jLabel111.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L132">			jLabel11 = new JLabel();</span>
+<span class="nc" id="L133">			jLabel11.setBounds(new Rectangle(7, 40, 517, 20));</span>
+<span class="nc" id="L134">			jLabel11.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L135">			jLabel11.setText(&quot;Be careful to set them correctly so the CwMin/CwMax for each AC to be at least 2.&quot;);</span>
+<span class="nc" id="L136">			jLabel1 = new JLabel();</span>
+<span class="nc" id="L137">			jLabel1.setBounds(new Rectangle(7, 20, 518, 20));</span>
+<span class="nc" id="L138">			jLabel1.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L139">			jLabel1.setText(&quot;DCF CwMin may be 16 or 32.DCF CwMax is 1024. Division factors must be powers of 2.&quot;);</span>
+<span class="nc" id="L140">			jLabel = new JLabel();</span>
+<span class="nc" id="L141">			jLabel.setBounds(new Rectangle(7, 0, 517, 20));</span>
+<span class="nc" id="L142">			jLabel.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L143">			jLabel.setText(&quot;CwMin and CwMax for each AC are set as a submultiple of the original DCF CwMin/Cwax.&quot;);</span>
+<span class="nc" id="L144">			jPanel1 = new JPanel();</span>
+<span class="nc" id="L145">			jPanel1.setLayout(null);</span>
+<span class="nc" id="L146">			jPanel1.setBounds(new Rectangle(118, 15, 536, 86));</span>
+<span class="nc" id="L147">			jPanel1.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));</span>
+<span class="nc" id="L148">			jPanel1.add(jLabel, null);</span>
+<span class="nc" id="L149">			jPanel1.add(jLabel1, null);</span>
+<span class="nc" id="L150">			jPanel1.add(jLabel11, null);</span>
+<span class="nc" id="L151">			jPanel1.add(jLabel111, null);</span>
+		}
+<span class="nc" id="L153">		return jPanel1;</span>
+	}
+
+
+	private JPanel getJPCwMin() {
+<span class="nc bnc" id="L158" title="All 2 branches missed.">		if (jPCwMin == null) {</span>
+<span class="nc" id="L159">			jLblAc2 = new JLabel();</span>
+<span class="nc" id="L160">			jLblAc2.setText(&quot;CwMin(Ac3) = CW_MIN / &quot;);</span>
+<span class="nc" id="L161">			jLblAc2.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L162">			jLblAc2.setBounds(new Rectangle(15, 93, 145, 20));</span>
+<span class="nc" id="L163">			jLblAc3 = new JLabel();</span>
+<span class="nc" id="L164">			jLblAc3.setBounds(new Rectangle(15, 68, 145, 20));</span>
+<span class="nc" id="L165">			jLblAc3.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L166">			jLblAc3.setText(&quot;CwMin(Ac2) = CW_MIN / &quot;);</span>
+<span class="nc" id="L167">			jLblAc1 = new JLabel();</span>
+<span class="nc" id="L168">			jLblAc1.setBounds(new Rectangle(15, 43, 145, 20));</span>
+<span class="nc" id="L169">			jLblAc1.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L170">			jLblAc1.setText(&quot;CwMin(Ac1) = CW_MIN / &quot;);</span>
+<span class="nc" id="L171">			jLblAc0 = new JLabel();</span>
+<span class="nc" id="L172">			jLblAc0.setBounds(new Rectangle(15, 18, 146, 20));</span>
+<span class="nc" id="L173">			jLblAc0.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L174">			jLblAc0.setText(&quot;CwMin(Ac0) = CW_MIN / &quot;);</span>
+<span class="nc" id="L175">			jPCwMin = new JPanel();</span>
+<span class="nc" id="L176">			jPCwMin.setLayout(null);</span>
+<span class="nc" id="L177">			jPCwMin.setBounds(new Rectangle(15, 117, 205, 120));</span>
+<span class="nc" id="L178">			jPCwMin.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(SystemColor.controlDkShadow, 1), &quot;CwMin Division Factor&quot;, TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, new Font(&quot;Dialog&quot;, Font.BOLD, 12), SystemColor.controlDkShadow));</span>
+<span class="nc" id="L179">			jPCwMin.add(jLblAc0, null);</span>
+<span class="nc" id="L180">			jPCwMin.add(jLblAc1, null);</span>
+<span class="nc" id="L181">			jPCwMin.add(jLblAc3, null);</span>
+<span class="nc" id="L182">			jPCwMin.add(jLblAc2, null);</span>
+<span class="nc" id="L183">			jPCwMin.add(getJTxtCwMin0(), null);</span>
+<span class="nc" id="L184">			jPCwMin.add(getJTxtCwMin1(), null);</span>
+<span class="nc" id="L185">			jPCwMin.add(getJTxtCwMin2(), null);</span>
+<span class="nc" id="L186">			jPCwMin.add(getJTxtCwMin3(), null);</span>
+		}
+<span class="nc" id="L188">		return jPCwMin;</span>
+	}
+
+	private JPanel getJPCwMax() {
+<span class="nc bnc" id="L192" title="All 2 branches missed.">		if (jPCwMax == null) {</span>
+<span class="nc" id="L193">			jLblAc21 = new JLabel();</span>
+<span class="nc" id="L194">			jLblAc21.setBounds(new Rectangle(15, 93, 155, 20));</span>
+<span class="nc" id="L195">			jLblAc21.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L196">			jLblAc21.setText(&quot;CwMax(Ac3) = CW_MAX / &quot;);</span>
+<span class="nc" id="L197">			jLblAc31 = new JLabel();</span>
+<span class="nc" id="L198">			jLblAc31.setBounds(new Rectangle(15, 68, 155, 20));</span>
+<span class="nc" id="L199">			jLblAc31.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L200">			jLblAc31.setText(&quot;CwMax(Ac2) = CW_MAX / &quot;);</span>
+<span class="nc" id="L201">			jLblAc11 = new JLabel();</span>
+<span class="nc" id="L202">			jLblAc11.setBounds(new Rectangle(15, 43, 155, 20));</span>
+<span class="nc" id="L203">			jLblAc11.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L204">			jLblAc11.setText(&quot;CwMax(Ac1) = CW_MAX / &quot;);</span>
+<span class="nc" id="L205">			jLblAc01 = new JLabel();</span>
+<span class="nc" id="L206">			jLblAc01.setBounds(new Rectangle(15, 18, 155, 20));</span>
+<span class="nc" id="L207">			jLblAc01.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L208">			jLblAc01.setText(&quot;CwMax(Ac0) = CW_MAX / &quot;);</span>
+<span class="nc" id="L209">			jPCwMax = new JPanel();</span>
+<span class="nc" id="L210">			jPCwMax.setLayout(null);</span>
+<span class="nc" id="L211">			jPCwMax.setBounds(new Rectangle(260, 117, 218, 122));</span>
+<span class="nc" id="L212">			jPCwMax.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(SystemColor.controlDkShadow, 1), &quot;CwMax Division Factor&quot;, TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, new Font(&quot;Dialog&quot;, Font.BOLD, 12), SystemColor.controlDkShadow));</span>
+<span class="nc" id="L213">			jPCwMax.add(jLblAc01, null);</span>
+<span class="nc" id="L214">			jPCwMax.add(jLblAc11, null);</span>
+<span class="nc" id="L215">			jPCwMax.add(jLblAc31, null);</span>
+<span class="nc" id="L216">			jPCwMax.add(jLblAc21, null);</span>
+<span class="nc" id="L217">			jPCwMax.add(getJTxtCwMax0(), null);</span>
+<span class="nc" id="L218">			jPCwMax.add(getJTxtCwMax1(), null);</span>
+<span class="nc" id="L219">			jPCwMax.add(getJTxtCwMax2(), null);</span>
+<span class="nc" id="L220">			jPCwMax.add(getJTxtCwMax3(), null);</span>
+		}
+<span class="nc" id="L222">		return jPCwMax;</span>
+	}
+
+
+	private JPanel getJPAifs() {
+<span class="nc bnc" id="L227" title="All 2 branches missed.">		if (jPAifs == null) {</span>
+<span class="nc" id="L228">			jLblAc211 = new JLabel();</span>
+<span class="nc" id="L229">			jLblAc211.setBounds(new Rectangle(15, 93, 70, 20));</span>
+<span class="nc" id="L230">			jLblAc211.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L231">			jLblAc211.setText(&quot;AIFS(AC3):&quot;);</span>
+<span class="nc" id="L232">			jLblAc311 = new JLabel();</span>
+<span class="nc" id="L233">			jLblAc311.setBounds(new Rectangle(15, 68, 70, 20));</span>
+<span class="nc" id="L234">			jLblAc311.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L235">			jLblAc311.setText(&quot;AIFS(AC2):&quot;);</span>
+<span class="nc" id="L236">			jLblAc111 = new JLabel();</span>
+<span class="nc" id="L237">			jLblAc111.setBounds(new Rectangle(15, 43, 70, 20));</span>
+<span class="nc" id="L238">			jLblAc111.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L239">			jLblAc111.setText(&quot;AIFS(AC1):&quot;);</span>
+<span class="nc" id="L240">			jLblAc011 = new JLabel();</span>
+<span class="nc" id="L241">			jLblAc011.setBounds(new Rectangle(15, 18, 70, 20));</span>
+<span class="nc" id="L242">			jLblAc011.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L243">			jLblAc011.setText(&quot;AIFS(AC0):&quot;);</span>
+<span class="nc" id="L244">			jPAifs = new JPanel();</span>
+<span class="nc" id="L245">			jPAifs.setLayout(null);</span>
+<span class="nc" id="L246">			jPAifs.setBounds(new Rectangle(517, 117, 139, 122));</span>
+<span class="nc" id="L247">			jPAifs.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(SystemColor.controlDkShadow, 1), &quot;AIFS&quot;, TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, new Font(&quot;Dialog&quot;, Font.BOLD, 12), SystemColor.controlDkShadow));</span>
+<span class="nc" id="L248">			jPAifs.add(jLblAc011, null);</span>
+<span class="nc" id="L249">			jPAifs.add(jLblAc111, null);</span>
+<span class="nc" id="L250">			jPAifs.add(jLblAc311, null);</span>
+<span class="nc" id="L251">			jPAifs.add(jLblAc211, null);</span>
+<span class="nc" id="L252">			jPAifs.add(getJTxtAifs0(), null);</span>
+<span class="nc" id="L253">			jPAifs.add(getJTxtAifs1(), null);</span>
+<span class="nc" id="L254">			jPAifs.add(getJTxtAifs2(), null);</span>
+<span class="nc" id="L255">			jPAifs.add(getJTxtAifs3(), null);</span>
+		}
+<span class="nc" id="L257">		return jPAifs;</span>
+	}
+
+	private JTextField getJTxtCwMin0() {
+<span class="nc bnc" id="L261" title="All 2 branches missed.">		if (jTxtCwMin0 == null) {</span>
+<span class="nc" id="L262">			jTxtCwMin0 = new JTextField();</span>
+<span class="nc" id="L263">			jTxtCwMin0.setBounds(new Rectangle(163, 18, 25, 20));</span>
+<span class="nc" id="L264">			jTxtCwMin0.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L265">			jTxtCwMin0.setText(&quot;1&quot;);</span>
+		}
+<span class="nc" id="L267">		return jTxtCwMin0;</span>
+	}
+
+	private JTextField getJTxtCwMin1() {
+<span class="nc bnc" id="L271" title="All 2 branches missed.">		if (jTxtCwMin1 == null) {</span>
+<span class="nc" id="L272">			jTxtCwMin1 = new JTextField();</span>
+<span class="nc" id="L273">			jTxtCwMin1.setBounds(new Rectangle(163, 43, 25, 20));</span>
+<span class="nc" id="L274">			jTxtCwMin1.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L275">			jTxtCwMin1.setText(&quot;2&quot;);</span>
+		}
+<span class="nc" id="L277">		return jTxtCwMin1;</span>
+	}
+
+	private JTextField getJTxtCwMin2() {
+<span class="nc bnc" id="L281" title="All 2 branches missed.">		if (jTxtCwMin2 == null) {</span>
+<span class="nc" id="L282">			jTxtCwMin2 = new JTextField();</span>
+<span class="nc" id="L283">			jTxtCwMin2.setBounds(new Rectangle(163, 68, 25, 20));</span>
+<span class="nc" id="L284">			jTxtCwMin2.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L285">			jTxtCwMin2.setText(&quot;4&quot;);</span>
+		}
+<span class="nc" id="L287">		return jTxtCwMin2;</span>
+	}
+
+	private JTextField getJTxtCwMin3() {
+<span class="nc bnc" id="L291" title="All 2 branches missed.">		if (jTxtCwMin3 == null) {</span>
+<span class="nc" id="L292">			jTxtCwMin3 = new JTextField();</span>
+<span class="nc" id="L293">			jTxtCwMin3.setBounds(new Rectangle(163, 93, 25, 20));</span>
+<span class="nc" id="L294">			jTxtCwMin3.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L295">			jTxtCwMin3.setText(&quot;8&quot;);</span>
+		}
+<span class="nc" id="L297">		return jTxtCwMin3;</span>
+	}
+
+	private JTextField getJTxtCwMax0() {
+<span class="nc bnc" id="L301" title="All 2 branches missed.">		if (jTxtCwMax0 == null) {</span>
+<span class="nc" id="L302">			jTxtCwMax0 = new JTextField();</span>
+<span class="nc" id="L303">			jTxtCwMax0.setBounds(new Rectangle(175, 18, 25, 20));</span>
+<span class="nc" id="L304">			jTxtCwMax0.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L305">			jTxtCwMax0.setText(&quot;1&quot;);</span>
+		}
+<span class="nc" id="L307">		return jTxtCwMax0;</span>
+	}
+
+	private JTextField getJTxtCwMax1() {
+<span class="nc bnc" id="L311" title="All 2 branches missed.">		if (jTxtCwMax1 == null) {</span>
+<span class="nc" id="L312">			jTxtCwMax1 = new JTextField();</span>
+<span class="nc" id="L313">			jTxtCwMax1.setBounds(new Rectangle(175, 43, 25, 20));</span>
+<span class="nc" id="L314">			jTxtCwMax1.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L315">			jTxtCwMax1.setText(&quot;4&quot;);</span>
+		}
+<span class="nc" id="L317">		return jTxtCwMax1;</span>
+	}
+
+	private JTextField getJTxtCwMax2() {
+<span class="nc bnc" id="L321" title="All 2 branches missed.">		if (jTxtCwMax2 == null) {</span>
+<span class="nc" id="L322">			jTxtCwMax2 = new JTextField();</span>
+<span class="nc" id="L323">			jTxtCwMax2.setBounds(new Rectangle(175, 68, 25, 20));</span>
+<span class="nc" id="L324">			jTxtCwMax2.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L325">			jTxtCwMax2.setText(&quot;8&quot;);</span>
+		}
+<span class="nc" id="L327">		return jTxtCwMax2;</span>
+	}
+
+	private JTextField getJTxtCwMax3() {
+<span class="nc bnc" id="L331" title="All 2 branches missed.">		if (jTxtCwMax3 == null) {</span>
+<span class="nc" id="L332">			jTxtCwMax3 = new JTextField();</span>
+<span class="nc" id="L333">			jTxtCwMax3.setBounds(new Rectangle(175, 93, 25, 20));</span>
+<span class="nc" id="L334">			jTxtCwMax3.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L335">			jTxtCwMax3.setText(&quot;16&quot;);</span>
+		}
+<span class="nc" id="L337">		return jTxtCwMax3;</span>
+	}
+
+	private JTextField getJTxtAifs0() {
+<span class="nc bnc" id="L341" title="All 2 branches missed.">		if (jTxtAifs0 == null) {</span>
+<span class="nc" id="L342">			jTxtAifs0 = new JTextField();</span>
+<span class="nc" id="L343">			jTxtAifs0.setBounds(new Rectangle(90, 18, 25, 20));</span>
+<span class="nc" id="L344">			jTxtAifs0.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L345">			jTxtAifs0.setText(&quot;2&quot;);</span>
+		}
+<span class="nc" id="L347">		return jTxtAifs0;</span>
+	}
+
+	private JTextField getJTxtAifs1() {
+<span class="nc bnc" id="L351" title="All 2 branches missed.">		if (jTxtAifs1 == null) {</span>
+<span class="nc" id="L352">			jTxtAifs1 = new JTextField();</span>
+<span class="nc" id="L353">			jTxtAifs1.setBounds(new Rectangle(90, 43, 25, 20));</span>
+<span class="nc" id="L354">			jTxtAifs1.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L355">			jTxtAifs1.setText(&quot;2&quot;);</span>
+		}
+<span class="nc" id="L357">		return jTxtAifs1;</span>
+	}
+
+	private JTextField getJTxtAifs2() {
+<span class="nc bnc" id="L361" title="All 2 branches missed.">		if (jTxtAifs2 == null) {</span>
+<span class="nc" id="L362">			jTxtAifs2 = new JTextField();</span>
+<span class="nc" id="L363">			jTxtAifs2.setBounds(new Rectangle(90, 68, 25, 20));</span>
+<span class="nc" id="L364">			jTxtAifs2.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L365">			jTxtAifs2.setText(&quot;1&quot;);</span>
+		}
+<span class="nc" id="L367">		return jTxtAifs2;</span>
+	}
+
+	private JTextField getJTxtAifs3() {
+<span class="nc bnc" id="L371" title="All 2 branches missed.">		if (jTxtAifs3 == null) {</span>
+<span class="nc" id="L372">			jTxtAifs3 = new JTextField();</span>
+<span class="nc" id="L373">			jTxtAifs3.setBounds(new Rectangle(90, 93, 25, 20));</span>
+<span class="nc" id="L374">			jTxtAifs3.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L375">			jTxtAifs3.setText(&quot;1&quot;);</span>
+		}
+<span class="nc" id="L377">		return jTxtAifs3;</span>
+	}
+
+	private JButton getJBtnOK() {
+<span class="nc bnc" id="L381" title="All 2 branches missed.">		if (jBtnOK == null) {</span>
+<span class="nc" id="L382">			jBtnOK = new JButton();</span>
+<span class="nc" id="L383">			jBtnOK.setBounds(new Rectangle(15, 255, 100, 20));</span>
+<span class="nc" id="L384">			jBtnOK.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L385">			jBtnOK.setText(&quot;OK&quot;);</span>
+<span class="nc" id="L386">			jBtnOK.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L388">					writeToNtConf();</span>
+<span class="nc" id="L389">					Edca.this.setVisible(false);</span>
+<span class="nc" id="L390">					pm.setEnabled(true);</span>
+<span class="nc" id="L391">					pm.setVisible(true);</span>
+<span class="nc" id="L392">				}</span>
+			});
+		}
+<span class="nc" id="L395">		return jBtnOK;</span>
+	}
+
+	private JButton getJBtnCancel() {
+<span class="nc bnc" id="L399" title="All 2 branches missed.">		if (jBtnCancel == null) {</span>
+<span class="nc" id="L400">			jBtnCancel = new JButton();</span>
+<span class="nc" id="L401">			jBtnCancel.setBounds(new Rectangle(554, 255, 100, 20));</span>
+<span class="nc" id="L402">			jBtnCancel.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L403">			jBtnCancel.setText(&quot;Cancel&quot;);</span>
+<span class="nc" id="L404">			jBtnCancel.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L406">					getInitParams();</span>
+<span class="nc" id="L407">					Edca.this.setVisible(false);</span>
+<span class="nc" id="L408">					pm.setEnabled(true);</span>
+<span class="nc" id="L409">					pm.setVisible(true);</span>
+<span class="nc" id="L410">				}</span>
+			});
+		}
+<span class="nc" id="L413">		return jBtnCancel;</span>
+	}
+	
+//	This is used in the listener of the parent object. Gets the values of all elements and stores it to some 'buffer' objects
+	public void setInitParams(){
+<span class="nc" id="L418">		cwmin0=jTxtCwMin0.getText();</span>
+<span class="nc" id="L419">		cwmin1=jTxtCwMin1.getText();</span>
+<span class="nc" id="L420">		cwmin2=jTxtCwMin2.getText();</span>
+<span class="nc" id="L421">		cwmin3=jTxtCwMin3.getText();</span>
+<span class="nc" id="L422">		cwmax0=jTxtCwMax0.getText();</span>
+<span class="nc" id="L423">		cwmax1=jTxtCwMax1.getText();</span>
+<span class="nc" id="L424">		cwmax2=jTxtCwMax2.getText();</span>
+<span class="nc" id="L425">		cwmax3=jTxtCwMax3.getText();</span>
+<span class="nc" id="L426">		aifs0=jTxtAifs0.getText();</span>
+<span class="nc" id="L427">		aifs1=jTxtAifs1.getText();</span>
+<span class="nc" id="L428">		aifs2=jTxtAifs2.getText();</span>
+<span class="nc" id="L429">		aifs3=jTxtAifs3.getText();</span>
+<span class="nc" id="L430">	}</span>
+	
+	//Sets the elements  to the values that they had when the window was opened. Used for the cancel button
+	private void getInitParams(){
+<span class="nc" id="L434">		jTxtCwMin0.setText(cwmin0);</span>
+<span class="nc" id="L435">		jTxtCwMin1.setText(cwmin1);</span>
+<span class="nc" id="L436">		jTxtCwMin2.setText(cwmin2);</span>
+<span class="nc" id="L437">		jTxtCwMin3.setText(cwmin3);</span>
+<span class="nc" id="L438">		jTxtCwMax0.setText(cwmax0);</span>
+<span class="nc" id="L439">		jTxtCwMax1.setText(cwmax1);</span>
+<span class="nc" id="L440">		jTxtCwMax2.setText(cwmax2);</span>
+<span class="nc" id="L441">		jTxtCwMax3.setText(cwmax3);</span>
+<span class="nc" id="L442">		jTxtAifs0.setText(aifs0);</span>
+<span class="nc" id="L443">		jTxtAifs1.setText(aifs1);</span>
+<span class="nc" id="L444">		jTxtAifs2.setText(aifs2);</span>
+<span class="nc" id="L445">		jTxtAifs3.setText(aifs3);</span>
+<span class="nc" id="L446">	}</span>
+	
+	//Writes the parameters to the MakeNtConf instance arguements
+	private void writeToNtConf(){
+<span class="nc" id="L450">		mk.setCwmin0(jTxtCwMin0.getText());</span>
+<span class="nc" id="L451">		mk.setCwmin1(jTxtCwMin1.getText());</span>
+<span class="nc" id="L452">		mk.setCwmin2(jTxtCwMin2.getText());</span>
+<span class="nc" id="L453">		mk.setCwmin3(jTxtCwMin3.getText());</span>
+<span class="nc" id="L454">		mk.setCwmax0(jTxtCwMax0.getText());</span>
+<span class="nc" id="L455">		mk.setCwmax1(jTxtCwMax1.getText());</span>
+<span class="nc" id="L456">		mk.setCwmax2(jTxtCwMax2.getText());</span>
+<span class="nc" id="L457">		mk.setCwmax3(jTxtCwMax3.getText());</span>
+<span class="nc" id="L458">		mk.setAifs0(jTxtAifs0.getText());</span>
+<span class="nc" id="L459">		mk.setAifs1(jTxtAifs1.getText());</span>
+<span class="nc" id="L460">		mk.setAifs2(jTxtAifs2.getText());</span>
+<span class="nc" id="L461">		mk.setAifs3(jTxtAifs3.getText());</span>
+<span class="nc" id="L462">	}</span>
+
+	/**
+	 * This method initializes jPnIcon	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getJPnIcon() {
+<span class="nc bnc" id="L470" title="All 2 branches missed.">		if (jPnIcon == null) {</span>
+<span class="nc" id="L471">			jPnIcon = new JPanel();</span>
+<span class="nc" id="L472">			jPnIcon.setLayout(null);</span>
+<span class="nc" id="L473">			jPnIcon.setBounds(new Rectangle(15, 15, 91, 87));</span>
+<span class="nc" id="L474">			jPnIcon.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));</span>
+<span class="nc" id="L475">			jPnIcon.add(jLblIcon, null);</span>
+		}
+<span class="nc" id="L477">		return jPnIcon;</span>
+	}
+}  //  @jve:decl-index=0:visual-constraint=&quot;10,10&quot; 
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

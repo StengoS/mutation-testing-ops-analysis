@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Params.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pamvotis</a> &gt; <a href="index.source.html" class="el_package">pamvotis.core</a> &gt; <span class="el_source">Params.java</span></div><h1>Params.java</h1><pre class="source lang-java linenums">package pamvotis.core;
+
+/**
+ * Contains the parameters of a node, like coverage, position, data rate e.t.c
+ * @author Dimitris El. Vassis
+ */
+<span class="fc" id="L7">public class Params {</span>
+	
+	int id; //The ID if the node
+	int rate;	//The data rate (bits/s)
+	int x;	//The node's horizontal (x) coordinate.
+	int y;	//The node's vertical (y) coordinate.
+	int coverage;	//The node's coverage.
+<span class="fc" id="L14">	int ac=0;	//The node's access category (802.11e)</span>
+<span class="fc" id="L15">	float aifsd= 0;	//The difs parameter for 802.11e</span>
+<span class="fc" id="L16">	int cwMin=0;	//The minimum contention window (depending on the access category)</span>
+<span class="fc" id="L17">	int cwMax=0;	//The maximum contention window (depending on the access category)</span>
+	
+	/**
+	 * Initializes the parameters of a node.
+	 * @param id The ID of the node
+	 * @param rate The data rate of a node. Users should be careful when setting the data rate, as it must
+	 * conform the data rates that the physical layer supports. Pamvotis supports data rate agility, meaning
+	 * that the data rate can change according to the distance from another node, but users must pay attention
+	 * to the data rates that can be supported by each physical layer.
+	 * @param x The x-axis position coordinate in meters.
+	 * @param y The y-axis position coordinate in meters.
+	 * @param coverage The node's coverage in meters.
+	 * @param ac The 802.11e access category 0,1,2,3
+	 * @param aifsd The aifsd parameter, according to the access category
+	 * @param cwMin The minimum contention window
+	 * @param cwMax The maximum contention window
+	 */
+	public void InitParams(int id, int rate,int x, int y, int coverage, int ac, float aifsd, int cwMin, int cwMax)
+	{
+<span class="fc" id="L36">		this.id = id;</span>
+<span class="fc" id="L37">		this.rate = rate;</span>
+<span class="fc" id="L38">		this.x = x;</span>
+<span class="fc" id="L39">		this.y = y;</span>
+<span class="fc" id="L40">		this.coverage = coverage;</span>
+<span class="fc" id="L41">		this.ac = ac;</span>
+<span class="fc" id="L42">		this.aifsd = aifsd;</span>
+<span class="fc" id="L43">		this.cwMin = cwMin;</span>
+<span class="fc" id="L44">		this.cwMax = cwMax;</span>
+<span class="fc" id="L45">	}</span>
+
+	
+	/**
+	 * Calculates the distance of the specific node from another node.
+	 * @param fromx The x-distance from the other node, e.g. specificNode.x-anotnerNode.x
+	 * @param fromy The y-distance from the other node, e.g. specificNode.y-anotnerNode.y
+	 * @return The distance from the other node in meters.
+	 */
+	public int DistFrom(int fromx, int fromy)
+	{
+<span class="nc" id="L56">		double xdist = (double) fromx-x;</span>
+<span class="nc" id="L57">		double ydist = (double) fromy-y;</span>
+<span class="nc" id="L58">		return (int) Math.sqrt(Math.pow(xdist,2)+Math.pow(ydist,2));</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

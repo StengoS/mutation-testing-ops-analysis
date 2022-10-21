@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FTPSource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pamvotis</a> &gt; <a href="index.source.html" class="el_package">pamvotis.sources</a> &gt; <span class="el_source">FTPSource.java</span></div><h1>FTPSource.java</h1><pre class="source lang-java linenums">package pamvotis.sources;
+
+import pamvotis.core.VirtualPacket;
+
+
+/**
+ * This class represents an FTP source according 3GPP TR 25.892 V6.0.0.
+ * @author Dimitris El. Vassis
+ */
+public class FTPSource extends Source {
+
+<span class="nc" id="L12">	float _ftpFSizeMean=2000000*8; //Ftp traffic parameters</span>
+<span class="nc" id="L13">	float _ftpFSizeStdDev=722000*8; //Ftp traffic parameters</span>
+<span class="nc" id="L14">	float _ftpFSizeMax=5000000*8; //Ftp traffic parameters</span>
+<span class="nc" id="L15">	float _ftpReadingTime=180; //Ftp traffic parameters</span>
+<span class="nc" id="L16">	int _pktSize = 8000;</span>
+<span class="nc" id="L17">	int generatedRTime=0; //The reading time (off period) between the current and the next session</span>
+<span class="nc" id="L18">	int lastPacketID = 0; //The ID of the last packet of the session</span>
+	
+
+	/**
+	 * Instantiates an FTP source as described in 3GPP TR 25.892 V6.0.0.
+	 * @param sourceId The ID of the source
+	 * @param pktSize The packet size in bits.
+	 * @param ftpFSizeMean The mean file size in Bytes.
+	 * @param ftpFSizeStdDev The standard deviation of the file size In bytesi
+	 * @param ftpFSizeMax The maximum file size in Bytes.
+	 * @param ftpReadingTime The reading time in seconds.
+	 */
+	public FTPSource(int sourceId, int pktSize, float ftpFSizeMean, float ftpFSizeStdDev, float ftpFSizeMax,
+			float ftpReadingTime){
+<span class="nc" id="L32">		super(); //Calls the constructor of Source to initialize the source ID</span>
+<span class="nc" id="L33">		_sourceId = sourceId;</span>
+<span class="nc" id="L34">		_pktSize = pktSize;</span>
+<span class="nc" id="L35">		_ftpFSizeMean = ftpFSizeMean * 8;</span>
+<span class="nc" id="L36">		_ftpFSizeStdDev = ftpFSizeStdDev * 8;</span>
+<span class="nc" id="L37">		_ftpFSizeMax = 	ftpFSizeMax * 8;</span>
+<span class="nc" id="L38">		_ftpReadingTime = (int) (((double) ftpReadingTime) / slot);</span>
+<span class="nc" id="L39">		getNextPacket();</span>
+<span class="nc" id="L40">	}</span>
+	
+	/**
+	 * Creates an FTP sesion.
+	 */
+	private void createSession() {
+<span class="nc" id="L46">		RandomGenerator random = RandomGenerator.getInstance();</span>
+		//If the user changed the default packet size (1500Bytes) set a flag. See start of the for loop.
+<span class="nc bnc" id="L48" title="All 2 branches missed.">		boolean packetSizeChanged=false; if(_pktSize!=12000) packetSizeChanged=true;</span>
+		// set file size
+<span class="nc" id="L50">		int file = (int) random.genRv(RandomGenerator.LOGNORMAL_DISTR, _ftpFSizeMean, _ftpFSizeStdDev,_ftpFSizeMax,-1);</span>
+		// set reading time
+<span class="nc" id="L52">		generatedRTime = (int) random.genRv(RandomGenerator.EXPONENTIAL_DISTR, _ftpReadingTime);</span>
+		// Calculate the packets to be transmitted
+		//According to 3GPP, 74% of packets use 1500Bytes MSDU while 24% use 576Butes MSDU.
+		//If the user did not change the default packet size, set the packet size randomly, according to the above. 
+<span class="nc" id="L56">		int pktSize=0; int pktSizeRand = 0; int pkts = 0;</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">		if(packetSizeChanged) pkts = (int) (file / _pktSize);</span>
+<span class="nc" id="L58">		else pkts = (int) (file/(0.24*1500*8+0.76*576*8));</span>
+
+		// Add the packets to the session queue and mark their ids.
+<span class="nc bnc" id="L61" title="All 2 branches missed.">		for (int i = 0; i &lt; pkts; i++) {</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">			if(packetSizeChanged) pktSize = _pktSize;</span>
+			else{
+<span class="nc" id="L64">				pktSizeRand = (int) RandomGenerator.generator.nextFloat();</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">				if(pktSizeRand&gt;0.24f) pktSize = 1500*8;</span>
+<span class="nc" id="L66">				else pktSize = 576*8;</span>
+			}
+<span class="nc" id="L68">			session.addElement(new VirtualPacket(pktSize, 1, i + 1));</span>
+		}
+		// Mark the id of the last packet to be transmitted. When this will
+		// be transmitted, off session will be generated
+<span class="nc" id="L72">		lastPacketID = pkts;</span>
+		// This is a dummy packet.
+		// Ihterarrival is a very long dummy interval. Will be changed by
+		// the setReadingTime
+		// ID is -1 in order to check it and not add it to the packet queue
+		// for transmission
+<span class="nc" id="L78">		session.addElement(new VirtualPacket(1, generatedRTime, -1));</span>
+<span class="nc" id="L79">	}</span>
+
+
+	/**
+	 * If a session is empty, a new one is created. Then the first packet of the session is picked up
+	 * in order to be born when its interarrival counter expires.
+	 */
+	public void getNextPacket() {		
+<span class="nc bnc" id="L87" title="All 2 branches missed.">		if (session.isEmpty()){</span>
+<span class="nc" id="L88">			createSession();</span>
+		}
+<span class="nc" id="L90">		interArTime = session.firstElement().interarrival;</span>
+<span class="nc" id="L91">		pktLength = session.firstElement().length;</span>
+<span class="nc" id="L92">		packetToBeTransmittedID = session.firstElement().id;</span>
+<span class="nc" id="L93">		session.removeElementAt(0);</span>
+<span class="nc" id="L94">	}</span>
+	
+	
+	/**
+	 * This function is not needed for the case of FTP.
+	 */
+<span class="nc" id="L100">	public void synchronize(){}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

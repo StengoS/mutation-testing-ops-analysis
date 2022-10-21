@@ -1,0 +1,249 @@
+[
+   {
+      "run_id": 1,
+      "total_test_cases": 16,
+      "test_suite_strength": 0.75,
+      "mutations_not_killed": {
+         "ConditionalsBoundaryMutator": 3,
+         "InlineConstantMutator": 1,
+         "RemoveConditionalMutator_EQUAL_IF": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 1,
+         "RemoveConditionalMutator_ORDER_IF": 3
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 7,
+         "InlineConstantMutator": 14,
+         "MathMutator": 9,
+         "NegateConditionalsMutator": 17,
+         "RemoveConditionalMutator_EQUAL_ELSE": 7,
+         "RemoveConditionalMutator_EQUAL_IF": 6,
+         "RemoveConditionalMutator_ORDER_ELSE": 9,
+         "RemoveConditionalMutator_ORDER_IF": 7,
+         "PrimitiveReturnsMutator": 8
+      },
+      "test_cases_picked": [
+         20,
+         18,
+         17,
+         10,
+         7,
+         16,
+         4,
+         21,
+         2,
+         8,
+         6,
+         3
+      ],
+      "test_cases_not_picked": [
+         13,
+         14,
+         5,
+         9
+      ]
+   },
+   {
+      "run_id": 2,
+      "total_test_cases": 16,
+      "test_suite_strength": 0.75,
+      "mutations_not_killed": {
+         "ConditionalsBoundaryMutator": 2,
+         "RemoveConditionalMutator_ORDER_ELSE": 1,
+         "RemoveConditionalMutator_ORDER_IF": 2
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 8,
+         "InlineConstantMutator": 15,
+         "MathMutator": 9,
+         "NegateConditionalsMutator": 17,
+         "RemoveConditionalMutator_EQUAL_ELSE": 7,
+         "RemoveConditionalMutator_EQUAL_IF": 7,
+         "RemoveConditionalMutator_ORDER_ELSE": 9,
+         "RemoveConditionalMutator_ORDER_IF": 8,
+         "PrimitiveReturnsMutator": 8
+      },
+      "test_cases_picked": [
+         9,
+         8,
+         3,
+         5,
+         18,
+         4,
+         13,
+         14,
+         10,
+         17,
+         2,
+         6
+      ],
+      "test_cases_not_picked": [
+         21,
+         16,
+         20,
+         7
+      ]
+   },
+   {
+      "run_id": 3,
+      "total_test_cases": 16,
+      "test_suite_strength": 0.875,
+      "mutations_not_killed": {
+         "ConditionalsBoundaryMutator": 1,
+         "RemoveConditionalMutator_ORDER_IF": 1
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 9,
+         "InlineConstantMutator": 15,
+         "MathMutator": 9,
+         "NegateConditionalsMutator": 17,
+         "RemoveConditionalMutator_EQUAL_ELSE": 7,
+         "RemoveConditionalMutator_EQUAL_IF": 7,
+         "RemoveConditionalMutator_ORDER_ELSE": 10,
+         "RemoveConditionalMutator_ORDER_IF": 9,
+         "PrimitiveReturnsMutator": 8
+      },
+      "test_cases_picked": [
+         4,
+         21,
+         9,
+         14,
+         6,
+         8,
+         2,
+         7,
+         18,
+         20,
+         13,
+         16,
+         10,
+         3
+      ],
+      "test_cases_not_picked": [
+         5,
+         17
+      ]
+   },
+   {
+      "run_id": 4,
+      "total_test_cases": 16,
+      "test_suite_strength": 0.9375,
+      "mutations_not_killed": {
+         "ConditionalsBoundaryMutator": 1,
+         "RemoveConditionalMutator_ORDER_IF": 1
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 9,
+         "InlineConstantMutator": 15,
+         "MathMutator": 9,
+         "NegateConditionalsMutator": 17,
+         "RemoveConditionalMutator_EQUAL_ELSE": 7,
+         "RemoveConditionalMutator_EQUAL_IF": 7,
+         "RemoveConditionalMutator_ORDER_ELSE": 10,
+         "RemoveConditionalMutator_ORDER_IF": 9,
+         "PrimitiveReturnsMutator": 8
+      },
+      "test_cases_picked": [
+         6,
+         17,
+         14,
+         13,
+         9,
+         5,
+         16,
+         8,
+         4,
+         2,
+         20,
+         7,
+         21,
+         10,
+         3
+      ],
+      "test_cases_not_picked": [
+         18
+      ]
+   },
+   {
+      "run_id": 5,
+      "total_test_cases": 16,
+      "test_suite_strength": 0.9375,
+      "mutations_not_killed": {
+         "ConditionalsBoundaryMutator": 1,
+         "InlineConstantMutator": 1,
+         "RemoveConditionalMutator_ORDER_IF": 1
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 9,
+         "InlineConstantMutator": 14,
+         "MathMutator": 9,
+         "NegateConditionalsMutator": 17,
+         "RemoveConditionalMutator_EQUAL_ELSE": 7,
+         "RemoveConditionalMutator_EQUAL_IF": 7,
+         "RemoveConditionalMutator_ORDER_ELSE": 10,
+         "RemoveConditionalMutator_ORDER_IF": 9,
+         "PrimitiveReturnsMutator": 8
+      },
+      "test_cases_picked": [
+         7,
+         8,
+         16,
+         17,
+         20,
+         21,
+         3,
+         10,
+         5,
+         18,
+         14,
+         9,
+         4,
+         6,
+         2
+      ],
+      "test_cases_not_picked": [
+         13
+      ]
+   }
+]
+=======================================
+Median run is:
+{
+   "run_id": 3,
+   "total_test_cases": 16,
+   "test_suite_strength": 0.875,
+   "mutations_not_killed": {
+      "ConditionalsBoundaryMutator": 1,
+      "RemoveConditionalMutator_ORDER_IF": 1
+   },
+   "mutations_killed": {
+      "ConditionalsBoundaryMutator": 9,
+      "InlineConstantMutator": 15,
+      "MathMutator": 9,
+      "NegateConditionalsMutator": 17,
+      "RemoveConditionalMutator_EQUAL_ELSE": 7,
+      "RemoveConditionalMutator_EQUAL_IF": 7,
+      "RemoveConditionalMutator_ORDER_ELSE": 10,
+      "RemoveConditionalMutator_ORDER_IF": 9,
+      "PrimitiveReturnsMutator": 8
+   },
+   "test_cases_picked": [
+      4,
+      21,
+      9,
+      14,
+      6,
+      8,
+      2,
+      7,
+      18,
+      20,
+      13,
+      16,
+      10,
+      3
+   ],
+   "test_cases_not_picked": [
+      5,
+      17
+   ]
+}

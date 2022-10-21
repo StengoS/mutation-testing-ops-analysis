@@ -1,0 +1,920 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MakeNtConf.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pamvotis</a> &gt; <a href="index.source.html" class="el_package">pamvotis.intf</a> &gt; <span class="el_source">MakeNtConf.java</span></div><h1>MakeNtConf.java</h1><pre class="source lang-java linenums">package pamvotis.intf;
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//This class reads the parameters from the GUI or the network configuration file and makes an xml file
+//which is used by the Simulator class.
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.StringTokenizer;
+
+import org.apache.xerces.dom.DocumentImpl;
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
+//import com.sun.org.apache.xerces.internal.dom.DocumentImpl;
+//import com.sun.org.apache.xml.internal.serialize.OutputFormat;
+//import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
+
+
+<span class="nc" id="L33">public class MakeNtConf {</span>
+	
+	//These variables are initialized with set methods from the GUI. Their values are written to the xml file
+<span class="nc" id="L36">	private String seed = &quot;69&quot;;</span>
+<span class="nc" id="L37">	private String duration=&quot;300&quot;;</span>
+<span class="nc" id="L38">	private String values = &quot;100&quot;;</span>
+<span class="nc" id="L39">	private String nodes=&quot;10&quot;;</span>
+<span class="nc" id="L40">	private String pktLngth = &quot;8000&quot;;</span>
+<span class="nc" id="L41">	private String pktDist = &quot;c&quot;;</span>
+<span class="nc" id="L42">	private String intArrTime=&quot;8&quot;;</span>
+<span class="nc" id="L43">	private String intArrDstr = &quot;c&quot;;</span>
+<span class="nc" id="L44">	private String rate = &quot;1000000&quot;;</span>
+<span class="nc" id="L45">	private String phyLayer = &quot;s&quot;;</span>
+<span class="nc" id="L46">	private String mixNodes = &quot;0&quot;;</span>
+<span class="nc" id="L47">	private String rtsThr = &quot;99999&quot;;</span>
+<span class="nc" id="L48">	private String ctsToSelf = &quot;n&quot;;</span>
+<span class="nc" id="L49">	private String ntConfPath = &quot;&quot;;</span>
+<span class="nc" id="L50">	private String resultsPath = new File(&quot;.&quot;).getAbsolutePath();</span>
+<span class="nc" id="L51">	private String outResults= &quot;_&quot;;</span>
+	
+<span class="nc" id="L53">	private String cwmin0=&quot;1&quot;;</span>
+<span class="nc" id="L54">	private String cwmin1=&quot;2&quot;;</span>
+<span class="nc" id="L55">	private String cwmin2=&quot;4&quot;;</span>
+<span class="nc" id="L56">	private String cwmin3=&quot;8&quot;;</span>
+<span class="nc" id="L57">	private String cwmax0=&quot;1&quot;;</span>
+<span class="nc" id="L58">	private String cwmax1=&quot;4&quot;;</span>
+<span class="nc" id="L59">	private String cwmax2=&quot;8&quot;;</span>
+<span class="nc" id="L60">	private String cwmax3=&quot;16&quot;;</span>
+<span class="nc" id="L61">	private String aifs0=&quot;2&quot;;</span>
+<span class="nc" id="L62">	private String aifs1=&quot;2&quot;;</span>
+<span class="nc" id="L63">	private String aifs2=&quot;1&quot;;</span>
+<span class="nc" id="L64">	private String aifs3=&quot;1&quot;;</span>
+	 
+	 //The above four values are used to determine the physical layer and number of 802.11b nodes
+	 //in mixed mode. They are used only if network configuration file is used.
+<span class="nc" id="L68">	 private int sLayer = 0;</span>
+<span class="nc" id="L69">	 private int bLayer = 0;</span>
+<span class="nc" id="L70">	 private int aLayer = 0;</span>
+<span class="nc" id="L71">	 private int gLayer = 0;</span>
+<span class="nc" id="L72">	 private int nd = 0;</span>
+	 
+	 //This method is called when configuration from GUI is choosed
+	 public void configureGlobally(){
+<span class="nc" id="L76">		 Element e = null;</span>
+<span class="nc" id="L77">		 Element s = null;</span>
+<span class="nc" id="L78">		Element tr=null;</span>
+<span class="nc" id="L79">		Node n = null;</span>
+
+<span class="nc" id="L81">		Document xmldoc= new DocumentImpl();</span>
+
+<span class="nc" id="L83">		Element root = xmldoc.createElement(&quot;scenario&quot;);</span>
+<span class="nc" id="L84">		e = xmldoc.createElementNS(null, &quot;seed&quot;);</span>
+<span class="nc" id="L85">		n = (Node) xmldoc.createTextNode(seed);</span>
+<span class="nc" id="L86">		e.appendChild((Node) n);</span>
+<span class="nc" id="L87">		root.appendChild(e);</span>
+		
+<span class="nc" id="L89">		e = xmldoc.createElementNS(null, &quot;duration&quot;);</span>
+<span class="nc" id="L90">		n = (Node) xmldoc.createTextNode(duration);</span>
+<span class="nc" id="L91">		e.appendChild((Node) n);</span>
+<span class="nc" id="L92">		root.appendChild(e);</span>
+		
+<span class="nc" id="L94">		e = xmldoc.createElementNS(null, &quot;values&quot;);</span>
+<span class="nc" id="L95">		n = (Node) xmldoc.createTextNode(values);</span>
+<span class="nc" id="L96">		e.appendChild((Node) n);</span>
+<span class="nc" id="L97">		root.appendChild(e);</span>
+		
+		//For each node...
+<span class="nc bnc" id="L100" title="All 2 branches missed.">		for (int i=0;i&lt;Integer.parseInt(nodes);i++)</span>
+		{
+<span class="nc" id="L102">			e = xmldoc.createElementNS(null, &quot;node&quot;);</span>
+<span class="nc" id="L103">			e.setAttributeNS(null, &quot;number&quot;, Integer.toString(i+1));</span>
+<span class="nc" id="L104">			tr= xmldoc.createElementNS(null, &quot;rate&quot;);</span>
+<span class="nc" id="L105">			n = (Node)xmldoc.createTextNode(rate);</span>
+<span class="nc" id="L106">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L107">			e.appendChild(tr);</span>
+			
+			//Remember that if global configation is used, the coverage and position parameters have no mean.
+<span class="nc" id="L110">			tr= xmldoc.createElementNS(null, &quot;coverage&quot;);</span>
+<span class="nc" id="L111">			n = (Node)xmldoc.createTextNode(&quot;17&quot;);</span>
+<span class="nc" id="L112">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L113">			e.appendChild(tr);</span>
+			
+<span class="nc" id="L115">			tr= xmldoc.createElementNS(null, &quot;xPosition&quot;);</span>
+<span class="nc" id="L116">			n = (Node)xmldoc.createTextNode(&quot;17&quot;);</span>
+<span class="nc" id="L117">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L118">			e.appendChild(tr);</span>
+			
+<span class="nc" id="L120">			tr= xmldoc.createElementNS(null, &quot;yPosition&quot;);</span>
+<span class="nc" id="L121">			n = (Node)xmldoc.createTextNode(&quot;17&quot;);</span>
+<span class="nc" id="L122">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L123">			e.appendChild(tr);</span>
+			
+<span class="nc" id="L125">			tr= xmldoc.createElementNS(null, &quot;AC&quot;);</span>
+<span class="nc" id="L126">			n = (Node)xmldoc.createTextNode(&quot;0&quot;);</span>
+<span class="nc" id="L127">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L128">			e.appendChild(tr);</span>
+			
+			//Create a default source. This is expected to change  in later versions.
+<span class="nc" id="L131">			s = xmldoc.createElementNS(null, &quot;source&quot;);</span>
+<span class="nc" id="L132">			s.setAttributeNS(null, &quot;id&quot;, &quot;1&quot;);</span>
+<span class="nc" id="L133">			s.setAttributeNS(null, &quot;type&quot;, &quot;generic&quot;);</span>
+			
+<span class="nc" id="L135">			tr= xmldoc.createElementNS(null, &quot;pktLngth&quot;);</span>
+<span class="nc" id="L136">			n = (Node)xmldoc.createTextNode(pktLngth);</span>
+<span class="nc" id="L137">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L138">			s.appendChild(tr);</span>
+			
+<span class="nc" id="L140">			tr= xmldoc.createElementNS(null, &quot;pktDist&quot;);</span>
+<span class="nc" id="L141">			n = (Node)xmldoc.createTextNode(pktDist);</span>
+<span class="nc" id="L142">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L143">			s.appendChild(tr);</span>
+			
+<span class="nc" id="L145">			tr= xmldoc.createElementNS(null, &quot;intArrTime&quot;);</span>
+<span class="nc" id="L146">			n = (Node)xmldoc.createTextNode(intArrTime);</span>
+<span class="nc" id="L147">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L148">			s.appendChild(tr);</span>
+			
+<span class="nc" id="L150">			tr= xmldoc.createElementNS(null, &quot;intArrDstr&quot;);</span>
+<span class="nc" id="L151">			n = (Node)xmldoc.createTextNode(intArrDstr);</span>
+<span class="nc" id="L152">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L153">			s.appendChild(tr);</span>
+			
+<span class="nc" id="L155">			e.appendChild(s);</span>
+			
+<span class="nc" id="L157">			root.appendChild(e);			</span>
+		}
+<span class="nc" id="L159">		e = xmldoc.createElementNS(null, &quot;nodes&quot;);</span>
+<span class="nc" id="L160">		n = (Node) xmldoc.createTextNode(nodes);</span>
+<span class="nc" id="L161">		e.appendChild((Node) n);</span>
+<span class="nc" id="L162">		root.appendChild(e);</span>
+<span class="nc" id="L163">		e = xmldoc.createElementNS(null, &quot;mixNodes&quot;);</span>
+<span class="nc" id="L164">		n = (Node) xmldoc.createTextNode(mixNodes);</span>
+<span class="nc" id="L165">		e.appendChild((Node) n);</span>
+<span class="nc" id="L166">		root.appendChild(e);</span>
+		
+<span class="nc" id="L168">		e = xmldoc.createElementNS(null, &quot;phyLayer&quot;);</span>
+<span class="nc" id="L169">		n = (Node) xmldoc.createTextNode(phyLayer);</span>
+<span class="nc" id="L170">		e.appendChild((Node) n);</span>
+<span class="nc" id="L171">		root.appendChild(e);</span>
+		
+<span class="nc" id="L173">		e= xmldoc.createElementNS(null, &quot;RTSThr&quot;);</span>
+<span class="nc" id="L174">		n = (Node) xmldoc.createTextNode(rtsThr);</span>
+<span class="nc" id="L175">		e.appendChild((Node) n);</span>
+<span class="nc" id="L176">		root.appendChild(e);</span>
+
+<span class="nc" id="L178">		e= xmldoc.createElementNS(null, &quot;ctsToSelf&quot;);</span>
+<span class="nc" id="L179">		n = (Node) xmldoc.createTextNode(ctsToSelf);</span>
+<span class="nc" id="L180">		e.appendChild((Node) n);</span>
+<span class="nc" id="L181">		root.appendChild(e);</span>
+		
+<span class="nc" id="L183">		e = xmldoc.createElementNS(null, &quot;EDCA&quot;);</span>
+		
+<span class="nc" id="L185">		tr= xmldoc.createElementNS(null, &quot;cwMinFact0&quot;);</span>
+<span class="nc" id="L186">		n = (Node)xmldoc.createTextNode(cwmin0);</span>
+<span class="nc" id="L187">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L188">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L190">		tr= xmldoc.createElementNS(null, &quot;cwMinFact1&quot;);</span>
+<span class="nc" id="L191">		n = (Node)xmldoc.createTextNode(cwmin1);</span>
+<span class="nc" id="L192">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L193">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L195">		tr= xmldoc.createElementNS(null, &quot;cwMinFact2&quot;);</span>
+<span class="nc" id="L196">		n = (Node)xmldoc.createTextNode(cwmin2);</span>
+<span class="nc" id="L197">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L198">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L200">		tr= xmldoc.createElementNS(null, &quot;cwMinFact3&quot;);</span>
+<span class="nc" id="L201">		n = (Node)xmldoc.createTextNode(cwmin3);</span>
+<span class="nc" id="L202">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L203">		e.appendChild(tr);</span>
+
+<span class="nc" id="L205">		tr= xmldoc.createElementNS(null, &quot;cwMaxFact0&quot;);</span>
+<span class="nc" id="L206">		n = (Node)xmldoc.createTextNode(cwmax0);</span>
+<span class="nc" id="L207">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L208">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L210">		tr= xmldoc.createElementNS(null, &quot;cwMaxFact1&quot;);</span>
+<span class="nc" id="L211">		n = (Node)xmldoc.createTextNode(cwmax1);</span>
+<span class="nc" id="L212">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L213">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L215">		tr= xmldoc.createElementNS(null, &quot;cwMaxFact2&quot;);</span>
+<span class="nc" id="L216">		n = (Node)xmldoc.createTextNode(cwmax2);</span>
+<span class="nc" id="L217">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L218">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L220">		tr= xmldoc.createElementNS(null, &quot;cwMaxFact3&quot;);</span>
+<span class="nc" id="L221">		n = (Node)xmldoc.createTextNode(cwmax3);</span>
+<span class="nc" id="L222">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L223">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L225">		tr= xmldoc.createElementNS(null, &quot;aifs0&quot;);</span>
+<span class="nc" id="L226">		n = (Node)xmldoc.createTextNode(aifs0);</span>
+<span class="nc" id="L227">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L228">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L230">		tr= xmldoc.createElementNS(null, &quot;aifs1&quot;);</span>
+<span class="nc" id="L231">		n = (Node)xmldoc.createTextNode(aifs1);</span>
+<span class="nc" id="L232">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L233">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L235">		tr= xmldoc.createElementNS(null, &quot;aifs2&quot;);</span>
+<span class="nc" id="L236">		n = (Node)xmldoc.createTextNode(aifs2);</span>
+<span class="nc" id="L237">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L238">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L240">		tr= xmldoc.createElementNS(null, &quot;aifs3&quot;);</span>
+<span class="nc" id="L241">		n = (Node)xmldoc.createTextNode(aifs3);</span>
+<span class="nc" id="L242">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L243">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L245">		root.appendChild(e);</span>
+		
+<span class="nc" id="L247">		e= xmldoc.createElementNS(null, &quot;resultsPath&quot;);</span>
+<span class="nc" id="L248">		n = (Node) xmldoc.createTextNode(resultsPath);</span>
+<span class="nc" id="L249">		e.appendChild((Node) n);</span>
+<span class="nc" id="L250">		root.appendChild(e);</span>
+		
+		//Out results is a string determining the results that the user choosed.
+<span class="nc" id="L253">		e= xmldoc.createElementNS(null, &quot;outResults&quot;);</span>
+<span class="nc" id="L254">		n = (Node) xmldoc.createTextNode(outResults);</span>
+<span class="nc" id="L255">		e.appendChild((Node) n);</span>
+<span class="nc" id="L256">		root.appendChild(e);</span>
+		
+<span class="nc" id="L258">		xmldoc.appendChild(root);</span>
+			
+		try {
+			
+			//The xml configuration file is called NtConf.xml
+<span class="nc" id="L263">			FileOutputStream fos = new FileOutputStream(&quot;config&quot;+File.separator+&quot;NtConf.xml&quot;);</span>
+
+<span class="nc" id="L265">			OutputFormat of = new OutputFormat(&quot;XML&quot;,&quot;ISO-8859-1&quot;,true);</span>
+<span class="nc" id="L266">			of.setIndent(1);</span>
+<span class="nc" id="L267">			of.setIndenting(true);</span>
+<span class="nc" id="L268">			XMLSerializer serializer = new XMLSerializer(fos,of);</span>
+
+<span class="nc" id="L270">			serializer.asDOMSerializer();</span>
+<span class="nc" id="L271">			serializer.serialize( xmldoc.getDocumentElement() );</span>
+<span class="nc" id="L272">			fos.close();</span>
+<span class="nc" id="L273">		} catch (FileNotFoundException e1) {</span>
+<span class="nc" id="L274">			e1.printStackTrace();</span>
+<span class="nc" id="L275">		} catch (IOException e1) {</span>
+<span class="nc" id="L276">			e1.printStackTrace();</span>
+<span class="nc" id="L277">		}</span>
+<span class="nc" id="L278">	}</span>
+	 
+	//Makes the xml configuration file according to an excel network configuration file (windows users) 
+	public void configWithFile(){ 
+<span class="nc" id="L282">		Element e = null;</span>
+<span class="nc" id="L283">		Element s = null;</span>
+<span class="nc" id="L284">		Element tr=null;</span>
+<span class="nc" id="L285">		Node n = null;</span>
+
+<span class="nc" id="L287">		Document xmldoc= new DocumentImpl();</span>
+
+<span class="nc" id="L289">		Element root = xmldoc.createElement(&quot;scenario&quot;);</span>
+<span class="nc" id="L290">		e = xmldoc.createElementNS(null, &quot;seed&quot;);</span>
+<span class="nc" id="L291">		n = (Node) xmldoc.createTextNode(seed);</span>
+<span class="nc" id="L292">		e.appendChild((Node) n);</span>
+<span class="nc" id="L293">		root.appendChild(e);</span>
+		
+<span class="nc" id="L295">		e = xmldoc.createElementNS(null, &quot;duration&quot;);</span>
+<span class="nc" id="L296">		n = (Node) xmldoc.createTextNode(duration);</span>
+<span class="nc" id="L297">		e.appendChild((Node) n);</span>
+<span class="nc" id="L298">		root.appendChild(e);</span>
+		
+<span class="nc" id="L300">		e = xmldoc.createElementNS(null, &quot;values&quot;);</span>
+<span class="nc" id="L301">		n = (Node) xmldoc.createTextNode(values);</span>
+<span class="nc" id="L302">		e.appendChild((Node) n);</span>
+<span class="nc" id="L303">		root.appendChild(e);</span>
+		
+<span class="nc" id="L305">		Connection c = null;</span>
+<span class="nc" id="L306">		Statement stmnt = null;</span>
+<span class="nc" id="L307">		String str=null;</span>
+		
+		try {
+<span class="nc" id="L310">			Class.forName( &quot;sun.jdbc.odbc.JdbcOdbcDriver&quot; );</span>
+<span class="nc" id="L311">			c = DriverManager.getConnection(&quot;jdbc:odbc:Driver={Microsoft Excel Driver (*.xls)};DBQ=&quot; + ntConfPath);</span>
+<span class="nc" id="L312">			stmnt = c.createStatement();</span>
+<span class="nc" id="L313">			String query = &quot;Select * from [NetConf$]&quot; ;</span>
+<span class="nc" id="L314">			ResultSet rs = stmnt.executeQuery( query );</span>
+
+<span class="nc bnc" id="L316" title="All 2 branches missed.">			 while(rs.next()) {</span>
+<span class="nc" id="L317">				 str=rs.getString(1);</span>
+<span class="nc bnc" id="L318" title="All 4 branches missed.">				 if(str!=null &amp;&amp; str.length()!=0){</span>
+<span class="nc" id="L319">					e = xmldoc.createElementNS(null, &quot;node&quot;);</span>
+<span class="nc" id="L320">					e.setAttributeNS(null, &quot;number&quot;, Integer.toString(nd+1));</span>
+
+<span class="nc" id="L322">					tr= xmldoc.createElementNS(null, &quot;rate&quot;);</span>
+<span class="nc" id="L323">					str = rs.getString(2);</span>
+<span class="nc bnc" id="L324" title="All 2 branches missed.">					if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L325">					n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L326">					tr.appendChild((Node) n);</span>
+<span class="nc" id="L327">					e.appendChild(tr);</span>
+					
+<span class="nc" id="L329">					tr= xmldoc.createElementNS(null, &quot;xPosition&quot;);</span>
+<span class="nc" id="L330">					str = rs.getString(7);</span>
+<span class="nc bnc" id="L331" title="All 2 branches missed.">					if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L332">					n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L333">					tr.appendChild((Node) n);</span>
+<span class="nc" id="L334">					e.appendChild(tr);</span>
+					
+<span class="nc" id="L336">					tr= xmldoc.createElementNS(null, &quot;yPosition&quot;);</span>
+<span class="nc" id="L337">					str = rs.getString(8);</span>
+<span class="nc bnc" id="L338" title="All 2 branches missed.">					if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L339">					n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L340">					tr.appendChild((Node) n);</span>
+<span class="nc" id="L341">					e.appendChild(tr);</span>
+					
+<span class="nc" id="L343">					tr= xmldoc.createElementNS(null, &quot;coverage&quot;);</span>
+<span class="nc" id="L344">					str = rs.getString(9);</span>
+<span class="nc bnc" id="L345" title="All 2 branches missed.">					if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L346">					n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L347">					tr.appendChild((Node) n);</span>
+<span class="nc" id="L348">					e.appendChild(tr);</span>
+					
+<span class="nc" id="L350">					tr= xmldoc.createElementNS(null, &quot;AC&quot;);					</span>
+<span class="nc" id="L351">					str=rs.getString(11);</span>
+<span class="nc bnc" id="L352" title="All 2 branches missed.">					if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L353">					n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L354">					tr.appendChild((Node) n);</span>
+<span class="nc" id="L355">					e.appendChild(tr);</span>
+					
+					//Create a default source. This is expected to change  in later versions.
+<span class="nc" id="L358">					s = xmldoc.createElementNS(null, &quot;source&quot;);</span>
+<span class="nc" id="L359">					s.setAttributeNS(null, &quot;id&quot;, &quot;1&quot;);</span>
+<span class="nc" id="L360">					s.setAttributeNS(null, &quot;type&quot;, &quot;generic&quot;);</span>
+					
+<span class="nc" id="L362">					tr= xmldoc.createElementNS(null, &quot;pktLngth&quot;);</span>
+<span class="nc" id="L363">					str = rs.getString(3);</span>
+<span class="nc bnc" id="L364" title="All 2 branches missed.">					if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L365">					n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L366">					tr.appendChild((Node) n);</span>
+<span class="nc" id="L367">					s.appendChild(tr);</span>
+						
+<span class="nc" id="L369">					tr= xmldoc.createElementNS(null, &quot;pktDist&quot;);</span>
+<span class="nc" id="L370">					str = rs.getString(4);</span>
+<span class="nc bnc" id="L371" title="All 2 branches missed.">					if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L372">					n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L373">					tr.appendChild((Node) n);</span>
+<span class="nc" id="L374">					s.appendChild(tr);</span>
+						
+<span class="nc" id="L376">					tr= xmldoc.createElementNS(null, &quot;intArrTime&quot;);</span>
+<span class="nc" id="L377">					str = rs.getString(5);</span>
+<span class="nc bnc" id="L378" title="All 2 branches missed.">					if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L379">					n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L380">					tr.appendChild((Node) n);</span>
+<span class="nc" id="L381">					s.appendChild(tr);</span>
+						
+<span class="nc" id="L383">					tr= xmldoc.createElementNS(null, &quot;intArrDstr&quot;);</span>
+<span class="nc" id="L384">					str = rs.getString(6);</span>
+<span class="nc bnc" id="L385" title="All 2 branches missed.">					if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L386">					n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L387">					tr.appendChild((Node) n);</span>
+<span class="nc" id="L388">					s.appendChild(tr);</span>
+					
+<span class="nc" id="L390">					e.appendChild(s);</span>
+<span class="nc" id="L391">					root.appendChild(e);</span>
+						
+<span class="nc" id="L393">					str = rs.getString(10);</span>
+<span class="nc bnc" id="L394" title="All 2 branches missed.">					if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+					//According to the value of the physical layer increase a counter, in order to know
+					//the number of b nodes in mixed mode.
+<span class="nc bnc" id="L397" title="All 2 branches missed.">					if(str.equals(&quot;s&quot;)) sLayer++;</span>
+<span class="nc bnc" id="L398" title="All 2 branches missed.">					else if (str.equals(&quot;b&quot;)) sLayer++;</span>
+<span class="nc bnc" id="L399" title="All 2 branches missed.">					else if (str.equals(&quot;g&quot;)) gLayer++;</span>
+<span class="nc bnc" id="L400" title="All 2 branches missed.">					else if (str.equals(&quot;a&quot;)) aLayer++;</span>
+<span class="nc" id="L401">					else sLayer++;</span>
+					
+<span class="nc" id="L403">					nd++; //nd is the number of nodes</span>
+				}
+			}
+<span class="nc" id="L406">		} catch (DOMException e2) {</span>
+<span class="nc" id="L407">			e2.printStackTrace();</span>
+<span class="nc" id="L408">		} catch (SQLException e2) {</span>
+<span class="nc" id="L409">			e2.printStackTrace();</span>
+<span class="nc" id="L410">		} catch (ClassNotFoundException e2) {</span>
+<span class="nc" id="L411">			e2.printStackTrace();</span>
+<span class="nc" id="L412">		}</span>
+		//According to the counters determine the physical layer. nd is the number of nodes
+<span class="nc bnc" id="L414" title="All 2 branches missed.">		if(nd==sLayer) phyLayer = &quot;s&quot;;</span>
+<span class="nc bnc" id="L415" title="All 2 branches missed.">		else if(nd==bLayer) phyLayer = &quot;b&quot;;</span>
+<span class="nc bnc" id="L416" title="All 2 branches missed.">		else if(nd==aLayer) phyLayer = &quot;a&quot;;</span>
+<span class="nc bnc" id="L417" title="All 2 branches missed.">		else if(nd==gLayer) phyLayer = &quot;g&quot;;</span>
+<span class="nc" id="L418">		else phyLayer = &quot;m&quot;;</span>
+<span class="nc" id="L419">		e = xmldoc.createElementNS(null, &quot;phyLayer&quot;);</span>
+<span class="nc" id="L420">		n = (Node) xmldoc.createTextNode(phyLayer);</span>
+<span class="nc" id="L421">		e.appendChild((Node) n);</span>
+<span class="nc" id="L422">		root.appendChild(e);</span>
+		
+<span class="nc" id="L424">		e = xmldoc.createElementNS(null, &quot;nodes&quot;);</span>
+<span class="nc" id="L425">		n = (Node) xmldoc.createTextNode(Integer.toString(nd));</span>
+<span class="nc" id="L426">		e.appendChild((Node) n);</span>
+<span class="nc" id="L427">		root.appendChild(e);</span>
+		
+<span class="nc bnc" id="L429" title="All 2 branches missed.">		if(phyLayer==&quot;m&quot;)mixNodes = Integer.toString(nd-gLayer);</span>
+<span class="nc" id="L430">		else mixNodes=&quot;0&quot;;</span>
+<span class="nc" id="L431">		e = xmldoc.createElementNS(null, &quot;mixNodes&quot;);</span>
+<span class="nc" id="L432">		n = (Node) xmldoc.createTextNode(mixNodes);</span>
+<span class="nc" id="L433">		e.appendChild((Node) n);</span>
+<span class="nc" id="L434">		root.appendChild(e);</span>
+		
+<span class="nc" id="L436">		e= xmldoc.createElementNS(null, &quot;RTSThr&quot;);</span>
+<span class="nc" id="L437">		n = (Node) xmldoc.createTextNode(rtsThr);</span>
+<span class="nc" id="L438">		e.appendChild((Node) n);</span>
+<span class="nc" id="L439">		root.appendChild(e);</span>
+
+<span class="nc" id="L441">		e= xmldoc.createElementNS(null, &quot;ctsToSelf&quot;);</span>
+<span class="nc" id="L442">		n = (Node) xmldoc.createTextNode(ctsToSelf);</span>
+<span class="nc" id="L443">		e.appendChild((Node) n);</span>
+<span class="nc" id="L444">		root.appendChild(e);</span>
+		
+<span class="nc" id="L446">		e = xmldoc.createElementNS(null, &quot;EDCA&quot;);</span>
+		
+<span class="nc" id="L448">		tr= xmldoc.createElementNS(null, &quot;cwMinFact0&quot;);</span>
+<span class="nc" id="L449">		n = (Node)xmldoc.createTextNode(cwmin0);</span>
+<span class="nc" id="L450">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L451">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L453">		tr= xmldoc.createElementNS(null, &quot;cwMinFact1&quot;);</span>
+<span class="nc" id="L454">		n = (Node)xmldoc.createTextNode(cwmin1);</span>
+<span class="nc" id="L455">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L456">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L458">		tr= xmldoc.createElementNS(null, &quot;cwMinFact2&quot;);</span>
+<span class="nc" id="L459">		n = (Node)xmldoc.createTextNode(cwmin2);</span>
+<span class="nc" id="L460">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L461">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L463">		tr= xmldoc.createElementNS(null, &quot;cwMinFact3&quot;);</span>
+<span class="nc" id="L464">		n = (Node)xmldoc.createTextNode(cwmin3);</span>
+<span class="nc" id="L465">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L466">		e.appendChild(tr);</span>
+
+<span class="nc" id="L468">		tr= xmldoc.createElementNS(null, &quot;cwMaxFact0&quot;);</span>
+<span class="nc" id="L469">		n = (Node)xmldoc.createTextNode(cwmax0);</span>
+<span class="nc" id="L470">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L471">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L473">		tr= xmldoc.createElementNS(null, &quot;cwMaxFact1&quot;);</span>
+<span class="nc" id="L474">		n = (Node)xmldoc.createTextNode(cwmax1);</span>
+<span class="nc" id="L475">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L476">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L478">		tr= xmldoc.createElementNS(null, &quot;cwMaxFact2&quot;);</span>
+<span class="nc" id="L479">		n = (Node)xmldoc.createTextNode(cwmax2);</span>
+<span class="nc" id="L480">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L481">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L483">		tr= xmldoc.createElementNS(null, &quot;cwMaxFact3&quot;);</span>
+<span class="nc" id="L484">		n = (Node)xmldoc.createTextNode(cwmax3);</span>
+<span class="nc" id="L485">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L486">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L488">		tr= xmldoc.createElementNS(null, &quot;aifs0&quot;);</span>
+<span class="nc" id="L489">		n = (Node)xmldoc.createTextNode(aifs0);</span>
+<span class="nc" id="L490">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L491">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L493">		tr= xmldoc.createElementNS(null, &quot;aifs1&quot;);</span>
+<span class="nc" id="L494">		n = (Node)xmldoc.createTextNode(aifs1);</span>
+<span class="nc" id="L495">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L496">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L498">		tr= xmldoc.createElementNS(null, &quot;aifs2&quot;);</span>
+<span class="nc" id="L499">		n = (Node)xmldoc.createTextNode(aifs2);</span>
+<span class="nc" id="L500">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L501">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L503">		tr= xmldoc.createElementNS(null, &quot;aifs3&quot;);</span>
+<span class="nc" id="L504">		n = (Node)xmldoc.createTextNode(aifs3);</span>
+<span class="nc" id="L505">		tr.appendChild((Node) n);</span>
+<span class="nc" id="L506">		e.appendChild(tr);</span>
+		
+<span class="nc" id="L508">		root.appendChild(e);</span>
+		
+<span class="nc" id="L510">		e= xmldoc.createElementNS(null, &quot;resultsPath&quot;);</span>
+<span class="nc" id="L511">		n = (Node) xmldoc.createTextNode(resultsPath);</span>
+<span class="nc" id="L512">		e.appendChild((Node) n);</span>
+<span class="nc" id="L513">		root.appendChild(e);</span>
+		
+<span class="nc" id="L515">		e= xmldoc.createElementNS(null, &quot;outResults&quot;);</span>
+<span class="nc" id="L516">		n = (Node) xmldoc.createTextNode(outResults);</span>
+<span class="nc" id="L517">		e.appendChild((Node) n);</span>
+<span class="nc" id="L518">		root.appendChild(e);</span>
+		
+<span class="nc" id="L520">		xmldoc.appendChild(root);</span>
+			
+		try {
+<span class="nc" id="L523">			FileOutputStream fos = new FileOutputStream(&quot;config&quot;+File.separator+&quot;NtConf.xml&quot;);</span>
+
+<span class="nc" id="L525">			OutputFormat of = new OutputFormat(&quot;XML&quot;,&quot;ISO-8859-1&quot;,true);</span>
+<span class="nc" id="L526">			of.setIndent(1);</span>
+<span class="nc" id="L527">			of.setIndenting(true);</span>
+<span class="nc" id="L528">			XMLSerializer serializer = new XMLSerializer(fos,of);</span>
+
+<span class="nc" id="L530">			serializer.asDOMSerializer();</span>
+<span class="nc" id="L531">			serializer.serialize( xmldoc.getDocumentElement() );</span>
+<span class="nc" id="L532">			fos.close();</span>
+<span class="nc" id="L533">		} catch (FileNotFoundException e1) {</span>
+<span class="nc" id="L534">			e1.printStackTrace();</span>
+<span class="nc" id="L535">		} catch (IOException e1) {</span>
+<span class="nc" id="L536">			e1.printStackTrace();</span>
+<span class="nc" id="L537">		}</span>
+<span class="nc" id="L538">	}</span>
+	
+	
+	//Makes the xml configuration file according to a text based network configuration file (for linux users)
+	public void configInLinux(){ 
+<span class="nc" id="L543">		Element e = null;</span>
+<span class="nc" id="L544">		Element tr=null;</span>
+<span class="nc" id="L545">		Node n = null;</span>
+
+<span class="nc" id="L547">		Document xmldoc= new DocumentImpl();</span>
+
+<span class="nc" id="L549">		Element root = xmldoc.createElement(&quot;scenario&quot;);</span>
+<span class="nc" id="L550">		e = xmldoc.createElementNS(null, &quot;seed&quot;);</span>
+<span class="nc" id="L551">		n = (Node) xmldoc.createTextNode(seed);</span>
+<span class="nc" id="L552">		e.appendChild((Node) n);</span>
+<span class="nc" id="L553">		root.appendChild(e);</span>
+		
+<span class="nc" id="L555">		e = xmldoc.createElementNS(null, &quot;duration&quot;);</span>
+<span class="nc" id="L556">		n = (Node) xmldoc.createTextNode(duration);</span>
+<span class="nc" id="L557">		e.appendChild((Node) n);</span>
+<span class="nc" id="L558">		root.appendChild(e);</span>
+		
+<span class="nc" id="L560">		e = xmldoc.createElementNS(null, &quot;values&quot;);</span>
+<span class="nc" id="L561">		n = (Node) xmldoc.createTextNode(values);</span>
+<span class="nc" id="L562">		e.appendChild((Node) n);</span>
+<span class="nc" id="L563">		root.appendChild(e);</span>
+		
+<span class="nc" id="L565">		String str=null;</span>
+<span class="nc" id="L566">		String line=null;</span>
+		
+		try {
+<span class="nc" id="L569">			BufferedReader buf = new BufferedReader(new FileReader(ntConfPath));</span>
+			StringTokenizer st;
+			//Ignore the explanation lines
+			//for(int i=0;i&lt;41;i++) buf.readLine();
+<span class="nc bnc" id="L573" title="All 2 branches missed.">			while(!buf.readLine().startsWith(&quot;Node&quot;)){}</span>
+<span class="nc" id="L574">			buf.readLine();</span>
+<span class="nc bnc" id="L575" title="All 2 branches missed.">			 while((line=buf.readLine())!=null) {</span>
+				 //Check for blank lines at the end...
+<span class="nc bnc" id="L577" title="All 18 branches missed.">				 if(!line.startsWith(&quot;1&quot;)&amp;&amp;!line.startsWith(&quot;2&quot;)&amp;&amp;!line.startsWith(&quot;3&quot;)&amp;&amp;!line.startsWith(&quot;4&quot;)&amp;&amp;!line.startsWith(&quot;5&quot;)&amp;&amp;!line.startsWith(&quot;6&quot;)&amp;&amp;!line.startsWith(&quot;7&quot;)&amp;&amp;!line.startsWith(&quot;8&quot;)&amp;&amp;!line.startsWith(&quot;9&quot;))</span>
+<span class="nc" id="L578">					 break;</span>
+<span class="nc" id="L579">				 st = new StringTokenizer(line);</span>
+<span class="nc" id="L580">				 str=st.nextToken();</span>
+<span class="nc" id="L581">				e = xmldoc.createElementNS(null, &quot;node&quot;);</span>
+<span class="nc" id="L582">				e.setAttributeNS(null, &quot;number&quot;, Integer.toString(nd+1));</span>
+
+<span class="nc" id="L584">				tr= xmldoc.createElementNS(null, &quot;rate&quot;);</span>
+<span class="nc" id="L585">				str=st.nextToken();</span>
+<span class="nc bnc" id="L586" title="All 2 branches missed.">				if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L587">				n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L588">				tr.appendChild((Node) n);</span>
+<span class="nc" id="L589">				e.appendChild(tr);</span>
+					
+<span class="nc" id="L591">				tr= xmldoc.createElementNS(null, &quot;pktLngth&quot;);</span>
+<span class="nc" id="L592">				str=st.nextToken();</span>
+<span class="nc bnc" id="L593" title="All 2 branches missed.">				if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L594">				n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L595">				tr.appendChild((Node) n);</span>
+<span class="nc" id="L596">				e.appendChild(tr);</span>
+						
+<span class="nc" id="L598">				tr= xmldoc.createElementNS(null, &quot;pktDist&quot;);</span>
+<span class="nc" id="L599">				str=st.nextToken();</span>
+<span class="nc bnc" id="L600" title="All 2 branches missed.">				if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L601">				n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L602">				tr.appendChild((Node) n);</span>
+<span class="nc" id="L603">				e.appendChild(tr);</span>
+						
+<span class="nc" id="L605">				tr= xmldoc.createElementNS(null, &quot;intArrTime&quot;);</span>
+<span class="nc" id="L606">				str=st.nextToken();</span>
+<span class="nc bnc" id="L607" title="All 2 branches missed.">				if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L608">				n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L609">				tr.appendChild((Node) n);</span>
+<span class="nc" id="L610">				e.appendChild(tr);</span>
+						
+<span class="nc" id="L612">				tr= xmldoc.createElementNS(null, &quot;intArrDstr&quot;);</span>
+<span class="nc" id="L613">				str=st.nextToken();</span>
+<span class="nc bnc" id="L614" title="All 2 branches missed.">				if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L615">				n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L616">				tr.appendChild((Node) n);</span>
+<span class="nc" id="L617">				e.appendChild(tr);</span>
+
+<span class="nc" id="L619">				tr= xmldoc.createElementNS(null, &quot;xPosition&quot;);</span>
+<span class="nc" id="L620">				str=st.nextToken();</span>
+<span class="nc bnc" id="L621" title="All 2 branches missed.">				if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L622">				n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L623">				tr.appendChild((Node) n);</span>
+<span class="nc" id="L624">				e.appendChild(tr);</span>
+
+<span class="nc" id="L626">				tr= xmldoc.createElementNS(null, &quot;yPosition&quot;);</span>
+<span class="nc" id="L627">				str=st.nextToken();</span>
+<span class="nc bnc" id="L628" title="All 2 branches missed.">				if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L629">				n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L630">				tr.appendChild((Node) n);</span>
+<span class="nc" id="L631">				e.appendChild(tr);</span>
+
+<span class="nc" id="L633">				tr= xmldoc.createElementNS(null, &quot;coverage&quot;);</span>
+<span class="nc" id="L634">				str=st.nextToken();</span>
+<span class="nc bnc" id="L635" title="All 2 branches missed.">				if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L636">				n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L637">				tr.appendChild((Node) n);</span>
+<span class="nc" id="L638">				e.appendChild(tr);</span>
+
+<span class="nc" id="L640">				str=st.nextToken();</span>
+<span class="nc bnc" id="L641" title="All 2 branches missed.">				if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+				//According to the value of the physical layer increase a counter, in order to know
+				//the number of b nodes in mixed mode.
+<span class="nc bnc" id="L644" title="All 2 branches missed.">				if(str.equals(&quot;s&quot;)) sLayer++;</span>
+<span class="nc bnc" id="L645" title="All 2 branches missed.">				else if (str.equals(&quot;b&quot;)) sLayer++;</span>
+<span class="nc bnc" id="L646" title="All 2 branches missed.">				else if (str.equals(&quot;g&quot;)) gLayer++;</span>
+<span class="nc bnc" id="L647" title="All 2 branches missed.">				else if (str.equals(&quot;a&quot;)) aLayer++;</span>
+<span class="nc" id="L648">				else sLayer++;</span>
+				
+<span class="nc" id="L650">				tr= xmldoc.createElementNS(null, &quot;AC&quot;);</span>
+<span class="nc" id="L651">				str=st.nextToken();</span>
+<span class="nc bnc" id="L652" title="All 2 branches missed.">				if(str.endsWith(&quot;.0&quot;)) str=str.substring(0,str.length()-2);</span>
+<span class="nc" id="L653">				n = (Node)xmldoc.createTextNode(str);</span>
+<span class="nc" id="L654">				tr.appendChild((Node) n);</span>
+<span class="nc" id="L655">				e.appendChild(tr);</span>
+				
+<span class="nc" id="L657">				root.appendChild(e);</span>
+				
+<span class="nc" id="L659">				nd++; //nd is the number of nodes</span>
+			}
+
+			//According to the counters determine the physical layer. nd is the number of nodes
+<span class="nc bnc" id="L663" title="All 2 branches missed.">			if(nd==sLayer) phyLayer = &quot;s&quot;;</span>
+<span class="nc bnc" id="L664" title="All 2 branches missed.">			else if(nd==bLayer) phyLayer = &quot;b&quot;;</span>
+<span class="nc bnc" id="L665" title="All 2 branches missed.">			else if(nd==aLayer) phyLayer = &quot;a&quot;;</span>
+<span class="nc bnc" id="L666" title="All 2 branches missed.">			else if(nd==gLayer) phyLayer = &quot;g&quot;;</span>
+<span class="nc" id="L667">			else phyLayer = &quot;m&quot;;</span>
+<span class="nc" id="L668">			e = xmldoc.createElementNS(null, &quot;phyLayer&quot;);</span>
+<span class="nc" id="L669">			n = (Node) xmldoc.createTextNode(phyLayer);</span>
+<span class="nc" id="L670">			e.appendChild((Node) n);</span>
+<span class="nc" id="L671">			root.appendChild(e);</span>
+		
+<span class="nc" id="L673">			e = xmldoc.createElementNS(null, &quot;nodes&quot;);</span>
+<span class="nc" id="L674">			n = (Node) xmldoc.createTextNode(Integer.toString(nd));</span>
+<span class="nc" id="L675">			e.appendChild((Node) n);</span>
+<span class="nc" id="L676">			root.appendChild(e);</span>
+		
+<span class="nc bnc" id="L678" title="All 2 branches missed.">			if(phyLayer==&quot;m&quot;)mixNodes = Integer.toString(nd-gLayer);</span>
+<span class="nc" id="L679">			else mixNodes=&quot;0&quot;;</span>
+<span class="nc" id="L680">			e = xmldoc.createElementNS(null, &quot;mixNodes&quot;);</span>
+<span class="nc" id="L681">			n = (Node) xmldoc.createTextNode(mixNodes);</span>
+<span class="nc" id="L682">			e.appendChild((Node) n);</span>
+<span class="nc" id="L683">			root.appendChild(e);</span>
+		
+<span class="nc" id="L685">			e= xmldoc.createElementNS(null, &quot;RTSThr&quot;);</span>
+<span class="nc" id="L686">			n = (Node) xmldoc.createTextNode(rtsThr);</span>
+<span class="nc" id="L687">			e.appendChild((Node) n);</span>
+<span class="nc" id="L688">			root.appendChild(e);</span>
+
+<span class="nc" id="L690">			e= xmldoc.createElementNS(null, &quot;ctsToSelf&quot;);</span>
+<span class="nc" id="L691">			n = (Node) xmldoc.createTextNode(ctsToSelf);</span>
+<span class="nc" id="L692">			e.appendChild((Node) n);</span>
+<span class="nc" id="L693">			root.appendChild(e);</span>
+			
+<span class="nc" id="L695">			e = xmldoc.createElementNS(null, &quot;EDCA&quot;);</span>
+			
+<span class="nc" id="L697">			tr= xmldoc.createElementNS(null, &quot;cwMinFact0&quot;);</span>
+<span class="nc" id="L698">			n = (Node)xmldoc.createTextNode(cwmin0);</span>
+<span class="nc" id="L699">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L700">			e.appendChild(tr);</span>
+			
+<span class="nc" id="L702">			tr= xmldoc.createElementNS(null, &quot;cwMinFact1&quot;);</span>
+<span class="nc" id="L703">			n = (Node)xmldoc.createTextNode(cwmin1);</span>
+<span class="nc" id="L704">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L705">			e.appendChild(tr);</span>
+			
+<span class="nc" id="L707">			tr= xmldoc.createElementNS(null, &quot;cwMinFact2&quot;);</span>
+<span class="nc" id="L708">			n = (Node)xmldoc.createTextNode(cwmin2);</span>
+<span class="nc" id="L709">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L710">			e.appendChild(tr);</span>
+			
+<span class="nc" id="L712">			tr= xmldoc.createElementNS(null, &quot;cwMinFact3&quot;);</span>
+<span class="nc" id="L713">			n = (Node)xmldoc.createTextNode(cwmin3);</span>
+<span class="nc" id="L714">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L715">			e.appendChild(tr);</span>
+
+<span class="nc" id="L717">			tr= xmldoc.createElementNS(null, &quot;cwMaxFact0&quot;);</span>
+<span class="nc" id="L718">			n = (Node)xmldoc.createTextNode(cwmax0);</span>
+<span class="nc" id="L719">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L720">			e.appendChild(tr);</span>
+			
+<span class="nc" id="L722">			tr= xmldoc.createElementNS(null, &quot;cwMaxFact1&quot;);</span>
+<span class="nc" id="L723">			n = (Node)xmldoc.createTextNode(cwmax1);</span>
+<span class="nc" id="L724">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L725">			e.appendChild(tr);</span>
+			
+<span class="nc" id="L727">			tr= xmldoc.createElementNS(null, &quot;cwMaxFact2&quot;);</span>
+<span class="nc" id="L728">			n = (Node)xmldoc.createTextNode(cwmax2);</span>
+<span class="nc" id="L729">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L730">			e.appendChild(tr);</span>
+			
+<span class="nc" id="L732">			tr= xmldoc.createElementNS(null, &quot;cwMaxFact3&quot;);</span>
+<span class="nc" id="L733">			n = (Node)xmldoc.createTextNode(cwmax3);</span>
+<span class="nc" id="L734">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L735">			e.appendChild(tr);</span>
+			
+<span class="nc" id="L737">			tr= xmldoc.createElementNS(null, &quot;aifs0&quot;);</span>
+<span class="nc" id="L738">			n = (Node)xmldoc.createTextNode(aifs0);</span>
+<span class="nc" id="L739">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L740">			e.appendChild(tr);</span>
+			
+<span class="nc" id="L742">			tr= xmldoc.createElementNS(null, &quot;aifs1&quot;);</span>
+<span class="nc" id="L743">			n = (Node)xmldoc.createTextNode(aifs1);</span>
+<span class="nc" id="L744">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L745">			e.appendChild(tr);</span>
+			
+<span class="nc" id="L747">			tr= xmldoc.createElementNS(null, &quot;aifs2&quot;);</span>
+<span class="nc" id="L748">			n = (Node)xmldoc.createTextNode(aifs2);</span>
+<span class="nc" id="L749">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L750">			e.appendChild(tr);</span>
+			
+<span class="nc" id="L752">			tr= xmldoc.createElementNS(null, &quot;aifs3&quot;);</span>
+<span class="nc" id="L753">			n = (Node)xmldoc.createTextNode(aifs3);</span>
+<span class="nc" id="L754">			tr.appendChild((Node) n);</span>
+<span class="nc" id="L755">			e.appendChild(tr);</span>
+			
+<span class="nc" id="L757">			root.appendChild(e);</span>
+			
+<span class="nc" id="L759">			e= xmldoc.createElementNS(null, &quot;resultsPath&quot;);</span>
+<span class="nc" id="L760">			n = (Node) xmldoc.createTextNode(resultsPath);</span>
+<span class="nc" id="L761">			e.appendChild((Node) n);</span>
+<span class="nc" id="L762">			root.appendChild(e);</span>
+		
+<span class="nc" id="L764">			e= xmldoc.createElementNS(null, &quot;outResults&quot;);</span>
+<span class="nc" id="L765">			n = (Node) xmldoc.createTextNode(outResults);</span>
+<span class="nc" id="L766">			e.appendChild((Node) n);</span>
+<span class="nc" id="L767">			root.appendChild(e);</span>
+		
+<span class="nc" id="L769">			xmldoc.appendChild(root);</span>
+			
+<span class="nc" id="L771">			FileOutputStream fos = new FileOutputStream(&quot;config&quot;+File.separator+&quot;NtConf.xml&quot;);</span>
+
+<span class="nc" id="L773">			OutputFormat of = new OutputFormat(&quot;XML&quot;,&quot;ISO-8859-1&quot;,true);</span>
+<span class="nc" id="L774">			of.setIndent(1);</span>
+<span class="nc" id="L775">			of.setIndenting(true);</span>
+<span class="nc" id="L776">			XMLSerializer serializer = new XMLSerializer(fos,of);</span>
+
+<span class="nc" id="L778">			serializer.asDOMSerializer();</span>
+<span class="nc" id="L779">			serializer.serialize( xmldoc.getDocumentElement() );</span>
+<span class="nc" id="L780">			fos.close();</span>
+<span class="nc" id="L781">		} catch (DOMException e2) {</span>
+<span class="nc" id="L782">			e2.printStackTrace();</span>
+<span class="nc" id="L783">		} catch (FileNotFoundException e1) {</span>
+<span class="nc" id="L784">			e1.printStackTrace();</span>
+<span class="nc" id="L785">		} catch (IOException e1) {</span>
+<span class="nc" id="L786">			e1.printStackTrace();</span>
+<span class="nc" id="L787">		}</span>
+<span class="nc" id="L788">	}</span>
+	
+	
+	//Set method follow...
+	
+	public void setCtsToSelf(String ctsToSelf) {
+<span class="nc" id="L794">		this.ctsToSelf = ctsToSelf;</span>
+<span class="nc" id="L795">	}</span>
+
+	public void setDuration(String duration) {
+<span class="nc" id="L798">		this.duration = duration;</span>
+<span class="nc" id="L799">	}</span>
+
+	public void setMixNodes(String mixNodes) {
+<span class="nc" id="L802">		this.mixNodes = mixNodes;</span>
+<span class="nc" id="L803">	}</span>
+
+	public void setNodes(String nodes) {
+<span class="nc" id="L806">		this.nodes = nodes;</span>
+<span class="nc" id="L807">	}</span>
+
+	public void setNtConfPath(String ntConfPath) {
+<span class="nc" id="L810">		this.ntConfPath = ntConfPath;</span>
+<span class="nc" id="L811">	}</span>
+
+	public void setOutResults(String outResults) {
+<span class="nc" id="L814">		this.outResults = outResults;</span>
+<span class="nc" id="L815">	}</span>
+
+	public void setResultsPath(String resultsPath) {
+<span class="nc" id="L818">		this.resultsPath = resultsPath;</span>
+<span class="nc" id="L819">	}</span>
+
+	public void setRtsThr(String rtsThr) {
+<span class="nc" id="L822">		this.rtsThr = rtsThr;</span>
+<span class="nc" id="L823">	}</span>
+
+	public void setSeed(String seed) {
+<span class="nc" id="L826">		this.seed = seed;</span>
+<span class="nc" id="L827">	}</span>
+
+	public void setValues(String values) {
+<span class="nc" id="L830">		this.values = values;</span>
+<span class="nc" id="L831">	}</span>
+	
+	public void setIntArrDstr(String intArrDstr) {
+<span class="nc" id="L834">		this.intArrDstr = intArrDstr;</span>
+<span class="nc" id="L835">	}</span>
+	public void setIntArrTime(String intArrTime) {
+<span class="nc" id="L837">		this.intArrTime = intArrTime;</span>
+<span class="nc" id="L838">	}</span>
+	public void setPhyLayer(String phyLayer) {
+<span class="nc" id="L840">		this.phyLayer = phyLayer;</span>
+<span class="nc" id="L841">	}</span>
+	public void setPktDist(String pktDist) {
+<span class="nc" id="L843">		this.pktDist = pktDist;</span>
+<span class="nc" id="L844">	}</span>
+	public void setPktLngth(String pktLngth) {
+<span class="nc" id="L846">		this.pktLngth = pktLngth;</span>
+<span class="nc" id="L847">	}</span>
+	public void setRate(String rate) {
+<span class="nc" id="L849">		this.rate = rate;</span>
+<span class="nc" id="L850">	}</span>
+
+	public void setAifs0(String aifs0) {
+<span class="nc" id="L853">		this.aifs0 = aifs0;</span>
+<span class="nc" id="L854">	}</span>
+
+	public void setAifs1(String aifs1) {
+<span class="nc" id="L857">		this.aifs1 = aifs1;</span>
+<span class="nc" id="L858">	}</span>
+
+	public void setAifs2(String aifs2) {
+<span class="nc" id="L861">		this.aifs2 = aifs2;</span>
+<span class="nc" id="L862">	}</span>
+
+	public void setAifs3(String aifs3) {
+<span class="nc" id="L865">		this.aifs3 = aifs3;</span>
+<span class="nc" id="L866">	}</span>
+
+	public void setALayer(int layer) {
+<span class="nc" id="L869">		aLayer = layer;</span>
+<span class="nc" id="L870">	}</span>
+
+	public void setBLayer(int layer) {
+<span class="nc" id="L873">		bLayer = layer;</span>
+<span class="nc" id="L874">	}</span>
+
+	public void setCwmax0(String cwmax0) {
+<span class="nc" id="L877">		this.cwmax0 = cwmax0;</span>
+<span class="nc" id="L878">	}</span>
+
+	public void setCwmax1(String cwmax1) {
+<span class="nc" id="L881">		this.cwmax1 = cwmax1;</span>
+<span class="nc" id="L882">	}</span>
+
+	public void setCwmax2(String cwmax2) {
+<span class="nc" id="L885">		this.cwmax2 = cwmax2;</span>
+<span class="nc" id="L886">	}</span>
+
+	public void setCwmax3(String cwmax3) {
+<span class="nc" id="L889">		this.cwmax3 = cwmax3;</span>
+<span class="nc" id="L890">	}</span>
+
+	public void setCwmin0(String cwmin0) {
+<span class="nc" id="L893">		this.cwmin0 = cwmin0;</span>
+<span class="nc" id="L894">	}</span>
+
+	public void setCwmin1(String cwmin1) {
+<span class="nc" id="L897">		this.cwmin1 = cwmin1;</span>
+<span class="nc" id="L898">	}</span>
+
+	public void setCwmin2(String cwmin2) {
+<span class="nc" id="L901">		this.cwmin2 = cwmin2;</span>
+<span class="nc" id="L902">	}</span>
+
+	public void setCwmin3(String cwmin3) {
+<span class="nc" id="L905">		this.cwmin3 = cwmin3;</span>
+<span class="nc" id="L906">	}</span>
+
+	public void setGLayer(int layer) {
+<span class="nc" id="L909">		gLayer = layer;</span>
+<span class="nc" id="L910">	}</span>
+
+	public void setNd(int nd) {
+<span class="nc" id="L913">		this.nd = nd;</span>
+<span class="nc" id="L914">	}</span>
+
+	public void setSLayer(int layer) {
+<span class="nc" id="L917">		sLayer = layer;</span>
+<span class="nc" id="L918">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -1,0 +1,112 @@
+#+STARTUP: showall
+
+* Equivalent Mutants
+
+** Major 
+
+| Mutant  | Line | Original Statement      | Mutated Statement       |
+|---------+------+-------------------------+-------------------------|
+| 11_COR  |   21 | a <= 0 ¦¦ b <= 0        | a <= 0 != b <= 0        |
+| 55_ROR  |   34 | trian == 0              | trian <= 0              |
+| 94_ROR  |   44 | trian == 1              | trian <= 1              |
+| 104_COR |   44 | trian == 1 && a + b > c | trian == 1 == a + b > c |
+| 120_COR |   47 | trian == 2 && a + c > b | trian == 2 == a + c > b |
+| 127_ROR |   50 | trian == 3              | trian >= 3              |
+| 136_COR |   50 | trian == 3 && b + c > a | trian == 3 == b + c > a |
+|---------+------+-------------------------+-------------------------|
+| Total   |    7 |                         |                         |
+#+TBLFM: @9$2=vcount(@I..II)
+
+
+** PIT: Default Mutation Operators
+
+| Mutant | Line |
+|--------+------|
+| -      |      |
+
+
+** PIT: ALL Mutation Operators: Equivalents
+
+| Mutant                | Line | Original Statement | Mutated Statement |
+|-----------------------+------+--------------------+-------------------|
+| InlineConstantMutator |   41 | if (trian  > 3)    | if (trian > 4)    |
+|-----------------------+------+--------------------+-------------------|
+| Total                 |    1 |                    |                   |
+#+TBLFM: @3$2=vcount(@I..II)
+
+
+** Mujava3
+
+| Mutant   | Line | Original Statement | Mutated Statement |
+|----------+------+--------------------+-------------------|
+| AOIU_2   |   26 | trian              | -trian            |
+| AOIS_25  |   26 | trian              | trian++           |
+| AOIS_26  |   26 | trian              | trian--           |
+| AOIU_3   |   29 | trian              | -trian            |
+| AOIS_37  |   29 | trian              | trian++           |
+| AOIS_38  |   29 | trian              | trian--           |
+| AOIS_49  |   32 | trian              | trian++           |
+| AOIS_50  |   32 | trian              | trian--           |
+| AOIS_101 |   44 | a                  | a++               |
+| AOIS_102 |   44 | a                  | a--               |
+| AOIS_105 |   44 | b                  | b++               |
+| AOIS_106 |   44 | b                  | b--               |
+| AOIS_107 |   44 | c                  | c++               |
+| AOIS_108 |   44 | c                  | c--               |
+| ROR_60   |   44 | trian == 1         | trian <= 1        |
+| AOIS_117 |   47 | a                  | a++               |
+| AOIS_118 |   47 | a                  | a--               |
+| AOIS_121 |   47 | c                  | c++               |
+| AOIS_122 |   47 | c                  | c--               |
+| AOIS_123 |   47 | b                  | b++               |
+| AOIS_124 |   47 | b                  | b--               |
+| AOIS_129 |   50 | trian              | trian++           |
+| AOIS_130 |   50 | trian              | trian--           |
+| AOIS_133 |   50 | b                  | b++               |
+| AOIS_134 |   50 | b                  | b--               |
+| AOIS_137 |   50 | c                  | c++               |
+| AOIS_138 |   50 | c                  | c--               |
+| AOIS_139 |   50 | a                  | a++               |
+| AOIS_140 |   50 | a                  | a--               |
+| ROR_86   |   50 | trian == 3         | trian >= 3        |
+| AOIS_77  |   35 | b                  | b++               |
+| AOIS_78  |   35 | b                  | b--               |
+| AOIS_81  |   35 | c                  | c++               |
+| AOIS_82  |   35 | c                  | c--               |
+| AOIS_83  |   35 | a                  | a++               |
+| AOIS_84  |   35 | a                  | a--               |
+| COR_2    |   21 | a <= 0 ¦¦ b <= 0   | a <= 0 ^ b <= 0   |
+| ROR_46   |   34 | trian == 0         | trian <= 0        |
+|----------+------+--------------------+-------------------|
+| Total    |   38 |                    |                   |
+#+TBLFM: @42$2=vcount(@I..II)
+
+
+* Common Equivalent
+
+** Major - PIT ALL
+
+| Major | PIT ALL |
+|-------+---------|
+| -     | -       |
+
+
+** Major - Mujava3
+
+| Major   | Mujava3 |
+|---------+---------|
+| 55_ROR  | ROR_46  |
+| 94_ROR  | ROR_60  |
+| 127_ROR | ROR_86  |
+
+** PIT ALL - Mujava3
+
+| PIT ALL | Mujava3 |
+|---------+---------|
+| -       | -       |
+
+** Common equivs among all tools
+
+| Major | PIT ALL | Mujava3 |
+|-------+---------+---------|
+| -     | -       | -       |

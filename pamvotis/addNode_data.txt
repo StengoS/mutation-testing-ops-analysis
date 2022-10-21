@@ -1,0 +1,243 @@
+[
+   {
+      "run_id": 1,
+      "total_test_cases": 8,
+      "test_suite_strength": 0.875,
+      "mutations_not_killed": {},
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 1,
+         "ConstructorCallMutator": 3,
+         "InlineConstantMutator": 4,
+         "MathMutator": 17,
+         "NegateConditionalsMutator": 3,
+         "NonVoidMethodCallMutator": 6,
+         "RemoveConditionalMutator_EQUAL_ELSE": 2,
+         "RemoveConditionalMutator_EQUAL_IF": 2,
+         "RemoveConditionalMutator_ORDER_ELSE": 1,
+         "RemoveConditionalMutator_ORDER_IF": 1,
+         "VoidMethodCallMutator": 2,
+         "MemberVariableMutator": 2,
+         "NakedReceiverMutator": 3,
+         "RemoveSwitchMutator_0": 1,
+         "RemoveSwitchMutator_1": 1,
+         "RemoveSwitchMutator_2": 1,
+         "SwitchMutator": 1
+      },
+      "test_cases_picked": [
+         7,
+         1,
+         5,
+         4,
+         8,
+         2,
+         3
+      ],
+      "test_cases_not_picked": [
+         6
+      ]
+   },
+   {
+      "run_id": 2,
+      "total_test_cases": 8,
+      "test_suite_strength": 0.75,
+      "mutations_not_killed": {
+         "InlineConstantMutator": 1,
+         "NonVoidMethodCallMutator": 1,
+         "NakedReceiverMutator": 3
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 1,
+         "ConstructorCallMutator": 3,
+         "InlineConstantMutator": 3,
+         "MathMutator": 17,
+         "NegateConditionalsMutator": 3,
+         "NonVoidMethodCallMutator": 5,
+         "RemoveConditionalMutator_EQUAL_ELSE": 2,
+         "RemoveConditionalMutator_EQUAL_IF": 2,
+         "RemoveConditionalMutator_ORDER_ELSE": 1,
+         "RemoveConditionalMutator_ORDER_IF": 1,
+         "VoidMethodCallMutator": 2,
+         "MemberVariableMutator": 2,
+         "RemoveSwitchMutator_0": 1,
+         "RemoveSwitchMutator_1": 1,
+         "RemoveSwitchMutator_2": 1,
+         "SwitchMutator": 1
+      },
+      "test_cases_picked": [
+         2,
+         5,
+         1,
+         4,
+         6,
+         3
+      ],
+      "test_cases_not_picked": [
+         7,
+         8
+      ]
+   },
+   {
+      "run_id": 3,
+      "total_test_cases": 8,
+      "test_suite_strength": 0.5,
+      "mutations_not_killed": {
+         "InlineConstantMutator": 1,
+         "MathMutator": 7,
+         "MemberVariableMutator": 1,
+         "RemoveSwitchMutator_0": 1
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 1,
+         "ConstructorCallMutator": 3,
+         "InlineConstantMutator": 3,
+         "MathMutator": 10,
+         "NegateConditionalsMutator": 3,
+         "NonVoidMethodCallMutator": 6,
+         "RemoveConditionalMutator_EQUAL_ELSE": 2,
+         "RemoveConditionalMutator_EQUAL_IF": 2,
+         "RemoveConditionalMutator_ORDER_ELSE": 1,
+         "RemoveConditionalMutator_ORDER_IF": 1,
+         "VoidMethodCallMutator": 2,
+         "MemberVariableMutator": 1,
+         "NakedReceiverMutator": 3,
+         "RemoveSwitchMutator_1": 1,
+         "RemoveSwitchMutator_2": 1,
+         "SwitchMutator": 1
+      },
+      "test_cases_picked": [
+         6,
+         4,
+         8,
+         3
+      ],
+      "test_cases_not_picked": [
+         5,
+         2,
+         7,
+         1
+      ]
+   },
+   {
+      "run_id": 4,
+      "total_test_cases": 8,
+      "test_suite_strength": 0.875,
+      "mutations_not_killed": {
+         "InlineConstantMutator": 1,
+         "MathMutator": 1,
+         "MemberVariableMutator": 1
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 1,
+         "ConstructorCallMutator": 3,
+         "InlineConstantMutator": 3,
+         "MathMutator": 16,
+         "NegateConditionalsMutator": 3,
+         "NonVoidMethodCallMutator": 6,
+         "RemoveConditionalMutator_EQUAL_ELSE": 2,
+         "RemoveConditionalMutator_EQUAL_IF": 2,
+         "RemoveConditionalMutator_ORDER_ELSE": 1,
+         "RemoveConditionalMutator_ORDER_IF": 1,
+         "VoidMethodCallMutator": 2,
+         "MemberVariableMutator": 1,
+         "NakedReceiverMutator": 3,
+         "RemoveSwitchMutator_0": 1,
+         "RemoveSwitchMutator_1": 1,
+         "RemoveSwitchMutator_2": 1,
+         "SwitchMutator": 1
+      },
+      "test_cases_picked": [
+         6,
+         3,
+         8,
+         2,
+         5,
+         7,
+         4
+      ],
+      "test_cases_not_picked": [
+         1
+      ]
+   },
+   {
+      "run_id": 5,
+      "total_test_cases": 8,
+      "test_suite_strength": 0.5,
+      "mutations_not_killed": {
+         "MathMutator": 6,
+         "NonVoidMethodCallMutator": 1,
+         "NakedReceiverMutator": 3,
+         "RemoveSwitchMutator_0": 1
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 1,
+         "ConstructorCallMutator": 3,
+         "InlineConstantMutator": 4,
+         "MathMutator": 11,
+         "NegateConditionalsMutator": 3,
+         "NonVoidMethodCallMutator": 5,
+         "RemoveConditionalMutator_EQUAL_ELSE": 2,
+         "RemoveConditionalMutator_EQUAL_IF": 2,
+         "RemoveConditionalMutator_ORDER_ELSE": 1,
+         "RemoveConditionalMutator_ORDER_IF": 1,
+         "VoidMethodCallMutator": 2,
+         "MemberVariableMutator": 2,
+         "RemoveSwitchMutator_1": 1,
+         "RemoveSwitchMutator_2": 1,
+         "SwitchMutator": 1
+      },
+      "test_cases_picked": [
+         7,
+         3,
+         1,
+         4
+      ],
+      "test_cases_not_picked": [
+         5,
+         2,
+         8,
+         6
+      ]
+   }
+]
+=======================================
+Median run is:
+{
+   "run_id": 2,
+   "total_test_cases": 8,
+   "test_suite_strength": 0.75,
+   "mutations_not_killed": {
+      "InlineConstantMutator": 1,
+      "NonVoidMethodCallMutator": 1,
+      "NakedReceiverMutator": 3
+   },
+   "mutations_killed": {
+      "ConditionalsBoundaryMutator": 1,
+      "ConstructorCallMutator": 3,
+      "InlineConstantMutator": 3,
+      "MathMutator": 17,
+      "NegateConditionalsMutator": 3,
+      "NonVoidMethodCallMutator": 5,
+      "RemoveConditionalMutator_EQUAL_ELSE": 2,
+      "RemoveConditionalMutator_EQUAL_IF": 2,
+      "RemoveConditionalMutator_ORDER_ELSE": 1,
+      "RemoveConditionalMutator_ORDER_IF": 1,
+      "VoidMethodCallMutator": 2,
+      "MemberVariableMutator": 2,
+      "RemoveSwitchMutator_0": 1,
+      "RemoveSwitchMutator_1": 1,
+      "RemoveSwitchMutator_2": 1,
+      "SwitchMutator": 1
+   },
+   "test_cases_picked": [
+      2,
+      5,
+      1,
+      4,
+      6,
+      3
+   ],
+   "test_cases_not_picked": [
+      7,
+      8
+   ]
+}

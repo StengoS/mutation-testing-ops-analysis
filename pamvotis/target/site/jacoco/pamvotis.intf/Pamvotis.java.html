@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pamvotis.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pamvotis</a> &gt; <a href="index.source.html" class="el_package">pamvotis.intf</a> &gt; <span class="el_source">Pamvotis.java</span></div><h1>Pamvotis.java</h1><pre class="source lang-java linenums">package pamvotis.intf;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.net.URL;
+
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileFilter;
+
+
+public class Pamvotis extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+<span class="nc" id="L37">	private Run rn = null;</span>
+<span class="nc" id="L38">	private Config cf = null;</span>
+<span class="nc" id="L39">	private Stats st = null;</span>
+<span class="nc" id="L40">	private MakeNtConf mk = null;</span>
+<span class="nc" id="L41">	private About ab = null;</span>
+<span class="nc" id="L42">	private Lisence lc=null;</span>
+<span class="nc" id="L43">	private Edca ed=null;</span>
+	
+<span class="nc" id="L45">	private JPanel jContentPane = null;</span>
+	
+<span class="nc" id="L47">	private JButton jBtnRun = null;</span>
+
+<span class="nc" id="L49">	private JButton jButton3 = null;</span>
+<span class="nc" id="L50">	private JButton jBtConf = null;</span>
+<span class="nc" id="L51">	private JButton jBtnStats = null;</span>
+<span class="nc" id="L52">	private JButton jBtnNtConf = null;</span>
+<span class="nc" id="L53">	private ButtonGroup ntGroup = new ButtonGroup();  //  @jve:decl-index=0:</span>
+	
+<span class="nc" id="L55">	private JFileChooser jFcNtConf=new JFileChooser();</span>
+<span class="nc" id="L56">	private JFileChooser jFcSvRes = new JFileChooser();</span>
+<span class="nc" id="L57">	private JFileChooser jFcView = new JFileChooser();</span>
+	
+	//Filter xls files
+<span class="nc" id="L60">	class NtConfFilter extends FileFilter {</span>
+
+	    public boolean accept(File f) {
+<span class="nc bnc" id="L63" title="All 2 branches missed.">	        if (f.isDirectory()) return true;</span>
+<span class="nc" id="L64">	        String extension = f.getName();</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">	        if (extension != null) {</span>
+<span class="nc bnc" id="L66" title="All 4 branches missed.">	            if(extension.endsWith(&quot;xls&quot;)||extension.endsWith(&quot;txt&quot;))return true;</span>
+<span class="nc" id="L67">	            else return false;</span>
+	        }
+<span class="nc" id="L69">	        return false;</span>
+	    }
+	    
+<span class="nc" id="L72">	    public String getDescription(){return &quot;Network Configuration Filtering&quot;;}</span>
+	}
+
+	//Filter txt files
+<span class="nc" id="L76">	class ViewFilter extends FileFilter {</span>
+
+	    public boolean accept(File f) {
+<span class="nc bnc" id="L79" title="All 2 branches missed.">	        if (f.isDirectory()) return true;</span>
+<span class="nc" id="L80">	        String extension = f.getName();</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">	        if (extension != null) {</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">	            if (extension.endsWith(&quot;txt&quot;))return true;</span>
+<span class="nc" id="L83">	            else return false;</span>
+	        }
+<span class="nc" id="L85">	        return false;</span>
+	    }
+	    
+<span class="nc" id="L88">	    public String getDescription(){return &quot;Network Configuration Filtering&quot;;}</span>
+	}
+	
+<span class="nc" id="L91">	private JLabel jLblNtConf = null;</span>
+<span class="nc" id="L92">	private JButton jBtnSvRes = null;</span>
+<span class="nc" id="L93">	private JRadioButton jRbGlobal = null;</span>
+<span class="nc" id="L94">	private JRadioButton jRbNtConf = null;</span>
+<span class="nc" id="L95">	private JTextField jTxtValues = null;</span>
+<span class="nc" id="L96">	private JLabel jLblValues = null;</span>
+<span class="nc" id="L97">	private JLabel jLblResults = null;</span>
+<span class="nc" id="L98">	private JLabel jLblSvRes = null;</span>
+<span class="nc" id="L99">	private JTextField jTxtSeed = null;</span>
+<span class="nc" id="L100">	private JLabel jLblSeed = null;</span>
+<span class="nc" id="L101">	private JLabel jLblTime = null;</span>
+<span class="nc" id="L102">	private JTextField jTxtTime = null;</span>
+<span class="nc" id="L103">	private JPanel jPanelRts = null;</span>
+<span class="nc" id="L104">	private JComboBox jCmbRts = null;</span>
+<span class="nc" id="L105">	private JTextField jTxtThr = null;</span>
+<span class="nc" id="L106">	private JLabel jLblThr = null;</span>
+<span class="nc" id="L107">	private JLabel jLblProt = null;</span>
+	
+	private JButton getJBtnRun() {
+<span class="nc bnc" id="L110" title="All 2 branches missed.">		if (jBtnRun == null) {</span>
+<span class="nc" id="L111">			jBtnRun = new JButton();</span>
+<span class="nc" id="L112">			jBtnRun.setBounds(new Rectangle(15, 282, 119, 20));</span>
+<span class="nc" id="L113">			jBtnRun.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L114">			jBtnRun.setText(&quot;Run Simulation&quot;);</span>
+<span class="nc" id="L115">			jBtnRun.addActionListener(new java.awt.event.ActionListener() {   </span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L117">					CheckAndStart();</span>
+<span class="nc" id="L118">				}</span>
+			
+			});
+		}
+<span class="nc" id="L122">		return jBtnRun;</span>
+	}
+
+	private JButton getJButton3() {
+<span class="nc bnc" id="L126" title="All 2 branches missed.">		if (jButton3 == null) {</span>
+<span class="nc" id="L127">			jButton3 = new JButton();</span>
+<span class="nc" id="L128">			jButton3.setBounds(new Rectangle(692, 281, 119, 20));</span>
+<span class="nc" id="L129">			jButton3.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L130">			jButton3.setText(&quot;Exit&quot;);</span>
+<span class="nc" id="L131">			jButton3.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L133">					System.exit(0);</span>
+<span class="nc" id="L134">				}</span>
+			});
+		}
+<span class="nc" id="L137">		return jButton3;</span>
+	}
+
+	private JButton getJBtConf() {
+<span class="nc bnc" id="L141" title="All 2 branches missed.">		if (jBtConf == null) {</span>
+<span class="nc" id="L142">			jBtConf = new JButton();</span>
+<span class="nc" id="L143">			jBtConf.setText(&quot;Configure&quot;);</span>
+<span class="nc" id="L144">			jBtConf.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L145">			jBtConf.setBounds(new Rectangle(190, 25, 91, 22));</span>
+<span class="nc" id="L146">			jBtConf.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L148">					cf.setVisible(true);</span>
+<span class="nc" id="L149">					cf.setInitParams();</span>
+<span class="nc" id="L150">					Pamvotis.this.setEnabled(false);</span>
+<span class="nc" id="L151">				}</span>
+			});
+		}
+<span class="nc" id="L154">		return jBtConf;</span>
+	}
+
+	private JButton getJBtnStats() {
+<span class="nc bnc" id="L158" title="All 2 branches missed.">		if (jBtnStats == null) {</span>
+<span class="nc" id="L159">			jBtnStats = new JButton();</span>
+<span class="nc" id="L160">			jBtnStats.setText(&quot;Choose Statistics&quot;);</span>
+<span class="nc" id="L161">			jBtnStats.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L162">			jBtnStats.setBounds(new Rectangle(255, 25, 137, 20));</span>
+<span class="nc" id="L163">			jBtnStats.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L165">					st.setVisible(true);</span>
+<span class="nc" id="L166">					st.setInitParams();</span>
+<span class="nc" id="L167">					Pamvotis.this.setEnabled(false);</span>
+<span class="nc" id="L168">				}</span>
+			});
+		}
+<span class="nc" id="L171">		return jBtnStats;</span>
+	}
+
+	private JButton getJBtnNtConf() {
+<span class="nc bnc" id="L175" title="All 2 branches missed.">		if (jBtnNtConf == null) {</span>
+<span class="nc" id="L176">			jBtnNtConf = new JButton();</span>
+<span class="nc" id="L177">			jBtnNtConf.setEnabled(false);</span>
+<span class="nc" id="L178">			jBtnNtConf.setBounds(new Rectangle(240, 58, 34, 20));</span>
+<span class="nc" id="L179">			jBtnNtConf.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L180">			jBtnNtConf.setText(&quot;...&quot;);</span>
+<span class="nc" id="L181">			jBtnNtConf.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L183">					int returnVal = jFcNtConf.showOpenDialog(Pamvotis.this);</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">					if (returnVal == JFileChooser.APPROVE_OPTION){</span>
+<span class="nc" id="L185">						String str = jFcNtConf.getSelectedFile().getAbsolutePath();</span>
+<span class="nc" id="L186">						jFcNtConf.setCurrentDirectory(jFcNtConf.getSelectedFile());</span>
+<span class="nc" id="L187">						mk.setNtConfPath(str);</span>
+<span class="nc" id="L188">						jLblNtConf.setText(str);</span>
+					}
+<span class="nc" id="L190">				}</span>
+			});
+		}
+<span class="nc" id="L193">		return jBtnNtConf;</span>
+	}
+
+	private JButton getJBtnSvRes() {
+<span class="nc bnc" id="L197" title="All 2 branches missed.">		if (jBtnSvRes == null) {</span>
+<span class="nc" id="L198">			jBtnSvRes = new JButton();</span>
+<span class="nc" id="L199">			jBtnSvRes.setText(&quot;...&quot;);</span>
+<span class="nc" id="L200">			jBtnSvRes.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L201">			jBtnSvRes.setBounds(new Rectangle(205, 58, 40, 20));</span>
+<span class="nc" id="L202">			jBtnSvRes.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L204">					jFcSvRes.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);</span>
+<span class="nc" id="L205">					int returnVal = jFcSvRes.showSaveDialog(Pamvotis.this);</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">					if (returnVal == JFileChooser.APPROVE_OPTION){</span>
+<span class="nc" id="L207">						String str = jFcSvRes.getSelectedFile().getAbsolutePath();</span>
+<span class="nc" id="L208">						jFcSvRes.setCurrentDirectory(jFcSvRes.getSelectedFile());</span>
+						//Remove the file separator if exists
+<span class="nc bnc" id="L210" title="All 4 branches missed.">						if(str.endsWith(&quot;\\&quot;)||str.endsWith(&quot;/&quot;)){</span>
+<span class="nc" id="L211">							str = str.substring(0, str.length()-1);</span>
+						}
+<span class="nc" id="L213">						mk.setResultsPath(str);</span>
+<span class="nc" id="L214">						jLblSvRes.setText(str);</span>
+					}
+				    
+<span class="nc" id="L217">				}</span>
+			});
+		}
+<span class="nc" id="L220">		return jBtnSvRes;</span>
+	}
+
+	private JRadioButton getJRbGlobal() {
+<span class="nc bnc" id="L224" title="All 2 branches missed.">		if (jRbGlobal == null) {</span>
+<span class="nc" id="L225">			jRbGlobal = new JRadioButton();</span>
+<span class="nc" id="L226">			jRbGlobal.setSelected(true);</span>
+<span class="nc" id="L227">			jRbGlobal.setBounds(new Rectangle(15, 25, 171, 20));</span>
+<span class="nc" id="L228">			jRbGlobal.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L229">			jRbGlobal.setText(&quot;Globally Configure Nodes&quot;);</span>
+<span class="nc" id="L230">			jRbGlobal.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L232">					jBtnNtConf.setEnabled(false);</span>
+<span class="nc" id="L233">					jBtConf.setEnabled(true);</span>
+<span class="nc" id="L234">				}</span>
+			});
+<span class="nc" id="L236">			ntGroup.add(jRbGlobal);</span>
+		}
+<span class="nc" id="L238">		return jRbGlobal;</span>
+	}
+
+	private JRadioButton getJRbNtConf() {
+<span class="nc bnc" id="L242" title="All 2 branches missed.">		if (jRbNtConf == null) {</span>
+<span class="nc" id="L243">			jRbNtConf = new JRadioButton();</span>
+<span class="nc" id="L244">			jRbNtConf.setText(&quot;Specify Network Configuration File&quot;);</span>
+<span class="nc" id="L245">			jRbNtConf.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L246">			jRbNtConf.setBounds(new Rectangle(15, 58, 220, 20));</span>
+<span class="nc" id="L247">			jRbNtConf.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L249">					jBtnNtConf.setEnabled(true);</span>
+<span class="nc" id="L250">					jBtConf.setEnabled(false);</span>
+<span class="nc" id="L251">				}</span>
+			});
+<span class="nc" id="L253">			ntGroup.add(jRbNtConf);</span>
+		}
+<span class="nc" id="L255">		return jRbNtConf;</span>
+	}
+
+	private JTextField getJTxtValues() {
+<span class="nc bnc" id="L259" title="All 2 branches missed.">		if (jTxtValues == null) {</span>
+<span class="nc" id="L260">			jTxtValues = new JTextField();</span>
+<span class="nc" id="L261">			jTxtValues.setText(&quot;100&quot;);</span>
+<span class="nc" id="L262">			jTxtValues.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L263">			jTxtValues.setBounds(new Rectangle(205, 25, 40, 20));</span>
+		}
+<span class="nc" id="L265">		return jTxtValues;</span>
+	}
+
+	private JTextField getJTxtSeed() {
+<span class="nc bnc" id="L269" title="All 2 branches missed.">		if (jTxtSeed == null) {</span>
+<span class="nc" id="L270">			jTxtSeed = new JTextField();</span>
+<span class="nc" id="L271">			jTxtSeed.setText(&quot;69&quot;);</span>
+<span class="nc" id="L272">			jTxtSeed.setBounds(new Rectangle(158, 25, 40, 20));</span>
+<span class="nc" id="L273">			jTxtSeed.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L274">			jTxtSeed.setToolTipText(&quot;&quot;);</span>
+		}
+<span class="nc" id="L276">		return jTxtSeed;</span>
+	}
+
+	private JTextField getJTxtTime() {
+<span class="nc bnc" id="L280" title="All 2 branches missed.">		if (jTxtTime == null) {</span>
+<span class="nc" id="L281">			jTxtTime = new JTextField();</span>
+<span class="nc" id="L282">			jTxtTime.setText(&quot;300&quot;);</span>
+<span class="nc" id="L283">			jTxtTime.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L284">			jTxtTime.setBounds(new Rectangle(158, 58, 40, 20));</span>
+		}
+<span class="nc" id="L286">		return jTxtTime;</span>
+	}
+
+	private JPanel getJPanelRts() {
+<span class="nc bnc" id="L290" title="All 2 branches missed.">		if (jPanelRts == null) {</span>
+<span class="nc" id="L291">			jLblProt = new JLabel();</span>
+<span class="nc" id="L292">			jLblProt.setBounds(new Rectangle(15, 25, 135, 20));</span>
+<span class="nc" id="L293">			jLblProt.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L294">			jLblProt.setText(&quot;Access Mechanism:&quot;);</span>
+<span class="nc" id="L295">			jLblThr = new JLabel();</span>
+<span class="nc" id="L296">			jLblThr.setBounds(new Rectangle(13, 59, 126, 20));</span>
+<span class="nc" id="L297">			jLblThr.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L298">			jLblThr.setText(&quot;RTS Threshold (bits):&quot;);</span>
+<span class="nc" id="L299">			jPanelRts = new JPanel();</span>
+<span class="nc" id="L300">			jPanelRts.setLayout(null);</span>
+<span class="nc" id="L301">			jPanelRts.setBounds(new Rectangle(15, 130, 279, 123));</span>
+<span class="nc" id="L302">			jPanelRts.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(SystemColor.controlDkShadow, 1), &quot;Mac Layer Configuration&quot;, TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, new Font(&quot;Dialog&quot;, Font.BOLD, 12), SystemColor.controlDkShadow));</span>
+<span class="nc" id="L303">			jPanelRts.add(getJCmbRts(), null);</span>
+<span class="nc" id="L304">			jPanelRts.add(getJTxtThr(), null);</span>
+<span class="nc" id="L305">			jPanelRts.add(jLblThr, null);</span>
+<span class="nc" id="L306">			jPanelRts.add(jLblProt, null);</span>
+<span class="nc" id="L307">			jPanelRts.add(getJBtnEDCA(), null);</span>
+		}
+<span class="nc" id="L309">		return jPanelRts;</span>
+	}
+
+	private JComboBox getJCmbRts() {
+<span class="nc bnc" id="L313" title="All 2 branches missed.">		if (jCmbRts == null) {</span>
+<span class="nc" id="L314">			jCmbRts = new JComboBox();</span>
+<span class="nc" id="L315">			jCmbRts.setBounds(new Rectangle(150, 25, 113, 21));</span>
+<span class="nc" id="L316">			jCmbRts.setSelectedIndex(-1);</span>
+<span class="nc" id="L317">			jCmbRts.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L318">			jCmbRts.setMaximumRowCount(3);</span>
+<span class="nc" id="L319">			jCmbRts.addItem(&quot;Basic Access&quot;);</span>
+<span class="nc" id="L320">			jCmbRts.addItem(&quot;RTS/CTS&quot;);</span>
+<span class="nc" id="L321">			jCmbRts.addItem(&quot;CTS-to-Self&quot;);</span>
+<span class="nc" id="L322">			jCmbRts.addActionListener(listen);</span>
+		}
+<span class="nc" id="L324">		return jCmbRts;</span>
+	}
+<span class="nc" id="L326">	private class RTSListener implements ActionListener{</span>
+		public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc bnc" id="L328" title="All 2 branches missed.">			if(((JComboBox)e.getSource()).getSelectedIndex()==0){</span>
+<span class="nc" id="L329">				jTxtThr.setEnabled(false);</span>
+<span class="nc" id="L330">				mk.setCtsToSelf(&quot;n&quot;);</span>
+			}
+<span class="nc bnc" id="L332" title="All 2 branches missed.">			else if(((JComboBox)e.getSource()).getSelectedIndex()==1){</span>
+<span class="nc" id="L333">				jTxtThr.setEnabled(true);</span>
+<span class="nc" id="L334">				mk.setCtsToSelf(&quot;n&quot;);</span>
+			}
+			else {
+<span class="nc" id="L337">				jTxtThr.setEnabled(true);</span>
+<span class="nc" id="L338">				mk.setCtsToSelf(&quot;y&quot;);</span>
+			}
+<span class="nc" id="L340">		}</span>
+	}
+	
+<span class="nc" id="L343">	private RTSListener listen = new RTSListener();  //  @jve:decl-index=0:</span>
+<span class="nc" id="L344">	private JPanel jPanelEvents = null;</span>
+<span class="nc" id="L345">	private JPanel jPanelStats = null;</span>
+<span class="nc" id="L346">	private JPanel jPanelNtConf = null;</span>
+<span class="nc" id="L347">	private JMenuBar jJMenuBar = null;</span>
+<span class="nc" id="L348">	private JMenu jMenuFile = null;</span>
+<span class="nc" id="L349">	private JMenu jMenuHelp = null;</span>
+<span class="nc" id="L350">	private JMenuItem jMenuItemExit = null;</span>
+<span class="nc" id="L351">	private JMenuItem jMenuItemOnline = null;</span>
+<span class="nc" id="L352">	private JMenuItem jMenuItemAbout = null;</span>
+<span class="nc" id="L353">	private JLabel jLblPamv = null;</span>
+<span class="nc" id="L354">	private JButton jBtnView = null;</span>
+<span class="nc" id="L355">	private JRadioButton jRbXml = null;</span>
+<span class="nc" id="L356">	private JMenuItem jMILisence = null;</span>
+<span class="nc" id="L357">	private JButton jBtnEDCA = null;</span>
+	private JTextField getJTxtThr() {
+<span class="nc bnc" id="L359" title="All 2 branches missed.">		if (jTxtThr == null) {</span>
+<span class="nc" id="L360">			jTxtThr = new JTextField();</span>
+<span class="nc" id="L361">			jTxtThr.setBounds(new Rectangle(149, 59, 40, 20));</span>
+<span class="nc" id="L362">			jTxtThr.setEnabled(false);</span>
+		}
+<span class="nc" id="L364">		return jTxtThr;</span>
+	}
+
+	private JPanel getJPanelEvents() {
+<span class="nc bnc" id="L368" title="All 2 branches missed.">		if (jPanelEvents == null) {</span>
+<span class="nc" id="L369">			jPanelEvents = new JPanel();</span>
+<span class="nc" id="L370">			jPanelEvents.setLayout(null);</span>
+<span class="nc" id="L371">			jPanelEvents.setBounds(new Rectangle(160, 15, 216, 95));</span>
+<span class="nc" id="L372">			jPanelEvents.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(SystemColor.controlDkShadow, 1), &quot;Events Configuration&quot;, TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, new Font(&quot;Dialog&quot;, Font.BOLD, 12), SystemColor.controlDkShadow));</span>
+<span class="nc" id="L373">			jPanelEvents.add(getJTxtSeed(), null);</span>
+<span class="nc" id="L374">			jPanelEvents.add(jLblSeed, null);</span>
+<span class="nc" id="L375">			jPanelEvents.add(jLblTime, null);</span>
+<span class="nc" id="L376">			jPanelEvents.add(getJTxtTime(), null);</span>
+		}
+<span class="nc" id="L378">		return jPanelEvents;</span>
+	}
+
+	private JPanel getJPanelStats() {
+<span class="nc bnc" id="L382" title="All 2 branches missed.">		if (jPanelStats == null) {</span>
+<span class="nc" id="L383">			jPanelStats = new JPanel();</span>
+<span class="nc" id="L384">			jPanelStats.setLayout(null);</span>
+<span class="nc" id="L385">			jPanelStats.setBounds(new Rectangle(400, 15, 413, 95));</span>
+<span class="nc" id="L386">			jPanelStats.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(SystemColor.controlDkShadow, 1), &quot;Statistic Results Configuration&quot;, TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, new Font(&quot;Dialog&quot;, Font.BOLD, 12), SystemColor.controlDkShadow));</span>
+<span class="nc" id="L387">			jPanelStats.add(jLblValues, null);</span>
+<span class="nc" id="L388">			jPanelStats.add(getJTxtValues(), null);</span>
+<span class="nc" id="L389">			jPanelStats.add(jLblResults, null);</span>
+<span class="nc" id="L390">			jPanelStats.add(getJBtnSvRes(), null);</span>
+<span class="nc" id="L391">			jPanelStats.add(getJBtnStats(), null);</span>
+<span class="nc" id="L392">			jPanelStats.add(jLblSvRes, null);</span>
+		}
+<span class="nc" id="L394">		return jPanelStats;</span>
+	}
+
+	private JPanel getJPanelNtConf() {
+<span class="nc bnc" id="L398" title="All 2 branches missed.">		if (jPanelNtConf == null) {</span>
+<span class="nc" id="L399">			jPanelNtConf = new JPanel();</span>
+<span class="nc" id="L400">			jPanelNtConf.setLayout(null);</span>
+<span class="nc" id="L401">			jPanelNtConf.setBounds(new Rectangle(312, 130, 502, 123));</span>
+<span class="nc" id="L402">			jPanelNtConf.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(SystemColor.controlDkShadow, 1), &quot;Nodes Configuration&quot;, TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, new Font(&quot;Dialog&quot;, Font.BOLD, 12), SystemColor.controlDkShadow));</span>
+<span class="nc" id="L403">			jPanelNtConf.add(getJBtConf(), null);</span>
+<span class="nc" id="L404">			jPanelNtConf.add(jLblNtConf, null);</span>
+<span class="nc" id="L405">			jPanelNtConf.add(getJRbNtConf(), null);</span>
+<span class="nc" id="L406">			jPanelNtConf.add(getJBtnNtConf(), null);</span>
+<span class="nc" id="L407">			jPanelNtConf.add(getJRbGlobal(), null);</span>
+<span class="nc" id="L408">			jPanelNtConf.add(getJRbXml(), null);</span>
+		}
+<span class="nc" id="L410">		return jPanelNtConf;</span>
+	}
+
+	private JMenuBar getJJMenuBar() {
+<span class="nc bnc" id="L414" title="All 2 branches missed.">		if (jJMenuBar == null) {</span>
+<span class="nc" id="L415">			jJMenuBar = new JMenuBar();</span>
+<span class="nc" id="L416">			jJMenuBar.add(getJMenuFile());</span>
+<span class="nc" id="L417">			jJMenuBar.add(getJMenuHelp());</span>
+		}
+<span class="nc" id="L419">		return jJMenuBar;</span>
+	}
+
+private JMenu getJMenuFile() {
+<span class="nc bnc" id="L423" title="All 2 branches missed.">	if (jMenuFile == null) {</span>
+<span class="nc" id="L424">		jMenuFile = new JMenu();</span>
+<span class="nc" id="L425">		jMenuFile.setPreferredSize(new Dimension(60, 20));</span>
+<span class="nc" id="L426">		jMenuFile.setText(&quot;File&quot;);</span>
+<span class="nc" id="L427">		jMenuFile.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L428">		jMenuFile.setMnemonic(KeyEvent.VK_UNDEFINED);</span>
+<span class="nc" id="L429">		jMenuFile.setBounds(new Rectangle(0, 0, 40, 20));</span>
+<span class="nc" id="L430">		jMenuFile.add(getJMILisence());</span>
+<span class="nc" id="L431">		jMenuFile.addSeparator();</span>
+<span class="nc" id="L432">		jMenuFile.add(getJMenuItemExit());</span>
+	}
+<span class="nc" id="L434">	return jMenuFile;</span>
+}
+
+	private JMenu getJMenuHelp() {
+<span class="nc bnc" id="L438" title="All 2 branches missed.">		if (jMenuHelp == null) {</span>
+<span class="nc" id="L439">			jMenuHelp = new JMenu();</span>
+<span class="nc" id="L440">			jMenuHelp.setPreferredSize(new Dimension(40, 20));</span>
+<span class="nc" id="L441">			jMenuHelp.setText(&quot;Help&quot;);</span>
+<span class="nc" id="L442">			jMenuHelp.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L443">			jMenuHelp.add(getJMenuItemOnline());</span>
+<span class="nc" id="L444">			jMenuHelp.addSeparator();</span>
+<span class="nc" id="L445">			jMenuHelp.add(getJMenuItemAbout());</span>
+		}
+<span class="nc" id="L447">		return jMenuHelp;</span>
+	}
+
+	private JMenuItem getJMenuItemExit() {
+<span class="nc bnc" id="L451" title="All 2 branches missed.">		if (jMenuItemExit == null) {</span>
+<span class="nc" id="L452">			jMenuItemExit = new JMenuItem();</span>
+<span class="nc" id="L453">			jMenuItemExit.setPreferredSize(new Dimension(40, 20));</span>
+<span class="nc" id="L454">			jMenuItemExit.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L455">			jMenuItemExit.setText(&quot;Exit&quot;);</span>
+<span class="nc" id="L456">			jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L458">					System.exit(0);</span>
+<span class="nc" id="L459">				}</span>
+			});
+		}
+<span class="nc" id="L462">		return jMenuItemExit;</span>
+	}
+
+	private JMenuItem getJMenuItemOnline() {
+<span class="nc bnc" id="L466" title="All 2 branches missed.">		if (jMenuItemOnline == null) {</span>
+<span class="nc" id="L467">			jMenuItemOnline = new JMenuItem();</span>
+<span class="nc" id="L468">			jMenuItemOnline.setPreferredSize(new Dimension(80, 20));</span>
+<span class="nc" id="L469">			jMenuItemOnline.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L470">			jMenuItemOnline.setText(&quot;Online Documentation&quot;);</span>
+<span class="nc" id="L471">			jMenuItemOnline.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					//new Opener().openUrl(new File(&quot;doc&quot;+File.separator+&quot;Online_doc.html&quot;).getAbsolutePath());
+<span class="nc" id="L474">					new Opener('u',new File(&quot;doc&quot;+File.separator+&quot;Online_doc.html&quot;).getAbsolutePath()).start();</span>
+<span class="nc" id="L475">				}</span>
+			});
+		}
+<span class="nc" id="L478">		return jMenuItemOnline;</span>
+	}
+
+	private JMenuItem getJMenuItemAbout() {
+<span class="nc bnc" id="L482" title="All 2 branches missed.">		if (jMenuItemAbout == null) {</span>
+<span class="nc" id="L483">			jMenuItemAbout = new JMenuItem();</span>
+<span class="nc" id="L484">			jMenuItemAbout.setPreferredSize(new Dimension(140, 20));</span>
+<span class="nc" id="L485">			jMenuItemAbout.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L486">			jMenuItemAbout.setText(&quot;About Pamvotis&quot;);</span>
+<span class="nc" id="L487">			jMenuItemAbout.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L489">					Pamvotis.this.setEnabled(false);</span>
+<span class="nc" id="L490">					ab.setVisible(true);</span>
+<span class="nc" id="L491">				}</span>
+			});
+		}
+<span class="nc" id="L494">		return jMenuItemAbout;</span>
+	}
+
+	private JButton getJBtnView() {
+<span class="nc bnc" id="L498" title="All 2 branches missed.">		if (jBtnView == null) {</span>
+<span class="nc" id="L499">			jBtnView = new JButton();</span>
+<span class="nc" id="L500">			jBtnView.setBounds(new Rectangle(343, 283, 118, 19));</span>
+<span class="nc" id="L501">			jBtnView.setEnabled(false);</span>
+<span class="nc" id="L502">			jBtnView.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L503">			jBtnView.setText(&quot;View Results&quot;);</span>
+<span class="nc" id="L504">			jBtnView.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					//System.out.println(jFcSvRes.get);
+<span class="nc" id="L507">					jFcView.setCurrentDirectory(new File(jLblSvRes.getText()));</span>
+<span class="nc" id="L508">					int returnVal = jFcView.showOpenDialog(Pamvotis.this);</span>
+<span class="nc bnc" id="L509" title="All 2 branches missed.">					if (returnVal == JFileChooser.APPROVE_OPTION){</span>
+<span class="nc" id="L510">						jFcView.setCurrentDirectory(jFcSvRes.getSelectedFile());</span>
+<span class="nc" id="L511">						new Opener('t',jFcView.getSelectedFile().getAbsolutePath()).start();</span>
+					}
+<span class="nc" id="L513">				}</span>
+			});
+		}
+<span class="nc" id="L516">		return jBtnView;</span>
+	}
+
+	private JRadioButton getJRbXml() {
+<span class="nc bnc" id="L520" title="All 2 branches missed.">		if (jRbXml == null) {</span>
+<span class="nc" id="L521">			jRbXml = new JRadioButton();</span>
+<span class="nc" id="L522">			jRbXml.setBounds(new Rectangle(15, 91, 229, 16));</span>
+<span class="nc" id="L523">			jRbXml.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L524">			jRbXml.setText(&quot;Use the Application's XML File&quot;);</span>
+<span class="nc" id="L525">			jRbXml.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L527">					jBtConf.setEnabled(false);</span>
+<span class="nc" id="L528">					jBtnNtConf.setEnabled(false);</span>
+<span class="nc" id="L529">					jLblNtConf.setEnabled(false);</span>
+<span class="nc" id="L530">				}</span>
+			});
+<span class="nc" id="L532">			ntGroup.add(jRbXml);</span>
+		}
+<span class="nc" id="L534">		return jRbXml;</span>
+	}
+
+	private JMenuItem getJMILisence() {
+<span class="nc bnc" id="L538" title="All 2 branches missed.">		if (jMILisence == null) {</span>
+<span class="nc" id="L539">			jMILisence = new JMenuItem();</span>
+<span class="nc" id="L540">			jMILisence.setName(&quot;Lisence&quot;);</span>
+<span class="nc" id="L541">			jMILisence.setActionCommand(&quot;Lisence&quot;);</span>
+<span class="nc" id="L542">			jMILisence.setText(&quot;Lisence&quot;);</span>
+<span class="nc" id="L543">			jMILisence.setPreferredSize(new Dimension(60, 20));</span>
+<span class="nc" id="L544">			jMILisence.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L545">			jMILisence.setMnemonic(KeyEvent.VK_UNDEFINED);</span>
+<span class="nc" id="L546">			jMILisence.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L548">					Pamvotis.this.setEnabled(false);</span>
+<span class="nc" id="L549">					lc.setVisible(true);</span>
+<span class="nc" id="L550">				}</span>
+			});
+		}
+<span class="nc" id="L553">		return jMILisence;</span>
+	}
+
+	/**
+	 * This method initializes jBtnEDCA	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getJBtnEDCA() {
+<span class="nc bnc" id="L562" title="All 2 branches missed.">		if (jBtnEDCA == null) {</span>
+<span class="nc" id="L563">			jBtnEDCA = new JButton();</span>
+<span class="nc" id="L564">			jBtnEDCA.setBounds(new Rectangle(13, 90, 250, 20));</span>
+<span class="nc" id="L565">			jBtnEDCA.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L566">			jBtnEDCA.setText(&quot;IEEE 802.11e EDCA Configuration&quot;);</span>
+<span class="nc" id="L567">			jBtnEDCA.addActionListener(new java.awt.event.ActionListener() {</span>
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+<span class="nc" id="L569">					ed.setVisible(true);</span>
+<span class="nc" id="L570">					ed.setInitParams();</span>
+<span class="nc" id="L571">					Pamvotis.this.setEnabled(false);</span>
+<span class="nc" id="L572">				}</span>
+			});
+		}
+<span class="nc" id="L575">		return jBtnEDCA;</span>
+	}
+
+	public static void main(String[] args) {
+<span class="nc" id="L579">		SwingUtilities.invokeLater(new Runnable() {</span>
+			public void run() {
+<span class="nc" id="L581">				Pamvotis thisClass = new Pamvotis();</span>
+<span class="nc" id="L582">				thisClass.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="nc" id="L583">				thisClass.setVisible(true);</span>
+<span class="nc" id="L584">			}</span>
+		});
+<span class="nc" id="L586">	}</span>
+	
+	public Pamvotis() {
+<span class="nc" id="L589">		super();</span>
+<span class="nc" id="L590">		initialize();</span>
+<span class="nc" id="L591">	}</span>
+
+	private void initialize() {
+<span class="nc" id="L594">		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="nc" id="L595">		this.setSize(834, 386);</span>
+<span class="nc" id="L596">		URL iconURL = getClass().getResource(&quot;/resources&quot; + File.separator + &quot;icons&quot;+File.separator+&quot;logo.jpg&quot;);</span>
+<span class="nc" id="L597">		this.setIconImage(Toolkit.getDefaultToolkit().getImage(iconURL));</span>
+<span class="nc" id="L598">		this.setResizable(false);</span>
+<span class="nc" id="L599">		this.setLocation(new Point((d.width-this.getSize().width)/2, (d.height-this.getSize().height)/2));</span>
+<span class="nc" id="L600">		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="nc" id="L601">		this.setJMenuBar(getJJMenuBar());</span>
+<span class="nc" id="L602">		this.setContentPane(getJContentPane());</span>
+<span class="nc" id="L603">		this.setTitle(&quot;Pamvotis 1.1 - WLAN Simulator&quot;);</span>
+		//this.setJMenuBar(new Menu());
+<span class="nc" id="L605">		jFcNtConf.setCurrentDirectory(new File(&quot;config&quot;));</span>
+<span class="nc" id="L606">		jFcNtConf.setFileFilter(new NtConfFilter());</span>
+<span class="nc" id="L607">		jFcSvRes.setCurrentDirectory(new File(&quot;.&quot;));</span>
+<span class="nc" id="L608">		jFcView.setCurrentDirectory(new File(&quot;.&quot;));</span>
+<span class="nc" id="L609">		jFcView.setFileFilter(new ViewFilter());</span>
+<span class="nc" id="L610">		rn = new Run(this);</span>
+<span class="nc" id="L611">		mk = new MakeNtConf();</span>
+<span class="nc" id="L612">		cf = new Config(this, mk);</span>
+<span class="nc" id="L613">		st=new Stats(this, mk);</span>
+<span class="nc" id="L614">		ab = new About(this);</span>
+<span class="nc" id="L615">		lc = new Lisence(this);</span>
+<span class="nc" id="L616">		ed=new Edca(this,mk);</span>
+<span class="nc" id="L617">	}</span>
+
+	private JPanel getJContentPane() {
+<span class="nc bnc" id="L620" title="All 2 branches missed.">		if (jContentPane == null) {</span>
+<span class="nc" id="L621">			jLblPamv = new JLabel();</span>
+<span class="nc" id="L622">			jLblPamv.setBounds(new Rectangle(15, 15, 123, 95));</span>
+<span class="nc" id="L623">			jLblPamv.setDisplayedMnemonic(KeyEvent.VK_UNDEFINED);</span>
+<span class="nc" id="L624">			URL iconURL = getClass().getResource(&quot;resources&quot; + File.separator + &quot;icons&quot;+File.separator+&quot;pamvotis.jpg&quot;);</span>
+<span class="nc" id="L625">			jLblPamv.setIcon(new ImageIcon(iconURL));</span>
+<span class="nc" id="L626">			jLblPamv.setText(&quot;&quot;);</span>
+<span class="nc" id="L627">			jLblTime = new JLabel();</span>
+<span class="nc" id="L628">			jLblTime.setText(&quot;Simulation Time (sec):&quot;);</span>
+<span class="nc" id="L629">			jLblTime.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L630">			jLblTime.setBounds(new Rectangle(20, 58, 128, 20));</span>
+<span class="nc" id="L631">			jLblSeed = new JLabel();</span>
+<span class="nc" id="L632">			jLblSeed.setText(&quot;Seed:&quot;);</span>
+<span class="nc" id="L633">			jLblSeed.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L634">			jLblSeed.setBounds(new Rectangle(105, 25, 40, 20));</span>
+<span class="nc" id="L635">			jLblSvRes = new JLabel();</span>
+<span class="nc" id="L636">			jLblSvRes.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));</span>
+<span class="nc" id="L637">			jLblSvRes.setBounds(new Rectangle(258, 58, 135, 20));</span>
+<span class="nc" id="L638">			jLblSvRes.setDisplayedMnemonic(KeyEvent.VK_UNDEFINED);</span>
+<span class="nc" id="L639">			jLblSvRes.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L640">			jLblSvRes.setText(new File(&quot;.&quot;).getAbsolutePath());</span>
+<span class="nc" id="L641">			jLblResults = new JLabel();</span>
+<span class="nc" id="L642">			jLblResults.setText(&quot;Directory to save results:&quot;);</span>
+<span class="nc" id="L643">			jLblResults.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L644">			jLblResults.setBounds(new Rectangle(21, 58, 152, 20));</span>
+<span class="nc" id="L645">			jLblValues = new JLabel();</span>
+<span class="nc" id="L646">			jLblValues.setText(&quot;Number of values per statistic:&quot;);</span>
+<span class="nc" id="L647">			jLblValues.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L648">			jLblValues.setBounds(new Rectangle(20, 25, 180, 20));</span>
+<span class="nc" id="L649">			jLblNtConf = new JLabel();</span>
+<span class="nc" id="L650">			jLblNtConf.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));</span>
+<span class="nc" id="L651">			jLblNtConf.setBounds(new Rectangle(280, 58, 201, 20));</span>
+<span class="nc" id="L652">			jLblNtConf.setFont(new Font(&quot;Dialog&quot;, Font.PLAIN, 12));</span>
+<span class="nc" id="L653">			jLblNtConf.setText(&quot;&quot;);</span>
+<span class="nc" id="L654">			jContentPane = new JPanel();</span>
+<span class="nc" id="L655">			jContentPane.setLayout(null);</span>
+<span class="nc" id="L656">			jContentPane.setName(&quot;&quot;);</span>
+<span class="nc" id="L657">			jContentPane.add(getJBtnRun(), null);</span>
+<span class="nc" id="L658">			jContentPane.add(getJButton3(), null);</span>
+<span class="nc" id="L659">			jContentPane.add(getJPanelRts(), null);</span>
+<span class="nc" id="L660">			jContentPane.add(getJPanelEvents(), null);</span>
+<span class="nc" id="L661">			jContentPane.add(getJPanelStats(), null);</span>
+<span class="nc" id="L662">			jContentPane.add(getJPanelNtConf(), null);</span>
+<span class="nc" id="L663">			jContentPane.add(jLblPamv, null);</span>
+<span class="nc" id="L664">			jContentPane.add(getJBtnView(), null);</span>
+		}
+<span class="nc" id="L666">		return jContentPane;</span>
+	}
+	
+	private void CheckAndStart(){
+<span class="nc bnc" id="L670" title="All 2 branches missed.">		if(jTxtSeed.getText().length()==0)</span>
+<span class="nc" id="L671">			JOptionPane.showMessageDialog(Pamvotis.this,&quot;Seed must be a positive integer.&quot;,&quot;Error - Seed&quot;,JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc bnc" id="L672" title="All 2 branches missed.">		else if (jTxtValues.getText().length()==0)</span>
+<span class="nc" id="L673">			JOptionPane.showMessageDialog(Pamvotis.this,&quot;Number of collected values must be a positive integer.&quot;,&quot;Error - Values&quot;,JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc bnc" id="L674" title="All 2 branches missed.">		else if (jTxtTime.getText().length()==0)</span>
+<span class="nc" id="L675">			JOptionPane.showMessageDialog(Pamvotis.this,&quot;Simulation time must be a positive integer.&quot;,&quot;Error - Simulation Time&quot;,JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc bnc" id="L676" title="All 4 branches missed.">		else if (jTxtThr.isEnabled()&amp;&amp;(jTxtThr.getText().length()==0))</span>
+<span class="nc" id="L677">			JOptionPane.showMessageDialog(Pamvotis.this,&quot;RTS Threshold must be a positive integer.&quot;,&quot;Error - RTS Threshold&quot;,JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc bnc" id="L678" title="All 6 branches missed.">		else if(jBtnNtConf.isEnabled()&amp;&amp;(jLblNtConf.getText()==null||jLblNtConf.getText().length()==0))</span>
+<span class="nc" id="L679">			JOptionPane.showMessageDialog(Pamvotis.this,&quot;Specify a network configuration file.&quot;,&quot;Error - Network Configuration&quot;,JOptionPane.ERROR_MESSAGE);</span>
+		else{
+<span class="nc" id="L681">			mk.setSeed(jTxtSeed.getText());</span>
+<span class="nc" id="L682">			mk.setDuration(jTxtTime.getText());</span>
+<span class="nc" id="L683">			mk.setValues(jTxtValues.getText());</span>
+<span class="nc bnc" id="L684" title="All 2 branches missed.">			if(jTxtThr.isEnabled())</span>
+<span class="nc" id="L685">				mk.setRtsThr(jTxtThr.getText());</span>
+			else
+<span class="nc" id="L687">				mk.setRtsThr(&quot;999999&quot;);</span>
+<span class="nc bnc" id="L688" title="All 2 branches missed.">			if(jBtnNtConf.isEnabled()){</span>
+<span class="nc bnc" id="L689" title="All 2 branches missed.">				if(jLblNtConf.getText().endsWith(&quot;xls&quot;))</span>
+<span class="nc" id="L690">					mk.configWithFile();</span>
+				else
+<span class="nc" id="L692">					mk.configInLinux();</span>
+			}
+<span class="nc bnc" id="L694" title="All 2 branches missed.">			if(jBtConf.isEnabled())</span>
+<span class="nc" id="L695">				mk.configureGlobally();</span>
+<span class="nc" id="L696">			rn.initialize();</span>
+<span class="nc" id="L697">			rn.setVisible(true);</span>
+<span class="nc" id="L698">			Pamvotis.this.setVisible(false);</span>
+<span class="nc" id="L699">			jBtnView.setEnabled(true);</span>
+		}
+<span class="nc" id="L701">	}</span>
+}  //  @jve:decl-index=0:visual-constraint=&quot;10,10&quot; 
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

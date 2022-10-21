@@ -1,0 +1,163 @@
+#+STARTUP: showall
+
+* Equivalent Mutants
+
+** Major 
+
+| Mutant | Line |                         Original Statement                                   |           Mutated Statement               |
+|--------+------+------------------------------------------------------------------------------+-------------------------------------------|
+| 9_ROR  |  158 | i < length                                                                   | i != length                               |
+| 11_ROR |  158 | i < length                                                                   | false                                     | 
+| 12_ROR |  161 | c == dollarReplacementFirstChar                                              | c <= dollarReplacementFirstChar           |
+| 13_ROR |  161 | c == dollarReplacementFirstChar                                              | c >= dollarReplacementFirstChar           |
+| 15_ROR |  161 | c == escapeReplacementFirstChar                                              | c <= escapeReplacementFirstChar           |
+| 16_ROR |  161 | c == escapeReplacementFirstChar                                              | c >= escapeReplacementFirstChar           |
+| 21_COR |  161 | c == dollarReplacementFirstChar ¦¦ c == escapeReplacementFirstChar           | true                                      |
+| 23_ROR |  167 | i == length                                                                  | i >= length                               |
+| 24_ROR |  167 | i == length                                                                  | false                                     |
+| 25_LVR |  172 | length + 8                                                                   | length + 0                                |
+| 27_AOR |  172 | length + 8                                                                   | length % 8                                |
+| 28_AOR |  172 | length + 8                                                                   | length * 8                                |
+| 30_AOR |  172 | length + 8                                                                   | length / 8                                |
+| 32_LVR |  175 | i > 0                                                                        | i > -1                                    |
+| 33_ROR |  175 | i > 0                                                                        | i != 0                                    |
+| 34_ROR |  175 | i > 0                                                                        | i >= 0                                    |
+| 39_ROR |  179 | i < length                                                                   | i != length                               |
+| 42_ROR |  181 | c == dollarReplacementFirstChar                                              | c <= dollarReplacementFirstChar           |
+| 43_ROR |  181 | c == dollarReplacementFirstChar                                              | c >= dollarReplacementFirstChar           |
+| 48_COR |  181 | c == dollarReplacementFirstChar && name.startsWith(dollarReplacement, i)     | name.startsWith(dollarReplacement, i)     |
+| 57_ROR |  184 | c == escapeReplacementFirstChar                                              | c <= escapeReplacementFirstChar           |
+| 58_ROR |  184 | c == escapeReplacementFirstChar                                              | c >= escapeReplacementFirstChar           |          
+| 63_COR |  185 | c == escapeReplacementFirstChar && name.startsWith(escapeCharReplacement, i) | name.startsWith(escapeCharReplacement, i) |
+| 73_STD |  194 | unescapeCache.put(name, new WeakReference(s))                                | <NO-OP>                                   |
+|--------+------+------------------------------------------------------------------------------+-------------------------------------------|
+| Total  |   24 |                                                                              |                                           |
+#+TBLFM: @26$2=vcount(@I..II)
+
+
+** PIT: Default Mutation Operators
+
+| Mutant                                  | Line | Original Statement | Mutated Statement |
+|-----------------------------------------+------+--------------------+-------------------|
+| ConditionalsBoundaryMutator_175         |  175 | i > 0              | i >= 0            |
+
+
+** PIT: ALL Mutation Operators: Equivalents
+
+| Mutant                                  | Line | Original Statement                                                           | Mutated Statement                               |
+|-----------------------------------------+------+------------------------------------------------------------------------------+-------------------------------------------------|
+| NonVoidMethodCallMutator_147            |  147 | final WeakReference ref = (WeakReference)unescapeCache.get(name);            | final WeakReference ref = null;                 |
+| NonVoidMethodCallMutator_148            |  148 | String s = (String)(ref == null ? null : ref.get());                         | String s = (String)(ref == null ? null : null); |
+| RemoveConditionalMutator_EQUAL_IF_148   |  148 | String s = (String)(ref == null ? null : ref.get());                         | String s = (String)(true ? null : ref.get());   |
+| RemoveConditionalMutator_EQUAL_IF_150   |  150 | s == null                                                                    | true                                            |
+| RemoveConditionalMutator_ORDER_ELSE_158 |  158 | i < length                                                                   | false                                           |
+| RemoveConditionalMutator_EQUAL_ELSE_161 |  161 | c == dollarReplacementFirstChar ¦¦ c == escapeReplacementFirstChar           | true                                            |
+| RemoveConditionalMutator_EQUAL_IF_161   |  161 | c == dollarReplacementFirstChar ¦¦ c == escapeReplacementFirstChar           | c == dollarReplacementFirstChar ¦¦ true         |
+| RemoveConditionalMutator_EQUAL_ELSE_167 |  167 | i == length                                                                  | false                                           |
+| InlineConstantMutator_172               |  172 | length + 8                                                                   | length + 9                                      |
+| ConditionalsBoundaryMutator_175         |  175 | i > 0                                                                        | i >= 0                                          |
+| RemoveConditionalMutator_ORDER_IF_175   |  175 | i > 0                                                                        | true                                            |
+| RemoveConditionalMutator_EQUAL_IF_181   |  181 | c == dollarReplacementFirstChar && name.startsWith(dollarReplacement, i)     | name.startsWith(dollarReplacement, i)           |
+| RemoveConditionalMutator_EQUAL_IF_184   |  184 | c == escapeReplacementFirstChar && name.startsWith(escapeCharReplacement, i) | name.startsWith(escapeCharReplacement, i)       |
+| ArgumentPropagationMutator_194          |  194 | unescapeCache.put(name, new WeakReference(s));                               | name                                            |
+| ConstructorCallMutator_194              |  194 | unescapeCache.put(name, new WeakReference(s));                               | unescapeCache.put(name, null);                  |
+| NonVoidMethodCallMutator_194            |  194 | unescapeCache.put(name, new WeakReference(s));                               | null                                            |
+|-----------------------------------------+------+------------------------------------------------------------------------------+-------------------------------------------------|
+| Total                                   |   16 |                                                                              |                                                 |
+#+TBLFM: @18$2=vcount(@I..II)
+
+
+** Mujava3
+
+| Mutant   | Line |                         Original Statement                                    |             Mutated Statement               |
+|----------+------+-------------------------------------------------------------------------------+---------------------------------------------|
+| ROR_76   |  119 | c == dollarReplacementFirstChar                                               | c >= dollarReplacementFirstChar             |
+| ROR_78   |  119 | c == dollarReplacementFirstChar                                               | c <= dollarReplacementFirstChar             |
+| ROR_80   |  119 | c == dollarReplacementFirstChar && name.startsWith( dollarReplacement, i)     | name.startsWith( dollarReplacement, i )     |
+| ROR_83   |  123 | c == escapeReplacementFirstChar                                               | c >= escapeReplacementFirstChar             |
+| ROR_85   |  123 | c == escapeReplacementFirstChar                                               | c <= escapeReplacementFirstChar             |
+| ROR_87   |  123 | c == escapeReplacementFirstChar && name.startsWith( escapeCharReplacement, i) | name.startsWith( escapeCharReplacement, i ) |
+| LOI_20   |  104 | i < length                                                                    | i < ~length                                 |
+| ROR_50   |  106 | c == dollarReplacementFirstChar                                               | c <= dollarReplacementFirstChar             |
+| AOIS_131 |  127 | result.append( c );                                                           | result.append( c++ );                       |
+| AOIS_132 |  127 | result.append( c );                                                           | result.append( c-- );                       |
+| AOIS_77  |  106 | c == escapeReplacementFirstChar                                               | c++ == escapeReplacementFirstChar           |
+| AOIS_78  |  106 | c == escapeReplacementFirstChar                                               | c-- == escapeReplacementFirstChar           |
+| AORB_5   |  113 | length + 8                                                                    | length * 8                                  |
+| AORB_6   |  113 | length + 8                                                                    | length / 8                                  |
+| AORB_7   |  113 | length + 8                                                                    | length % 8                                  |
+| LOI_27   |  110 | i == length                                                                   | ~i == length                                |
+| LOI_28   |  110 | i == length                                                                   | i == ~length                                |
+| ROR_48   |  106 | c == dollarReplacementFirstChar                                               | c >= dollarReplacementFirstChar             |
+| ROR_52   |  106 | c == dollarReplacementFirstChar ¦¦ c == escapeReplacementFirstChar            | true ¦¦ c == escapeReplacementFirstChar     |
+| ROR_55   |  106 | c == escapeReplacementFirstChar                                               | c >= escapeReplacementFirstChar             |
+| ROR_57   |  106 | c == escapeReplacementFirstChar                                               | c <= escapeReplacementFirstChar             |
+| ROR_59   |  106 | c == dollarReplacementFirstChar ¦¦ c == escapeReplacementFirstChar            | c == dollarReplacementFirstChar ¦¦ true     |
+| ROR_61   |  110 | i == length                                                                   | i > length                                  |
+| ROR_62   |  110 | i == length                                                                   | i >= length                                 |
+| ROR_67   |  110 | i == length                                                                   | false                                       |
+| ROR_68   |  114 | i > 0                                                                         | i >= 0                                      |
+| ROR_72   |  114 | i > 0                                                                         | i != 0                                      |
+| ROR_73   |  114 | i > 0                                                                         | true                                        |
+|----------+------+-------------------------------------------------------------------------------+---------------------------------------------|
+| Total    |   28 |                                                                               |                                             |
+#+TBLFM: @30$2=vcount(@I..II)
+
+* Common Equivalent
+
+** Major - PIT ALL
+
+| Major  | PIT ALL                                 |
+|--------+-----------------------------------------|
+| 11_ROR | RemoveConditionalMutator_ORDER_ELSE_158 |
+| 21_COR | RemoveConditionalMutator_EQUAL_ELSE_161 |
+| 24_ROR | RemoveConditionalMutator_EQUAL_ELSE_167 |
+| 34_ROR | ConditionalsBoundaryMutator_175         |
+| 48_COR | RemoveConditionalMutator_EQUAL_IF_181   |
+| 63_COR | RemoveConditionalMutator_EQUAL_IF_184   |
+| 73_STD | NonVoidMethodCallMutator_194            |
+
+** Major - Mujava3
+
+| Major  | Mujava3 |
+|--------+---------|
+| 12_ROR | ROR_50  |
+| 13_ROR | ROR_48  |
+| 15_ROR | ROR_57  |
+| 16_ROR | ROR_55  |
+| 23_ROR | ROR_62  |
+| 24_ROR | ROR_67  |
+| 27_AOR | AORB_7  |
+| 28_AOR | AORB_5  |
+| 30_AOR | AORB_6  |
+| 33_ROR | ROR_72  |
+| 34_ROR | ROR_68  |
+| 42_ROR | ROR_78  |
+| 43_ROR | ROR_76  |
+| 48_COR | ROR_80  |
+| 57_ROR | ROR_85  |
+| 58_ROR | ROR_83  |
+| 63_COR | ROR_87  |
+
+** PIT ALL - Mujava3
+
+| PIT ALL                                 | Mujava3 |
+|-----------------------------------------+---------|
+| RemoveConditionalMutator_EQUAL_IF_161   | ROR_59  |
+| RemoveConditionalMutator_EQUAL_ELSE_167 | ROR_67  |
+| ConditionalsBoundaryMutator_175         | ROR_68  |
+| RemoveConditionalMutator_ORDER_IF_175   | ROR_73  |
+| RemoveConditionalMutator_EQUAL_IF_181   | ROR_80  |
+| RemoveConditionalMutator_EQUAL_IF_184   | ROR_87  |
+
+
+** Common equivs among all tools
+
+| Major  | PIT ALL                                 | Mujava3 |
+|--------+-----------------------------------------+---------|
+| 24_ROR | RemoveConditionalMutator_EQUAL_ELSE_167 | ROR_67  |
+| 34_ROR | ConditionalsBoundaryMutator_175         | ROR_68  |
+| 48_COR | RemoveConditionalMutator_EQUAL_IF_181   | ROR_80  |
+| 63_COR | RemoveConditionalMutator_EQUAL_IF_184   | ROR_87  |
+
+ 

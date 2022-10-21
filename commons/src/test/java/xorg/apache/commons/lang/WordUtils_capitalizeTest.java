@@ -10,42 +10,42 @@ import junit.framework.TestCase;
 
 //*****Minimum Mutation Coverage with All mutation Operators.*****//
 
-public class WordUtilsCapitalize_PIT_ALL_AdeqTs {
+public class WordUtils_capitalizeTest {
 	// *********Necessary Mutations for 58 coverage. (Same as before)*********//
 
 	@Test
-	public void testPIT_ALLAssertEqualsNull() {
+	public void testCapitalize1() {
 		// check if null entry returns null
 		assertEquals(null, WordUtils.capitalize(null, null));
 	}
 
 	@Test
-	public void testPIT_ALLAssertEquals() {
+	public void testCapitalize2() {
 		// check if null array checks name for whitespaces
 		assertEquals("Hello Th.ere", WordUtils.capitalize("hello th.ere", null));
 	}
 
 	@Test
-	public void testPIT_ALLAssertEqualsNoWhitespace() {
+	public void testCapitalize3() {
 		// check if nothing or whitespace returns the same
 		char[] delim = new char[0];
 		assertEquals("", WordUtils.capitalize("", delim));
 	}
 
 	@Test
-	public void testPIT_ALLAssertEqualsWithWhitespace() {
+	public void testCapitalize4() {
 		char[] delim = new char[0];
 		assertEquals("  ", WordUtils.capitalize("  ", delim));
 	}
 
 	@Test
-	public void testPIT_ALLAssertEqualsSameAfterSymbol() {
+	public void testCapitalize5() {
 		char[] delim = new char[] { '1', '_', ' ', '@', '#' };
 		assertEquals("Hello There_How@Are#You", WordUtils.capitalize("Hello there_how@are#you", delim));
 	}
 
 	@Test
-	public void testPIT_ALLAssertEqualsEmptyDelim() {
+	public void testCapitalize6() {
 		char[] delim = new char[] {};
 		assertEquals("teststringone", WordUtils.capitalize("teststringone", delim));
 	}

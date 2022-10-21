@@ -6,22 +6,23 @@ import org.junit.Test;
 
 import xorg.apache.commons.lang.WordUtils;
 
-public class WordUtils_wrap_PIT_ALL_AdeqTs {
+
+public class WordUtils_wrapTest {
 
 	@Test
-	public void testPIT_ALL1() {
+	public void testWrap1() {
 		String expectedNull = WordUtils.wrap(null, 0, "", true);
 		assertTrue(expectedNull == null);
 	}
 
 	@Test
-	public void testPIT_ALL2() {
+	public void testWrap2() {
 		String expectedNotNull = WordUtils.wrap("definitelyNotNull", 0);
 		assertTrue(expectedNotNull != null);
 	}
 
 	@Test
-	public void testPIT_ALL3() {
+	public void testWrap3() {
 		String test = WordUtils.wrap("", 0, null, true);
 		assertTrue(test.equals(""));
 		test = WordUtils.wrap(" test ", 0, "d", true);
@@ -41,21 +42,21 @@ public class WordUtils_wrap_PIT_ALL_AdeqTs {
 	// }
 
 	@Test
-	public void testPIT_ALL6() {
+	public void testWrap4() {
 		String test = WordUtils.wrap("This cv svnasvnav vsdvsdavsdv vosdakvkdsa]v ovsdavo", 10, null, false);
 		// 9/22/22 - Added \r before all \n to do carriage return on Windows
 		assertTrue(test.equals("This cv\r\nsvnasvnav\r\nvsdvsdavsdv\r\nvosdakvkdsa]v\r\novsdavo"));
 	}
 
 	@Test
-	public void testPIT_ALL7() {
+	public void testWrap5() {
 		String test = WordUtils.wrap("asd areallyhugewordthatneedstobebiggerthanthenumberontheright", 5);
 		// 9/22/22 - Added \r before \n to do carriage return on Windows
 		assertTrue(test.equals("asd\r\nareallyhugewordthatneedstobebiggerthanthenumberontheright"));
 	}
 
 	@Test
-	public void testPIT_ALL8() {
+	public void testWrap6() {
 
 		String test = WordUtils.wrap(" as a", 5, null, false);
 		assertTrue(test.equals(" as a"));

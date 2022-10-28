@@ -1,3 +1,4 @@
+import json
 import pandas
 import random
 import re
@@ -25,20 +26,26 @@ def clean_target_dir():
     subprocess.run(["mvn", "clean"], shell=True, stdout=subprocess.DEVNULL)
 
 
-def check_coverage_xml(jacoco_xml_path, method_name, mute_print):
+def check_coverage_xml(jacoco_xml_path, method_name, mute_print, line_num, cov_type):
     tree = ET.parse(jacoco_xml_path)
     root = tree.getroot()
 
-    for method in root.iter("method"):
-        if method.get("name") == method_name:
-            for counter in method:
-                if counter.get("type") == "INSTRUCTION":
-                    missed_instructions = int(counter.get("missed"))
+    if cov_type == "2-OP":
+        return False
+    else:
+        missed = -1
+        for method in root.iter("method"):
+            if method.get("name") == method_name and (line_num == "-1" or method.get("line") == line_num):
+                for counter in method:
+                    if cov_type == "INSTRUCTION" and counter.get("type") == "INSTRUCTION":
+                        missed = int(counter.get("missed"))
+                    elif cov_type == "BRANCH" and counter.get("type") == "BRANCH":
+                        missed = int(counter.get("missed"))
     
-    if not mute_print:
-        print("Instructions missed: " + str(missed_instructions))
-    if missed_instructions == 0:
-        return True
+        if not mute_print:
+            print("Instructions missed: " + str(missed))
+        if missed == 0:
+            return True
 
     return False
 
@@ -49,7 +56,7 @@ runs Jacoco coverage tool with all tests in test_cases_picked. Resets and makes 
 test case list if it ends up picking all original test cases.
 """
 def get_cases_full_conditional_cov(mvn_test_cases_flag, unit_test_name, test_cases_original, 
-        method_name, shuffled_cases, mute_print=True):
+        method_name, shuffled_cases, cov_type, mute_print=True, line_num="-1"):
     mvn_flag_original = mvn_test_cases_flag
     test_cases_picked = []
     conditional_cov_met = False
@@ -67,7 +74,8 @@ def get_cases_full_conditional_cov(mvn_test_cases_flag, unit_test_name, test_cas
         if not mute_print:
             print("Current list of picked test cases: \n" + str(test_cases_picked))
 
-        if check_coverage_xml("target/site/jacoco/jacoco.xml", method_name, mute_print) is True:
+        if check_coverage_xml("target/site/jacoco/jacoco.xml", method_name, mute_print, 
+            line_num, cov_type) is True:
 
             # Resets if picked test case list's length is equal to original test case list's length
             if len(test_cases_picked) == len(test_cases_original):
@@ -134,3 +142,55 @@ def parse_mutation_matrix(matrix_file_path, test_cases_picked, mute_print=True,
     
 
     return (mutations_not_killed, mutations_killed)
+
+
+def do_runs(method_name, test_cases_arr, file_name_mvn, test_case_name, 
+    mut_matrix_file, cov_type, start_line=-1, end_line=-1, mute_print=False, method_line_num="-1"):
+    runs = []
+    for run_id in range(1, 6):
+        run_data = {
+            "run_id": run_id,
+            "method_name": method_name,
+            "coverage_type": cov_type,
+            "total_test_cases": 0,
+            "test_suite_strength": 0.0,
+            "mutations_not_killed": {},
+            "mutations_killed": {},
+            "test_cases_picked": [],
+            "test_cases_not_picked": []
+        }
+    
+        test_cases_original = test_cases_arr
+        shuffled_cases = gen_random_test_case_order(test_cases_original)
+
+        test_suite_info = get_cases_full_conditional_cov(file_name_mvn, test_case_name, 
+            test_cases_original, method_name, shuffled_cases, cov_type, mute_print, line_num=method_line_num)
+        test_cases_picked = test_suite_info[0]
+
+        run_data["test_cases_picked"] = test_cases_picked
+        run_data["test_cases_not_picked"] = test_suite_info[1]
+        run_data["test_suite_strength"] = len(test_cases_picked) / len(test_cases_original)
+        run_data["total_test_cases"] = len(test_cases_original)
+
+        print("Final test case list: \n" + str(test_cases_picked))
+
+        mutations_info = parse_mutation_matrix(mut_matrix_file, test_cases_picked,
+            mute_print=mute_print, start_line=start_line, end_line=end_line)
+
+        run_data["mutations_not_killed"] = mutations_info[0]
+        run_data["mutations_killed"] = mutations_info[1]
+
+        runs.append(run_data)
+
+        run_data_json = json.dumps(run_data, indent=3)
+        print(run_data_json)
+    
+    runs_json = json.dumps(runs, indent=3)
+    print(runs_json)
+
+    runs.sort(key=lambda run: run["test_suite_strength"])
+
+    print("=======================================")
+    print("Median run is: ")
+    median_run_json = json.dumps(runs[2], indent=3)
+    print(median_run_json)

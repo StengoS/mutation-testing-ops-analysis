@@ -1,5 +1,6 @@
 import json
 import pandas
+import matplotlib.pyplot as plt
 import random
 import re
 import subprocess
@@ -104,12 +105,15 @@ def parse_mutation_matrix(matrix_file_path, test_cases_picked, mute_print=True,
         start_line=-1, end_line=-1):
     mutations_not_killed = {}
     mutations_killed = {}
+    total_mutations = 0
 
     tree = ET.parse(matrix_file_path)
     root = tree.getroot()
 
     for mutation in root.findall("mutation"):
-        if mutation.get("status") == "KILLED":
+        if mutation.get("status") == "KILLED" or mutation.get("status") == "TIMED_OUT":
+            total_mutations += 1
+
             mutator_txt = mutation.find("mutator").text
             line_number_txt = mutation.find("lineNumber").text
             killing_tests_txt = mutation.find("killingTests").text
@@ -141,7 +145,7 @@ def parse_mutation_matrix(matrix_file_path, test_cases_picked, mute_print=True,
                     mutations_killed[mutator] = 1
     
 
-    return (mutations_not_killed, mutations_killed)
+    return (mutations_not_killed, mutations_killed, total_mutations)
 
 
 def do_runs(method_name, test_cases_arr, file_name_mvn, test_case_name, 
@@ -156,6 +160,7 @@ def do_runs(method_name, test_cases_arr, file_name_mvn, test_case_name,
             "test_suite_strength": 0.0,
             "mutations_not_killed": {},
             "mutations_killed": {},
+            "total_mutations": 0,
             "test_cases_picked": [],
             "test_cases_not_picked": []
         }
@@ -179,18 +184,47 @@ def do_runs(method_name, test_cases_arr, file_name_mvn, test_case_name,
 
         run_data["mutations_not_killed"] = mutations_info[0]
         run_data["mutations_killed"] = mutations_info[1]
+        run_data["total_mutations"] = mutations_info[2]
 
         runs.append(run_data)
 
         run_data_json = json.dumps(run_data, indent=3)
         print(run_data_json)
     
+    cov_data_txt = open(cov_type + "_cov_data.txt", "w")
+
     runs_json = json.dumps(runs, indent=3)
-    print(runs_json)
+    cov_data_txt.write(runs_json)
 
     runs.sort(key=lambda run: run["test_suite_strength"])
 
-    print("=======================================")
-    print("Median run is: ")
+    
+    cov_data_txt.write("=======================================")
+    cov_data_txt.write("Median run is: ")
     median_run_json = json.dumps(runs[2], indent=3)
-    print(median_run_json)
+    cov_data_txt.write(median_run_json)
+
+    cov_data_txt.close()
+    return (runs[2])
+
+
+def generate_mutations_killed_bar_chart(run_data, graph_title, cov_type):
+    mutations_killed = run_data["mutations_killed"]
+    total_mutations = run_data["total_mutations"]
+
+    graph_data = {
+        "Mutations": [],
+        "% Killed": []
+    }
+
+    for mutation in mutations_killed:
+        graph_data["Mutations"].append(mutation)
+        graph_data["% Killed"].append(mutations_killed[mutation] / total_mutations)
+
+    df = pandas.DataFrame(data=graph_data)
+
+    df.plot.bar(x="Mutations", y="% Killed", rot=70, title=graph_title)
+    plt.show()
+    # plt.savefig(cov_type + "_cov_graph_percent_killed.png")
+
+    plt.close()

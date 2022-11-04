@@ -1,0 +1,194 @@
+[
+   {
+      "run_id": 1,
+      "method_name": "sqrt",
+      "coverage_type": "INSTRUCTION",
+      "total_test_cases": 4,
+      "test_suite_strength": 0.5,
+      "mutations_not_killed": {
+         "InlineConstantMutator": 1,
+         "MathMutator": 1
+      },
+      "mutations_killed": {
+         "MemberVariableMutator": 2,
+         "ConditionalsBoundaryMutator": 1,
+         "InlineConstantMutator": 4,
+         "MathMutator": 7,
+         "NegateConditionalsMutator": 3,
+         "NonVoidMethodCallMutator": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 3,
+         "RemoveConditionalMutator_ORDER_IF": 2,
+         "ArgumentPropagationMutator": 1,
+         "PrimitiveReturnsMutator": 1
+      },
+      "total_mutations": 27,
+      "test_cases_picked": [
+         1,
+         4
+      ],
+      "test_cases_not_picked": [
+         2,
+         5
+      ]
+   },
+   {
+      "run_id": 2,
+      "method_name": "sqrt",
+      "coverage_type": "INSTRUCTION",
+      "total_test_cases": 4,
+      "test_suite_strength": 0.5,
+      "mutations_not_killed": {
+         "ConditionalsBoundaryMutator": 1,
+         "InlineConstantMutator": 1,
+         "NegateConditionalsMutator": 1
+      },
+      "mutations_killed": {
+         "MemberVariableMutator": 2,
+         "InlineConstantMutator": 4,
+         "MathMutator": 8,
+         "NegateConditionalsMutator": 2,
+         "NonVoidMethodCallMutator": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 3,
+         "RemoveConditionalMutator_ORDER_IF": 2,
+         "ArgumentPropagationMutator": 1,
+         "PrimitiveReturnsMutator": 1
+      },
+      "total_mutations": 27,
+      "test_cases_picked": [
+         5,
+         2
+      ],
+      "test_cases_not_picked": [
+         1,
+         4
+      ]
+   },
+   {
+      "run_id": 3,
+      "method_name": "sqrt",
+      "coverage_type": "INSTRUCTION",
+      "total_test_cases": 4,
+      "test_suite_strength": 0.25,
+      "mutations_not_killed": {
+         "ConditionalsBoundaryMutator": 1,
+         "InlineConstantMutator": 1,
+         "MathMutator": 1,
+         "NegateConditionalsMutator": 1
+      },
+      "mutations_killed": {
+         "MemberVariableMutator": 2,
+         "InlineConstantMutator": 4,
+         "MathMutator": 7,
+         "NegateConditionalsMutator": 2,
+         "NonVoidMethodCallMutator": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 3,
+         "RemoveConditionalMutator_ORDER_IF": 2,
+         "ArgumentPropagationMutator": 1,
+         "PrimitiveReturnsMutator": 1
+      },
+      "total_mutations": 27,
+      "test_cases_picked": [
+         2
+      ],
+      "test_cases_not_picked": [
+         1,
+         4,
+         5
+      ]
+   },
+   {
+      "run_id": 4,
+      "method_name": "sqrt",
+      "coverage_type": "INSTRUCTION",
+      "total_test_cases": 4,
+      "test_suite_strength": 0.5,
+      "mutations_not_killed": {
+         "InlineConstantMutator": 1,
+         "MathMutator": 1
+      },
+      "mutations_killed": {
+         "MemberVariableMutator": 2,
+         "ConditionalsBoundaryMutator": 1,
+         "InlineConstantMutator": 4,
+         "MathMutator": 7,
+         "NegateConditionalsMutator": 3,
+         "NonVoidMethodCallMutator": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 3,
+         "RemoveConditionalMutator_ORDER_IF": 2,
+         "ArgumentPropagationMutator": 1,
+         "PrimitiveReturnsMutator": 1
+      },
+      "total_mutations": 27,
+      "test_cases_picked": [
+         1,
+         4
+      ],
+      "test_cases_not_picked": [
+         2,
+         5
+      ]
+   },
+   {
+      "run_id": 5,
+      "method_name": "sqrt",
+      "coverage_type": "INSTRUCTION",
+      "total_test_cases": 4,
+      "test_suite_strength": 0.5,
+      "mutations_not_killed": {
+         "ConditionalsBoundaryMutator": 1,
+         "InlineConstantMutator": 1,
+         "NegateConditionalsMutator": 1
+      },
+      "mutations_killed": {
+         "MemberVariableMutator": 2,
+         "InlineConstantMutator": 4,
+         "MathMutator": 8,
+         "NegateConditionalsMutator": 2,
+         "NonVoidMethodCallMutator": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 3,
+         "RemoveConditionalMutator_ORDER_IF": 2,
+         "ArgumentPropagationMutator": 1,
+         "PrimitiveReturnsMutator": 1
+      },
+      "total_mutations": 27,
+      "test_cases_picked": [
+         5,
+         4
+      ],
+      "test_cases_not_picked": [
+         2,
+         1
+      ]
+   }
+]=======================================Median run is: {
+   "run_id": 2,
+   "method_name": "sqrt",
+   "coverage_type": "INSTRUCTION",
+   "total_test_cases": 4,
+   "test_suite_strength": 0.5,
+   "mutations_not_killed": {
+      "ConditionalsBoundaryMutator": 1,
+      "InlineConstantMutator": 1,
+      "NegateConditionalsMutator": 1
+   },
+   "mutations_killed": {
+      "MemberVariableMutator": 2,
+      "InlineConstantMutator": 4,
+      "MathMutator": 8,
+      "NegateConditionalsMutator": 2,
+      "NonVoidMethodCallMutator": 1,
+      "RemoveConditionalMutator_ORDER_ELSE": 3,
+      "RemoveConditionalMutator_ORDER_IF": 2,
+      "ArgumentPropagationMutator": 1,
+      "PrimitiveReturnsMutator": 1
+   },
+   "total_mutations": 27,
+   "test_cases_picked": [
+      5,
+      2
+   ],
+   "test_cases_not_picked": [
+      1,
+      4
+   ]
+}

@@ -37,16 +37,16 @@ public class BisectTest extends Thread {
 	}
 
 	// @Test
-	// public void testBisect_3() {
+	// public void testBisect3() {
 	// Bisect obtained = null;
 	// obtained = new Bisect();
-	//
+	
 	// double arg1 = 0.1;
 	// obtained.setEpsilon(arg1);
 	// double arg2 = 36;
 	// int result = (int) obtained.sqrt(arg2);
 	// int expect_result = 6;
-	//
+	
 	// assertTrue(result == expect_result);
 	// }
 

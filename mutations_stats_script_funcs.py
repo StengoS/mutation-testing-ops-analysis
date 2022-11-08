@@ -27,12 +27,16 @@ def clean_target_dir():
     subprocess.run(["mvn", "clean"], shell=True, stdout=subprocess.DEVNULL)
 
 
+def check_mut_op_coverage(cov_type):
+    return False
+
+
 def check_coverage_xml(jacoco_xml_path, method_name, mute_print, line_num, cov_type):
     tree = ET.parse(jacoco_xml_path)
     root = tree.getroot()
 
-    if cov_type == "2-OP":
-        return False
+    if cov_type == "1-OP" or cov_type == "2-OP":
+        return check_mut_op_coverage(cov_type)
     else:
         missed = -1
         for method in root.iter("method"):

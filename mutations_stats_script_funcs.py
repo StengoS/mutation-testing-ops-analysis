@@ -112,7 +112,6 @@ def parse_mutation_matrix(matrix_file_path, test_cases_picked, mute_print=True,
 
     for mutation in root.findall("mutation"):
         if mutation.get("status") == "KILLED" or mutation.get("status") == "TIMED_OUT":
-            total_mutations += 1
 
             mutator_txt = mutation.find("mutator").text
             line_number_txt = mutation.find("lineNumber").text
@@ -122,6 +121,8 @@ def parse_mutation_matrix(matrix_file_path, test_cases_picked, mute_print=True,
             if start_line > -1 and end_line > -1:
                 if line_number < start_line or line_number > end_line:
                     continue
+            
+            total_mutations += 1
 
             mutator = mutator_txt.split(".")[-1]
             killing_tests = list(map(int, re.findall("\d+", killing_tests_txt)))

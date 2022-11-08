@@ -6,31 +6,31 @@
       "total_test_cases": 3,
       "test_suite_strength": 0.6666666666666666,
       "mutations_not_killed": {
-         "InlineConstantMutator": 2,
-         "VoidMethodCallMutator": 1,
-         "BooleanFalseReturnValsMutator": 1
+         "InlineConstantMutator": 1,
+         "MathMutator": 1,
+         "MemberVariableMutator": 1
       },
       "mutations_killed": {
          "ConditionalsBoundaryMutator": 1,
          "ConstructorCallMutator": 2,
-         "InlineConstantMutator": 3,
-         "MathMutator": 1,
+         "InlineConstantMutator": 4,
          "NegateConditionalsMutator": 3,
          "NonVoidMethodCallMutator": 6,
          "RemoveConditionalMutator_EQUAL_ELSE": 2,
          "RemoveConditionalMutator_EQUAL_IF": 2,
          "RemoveConditionalMutator_ORDER_ELSE": 1,
          "RemoveConditionalMutator_ORDER_IF": 1,
-         "MemberVariableMutator": 1,
-         "NakedReceiverMutator": 3
+         "VoidMethodCallMutator": 1,
+         "NakedReceiverMutator": 3,
+         "BooleanFalseReturnValsMutator": 1
       },
-      "total_mutations": 85,
+      "total_mutations": 30,
       "test_cases_picked": [
-         1,
+         3,
          2
       ],
       "test_cases_not_picked": [
-         3
+         1
       ]
    },
    {
@@ -58,7 +58,7 @@
          "NakedReceiverMutator": 3,
          "BooleanFalseReturnValsMutator": 1
       },
-      "total_mutations": 85,
+      "total_mutations": 30,
       "test_cases_picked": [
          3,
          2
@@ -92,7 +92,7 @@
          "NakedReceiverMutator": 3,
          "BooleanFalseReturnValsMutator": 1
       },
-      "total_mutations": 85,
+      "total_mutations": 30,
       "test_cases_picked": [
          3,
          2
@@ -108,31 +108,31 @@
       "total_test_cases": 3,
       "test_suite_strength": 0.6666666666666666,
       "mutations_not_killed": {
-         "InlineConstantMutator": 2,
-         "VoidMethodCallMutator": 1,
-         "BooleanFalseReturnValsMutator": 1
+         "InlineConstantMutator": 1,
+         "MathMutator": 1,
+         "MemberVariableMutator": 1
       },
       "mutations_killed": {
          "ConditionalsBoundaryMutator": 1,
          "ConstructorCallMutator": 2,
-         "InlineConstantMutator": 3,
-         "MathMutator": 1,
+         "InlineConstantMutator": 4,
          "NegateConditionalsMutator": 3,
          "NonVoidMethodCallMutator": 6,
          "RemoveConditionalMutator_EQUAL_ELSE": 2,
          "RemoveConditionalMutator_EQUAL_IF": 2,
          "RemoveConditionalMutator_ORDER_ELSE": 1,
          "RemoveConditionalMutator_ORDER_IF": 1,
-         "MemberVariableMutator": 1,
-         "NakedReceiverMutator": 3
+         "VoidMethodCallMutator": 1,
+         "NakedReceiverMutator": 3,
+         "BooleanFalseReturnValsMutator": 1
       },
-      "total_mutations": 85,
+      "total_mutations": 30,
       "test_cases_picked": [
-         2,
-         1
+         3,
+         2
       ],
       "test_cases_not_picked": [
-         3
+         1
       ]
    },
    {
@@ -160,10 +160,10 @@
          "NakedReceiverMutator": 3,
          "BooleanFalseReturnValsMutator": 1
       },
-      "total_mutations": 85,
+      "total_mutations": 30,
       "test_cases_picked": [
-         2,
-         3
+         3,
+         2
       ],
       "test_cases_not_picked": [
          1
@@ -194,7 +194,7 @@
       "NakedReceiverMutator": 3,
       "BooleanFalseReturnValsMutator": 1
    },
-   "total_mutations": 85,
+   "total_mutations": 30,
    "test_cases_picked": [
       3,
       2

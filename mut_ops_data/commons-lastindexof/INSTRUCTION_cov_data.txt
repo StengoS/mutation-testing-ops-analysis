@@ -1,6 +1,8 @@
 [
    {
       "run_id": 1,
+      "method_name": "lastIndexOf",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 8,
       "test_suite_strength": 0.75,
       "mutations_not_killed": {
@@ -19,21 +21,24 @@
          "RemoveConditionalMutator_ORDER_IF": 4,
          "PrimitiveReturnsMutator": 4
       },
+      "total_mutations": 38,
       "test_cases_picked": [
+         3,
          5,
          1,
-         3,
-         7,
          6,
+         7,
          4
       ],
       "test_cases_not_picked": [
-         8,
-         2
+         2,
+         8
       ]
    },
    {
       "run_id": 2,
+      "method_name": "lastIndexOf",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 8,
       "test_suite_strength": 0.875,
       "mutations_not_killed": {
@@ -51,13 +56,14 @@
          "RemoveConditionalMutator_ORDER_IF": 4,
          "PrimitiveReturnsMutator": 5
       },
+      "total_mutations": 38,
       "test_cases_picked": [
-         7,
-         8,
          6,
          1,
-         5,
          4,
+         8,
+         7,
+         5,
          3
       ],
       "test_cases_not_picked": [
@@ -66,6 +72,8 @@
    },
    {
       "run_id": 3,
+      "method_name": "lastIndexOf",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 8,
       "test_suite_strength": 0.875,
       "mutations_not_killed": {
@@ -83,14 +91,15 @@
          "RemoveConditionalMutator_ORDER_IF": 4,
          "PrimitiveReturnsMutator": 5
       },
+      "total_mutations": 38,
       "test_cases_picked": [
-         6,
-         4,
+         3,
+         7,
          8,
          5,
-         7,
          1,
-         3
+         4,
+         6
       ],
       "test_cases_not_picked": [
          2
@@ -98,10 +107,13 @@
    },
    {
       "run_id": 4,
+      "method_name": "lastIndexOf",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 8,
-      "test_suite_strength": 0.875,
+      "test_suite_strength": 0.75,
       "mutations_not_killed": {
-         "ConditionalsBoundaryMutator": 2
+         "ConditionalsBoundaryMutator": 2,
+         "RemoveConditionalMutator_ORDER_IF": 2
       },
       "mutations_killed": {
          "ConditionalsBoundaryMutator": 2,
@@ -112,31 +124,35 @@
          "RemoveConditionalMutator_EQUAL_ELSE": 4,
          "RemoveConditionalMutator_EQUAL_IF": 4,
          "RemoveConditionalMutator_ORDER_ELSE": 3,
-         "RemoveConditionalMutator_ORDER_IF": 4,
+         "RemoveConditionalMutator_ORDER_IF": 2,
          "PrimitiveReturnsMutator": 5
       },
+      "total_mutations": 38,
       "test_cases_picked": [
          6,
-         1,
-         5,
-         8,
          4,
+         3,
+         8,
          7,
-         3
+         1
       ],
       "test_cases_not_picked": [
-         2
+         2,
+         5
       ]
    },
    {
       "run_id": 5,
+      "method_name": "lastIndexOf",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 8,
-      "test_suite_strength": 0.875,
+      "test_suite_strength": 0.75,
       "mutations_not_killed": {
+         "ConditionalsBoundaryMutator": 2,
          "PrimitiveReturnsMutator": 1
       },
       "mutations_killed": {
-         "ConditionalsBoundaryMutator": 4,
+         "ConditionalsBoundaryMutator": 2,
          "InlineConstantMutator": 4,
          "MathMutator": 1,
          "NegateConditionalsMutator": 8,
@@ -147,28 +163,29 @@
          "RemoveConditionalMutator_ORDER_IF": 4,
          "PrimitiveReturnsMutator": 4
       },
+      "total_mutations": 38,
       "test_cases_picked": [
+         4,
          1,
          6,
          7,
          5,
-         3,
-         2,
-         4
+         3
       ],
       "test_cases_not_picked": [
+         2,
          8
       ]
    }
-]
-=======================================
-Median run is:
-{
-   "run_id": 3,
+]=======================================Median run is: {
+   "run_id": 5,
+   "method_name": "lastIndexOf",
+   "coverage_type": "INSTRUCTION",
    "total_test_cases": 8,
-   "test_suite_strength": 0.875,
+   "test_suite_strength": 0.75,
    "mutations_not_killed": {
-      "ConditionalsBoundaryMutator": 2
+      "ConditionalsBoundaryMutator": 2,
+      "PrimitiveReturnsMutator": 1
    },
    "mutations_killed": {
       "ConditionalsBoundaryMutator": 2,
@@ -180,18 +197,19 @@ Median run is:
       "RemoveConditionalMutator_EQUAL_IF": 4,
       "RemoveConditionalMutator_ORDER_ELSE": 3,
       "RemoveConditionalMutator_ORDER_IF": 4,
-      "PrimitiveReturnsMutator": 5
+      "PrimitiveReturnsMutator": 4
    },
+   "total_mutations": 38,
    "test_cases_picked": [
-      6,
       4,
-      8,
-      5,
-      7,
       1,
+      6,
+      7,
+      5,
       3
    ],
    "test_cases_not_picked": [
-      2
+      2,
+      8
    ]
 }

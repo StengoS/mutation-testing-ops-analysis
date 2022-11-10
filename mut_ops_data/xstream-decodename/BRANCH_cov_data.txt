@@ -1,0 +1,217 @@
+[
+   {
+      "run_id": 1,
+      "method_name": "decodeName",
+      "coverage_type": "BRANCH",
+      "total_test_cases": 6,
+      "test_suite_strength": 0.8333333333333334,
+      "mutations_not_killed": {
+         "NegateConditionalsMutator": 1
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 2,
+         "ConstructorCallMutator": 1,
+         "InlineConstantMutator": 8,
+         "MathMutator": 5,
+         "NegateConditionalsMutator": 11,
+         "NonVoidMethodCallMutator": 15,
+         "RemoveConditionalMutator_EQUAL_ELSE": 7,
+         "RemoveConditionalMutator_EQUAL_IF": 4,
+         "RemoveConditionalMutator_ORDER_ELSE": 2,
+         "RemoveConditionalMutator_ORDER_IF": 2,
+         "ArgumentPropagationMutator": 1,
+         "NakedReceiverMutator": 5,
+         "EmptyObjectReturnValsMutator": 1
+      },
+      "total_mutations": 65,
+      "test_cases_picked": [
+         4,
+         3,
+         1,
+         2,
+         5
+      ],
+      "test_cases_not_picked": [
+         6
+      ]
+   },
+   {
+      "run_id": 2,
+      "method_name": "decodeName",
+      "coverage_type": "BRANCH",
+      "total_test_cases": 6,
+      "test_suite_strength": 0.8333333333333334,
+      "mutations_not_killed": {
+         "NegateConditionalsMutator": 1
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 2,
+         "ConstructorCallMutator": 1,
+         "InlineConstantMutator": 8,
+         "MathMutator": 5,
+         "NegateConditionalsMutator": 11,
+         "NonVoidMethodCallMutator": 15,
+         "RemoveConditionalMutator_EQUAL_ELSE": 7,
+         "RemoveConditionalMutator_EQUAL_IF": 4,
+         "RemoveConditionalMutator_ORDER_ELSE": 2,
+         "RemoveConditionalMutator_ORDER_IF": 2,
+         "ArgumentPropagationMutator": 1,
+         "NakedReceiverMutator": 5,
+         "EmptyObjectReturnValsMutator": 1
+      },
+      "total_mutations": 65,
+      "test_cases_picked": [
+         2,
+         3,
+         4,
+         1,
+         5
+      ],
+      "test_cases_not_picked": [
+         6
+      ]
+   },
+   {
+      "run_id": 3,
+      "method_name": "decodeName",
+      "coverage_type": "BRANCH",
+      "total_test_cases": 6,
+      "test_suite_strength": 0.8333333333333334,
+      "mutations_not_killed": {
+         "NegateConditionalsMutator": 1
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 2,
+         "ConstructorCallMutator": 1,
+         "InlineConstantMutator": 8,
+         "MathMutator": 5,
+         "NegateConditionalsMutator": 11,
+         "NonVoidMethodCallMutator": 15,
+         "RemoveConditionalMutator_EQUAL_ELSE": 7,
+         "RemoveConditionalMutator_EQUAL_IF": 4,
+         "RemoveConditionalMutator_ORDER_ELSE": 2,
+         "RemoveConditionalMutator_ORDER_IF": 2,
+         "ArgumentPropagationMutator": 1,
+         "NakedReceiverMutator": 5,
+         "EmptyObjectReturnValsMutator": 1
+      },
+      "total_mutations": 65,
+      "test_cases_picked": [
+         1,
+         3,
+         5,
+         2,
+         4
+      ],
+      "test_cases_not_picked": [
+         6
+      ]
+   },
+   {
+      "run_id": 4,
+      "method_name": "decodeName",
+      "coverage_type": "BRANCH",
+      "total_test_cases": 6,
+      "test_suite_strength": 0.8333333333333334,
+      "mutations_not_killed": {
+         "NegateConditionalsMutator": 1
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 2,
+         "ConstructorCallMutator": 1,
+         "InlineConstantMutator": 8,
+         "MathMutator": 5,
+         "NegateConditionalsMutator": 11,
+         "NonVoidMethodCallMutator": 15,
+         "RemoveConditionalMutator_EQUAL_ELSE": 7,
+         "RemoveConditionalMutator_EQUAL_IF": 4,
+         "RemoveConditionalMutator_ORDER_ELSE": 2,
+         "RemoveConditionalMutator_ORDER_IF": 2,
+         "ArgumentPropagationMutator": 1,
+         "NakedReceiverMutator": 5,
+         "EmptyObjectReturnValsMutator": 1
+      },
+      "total_mutations": 65,
+      "test_cases_picked": [
+         2,
+         1,
+         4,
+         5,
+         3
+      ],
+      "test_cases_not_picked": [
+         6
+      ]
+   },
+   {
+      "run_id": 5,
+      "method_name": "decodeName",
+      "coverage_type": "BRANCH",
+      "total_test_cases": 6,
+      "test_suite_strength": 0.8333333333333334,
+      "mutations_not_killed": {
+         "NegateConditionalsMutator": 1
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 2,
+         "ConstructorCallMutator": 1,
+         "InlineConstantMutator": 8,
+         "MathMutator": 5,
+         "NegateConditionalsMutator": 11,
+         "NonVoidMethodCallMutator": 15,
+         "RemoveConditionalMutator_EQUAL_ELSE": 7,
+         "RemoveConditionalMutator_EQUAL_IF": 4,
+         "RemoveConditionalMutator_ORDER_ELSE": 2,
+         "RemoveConditionalMutator_ORDER_IF": 2,
+         "ArgumentPropagationMutator": 1,
+         "NakedReceiverMutator": 5,
+         "EmptyObjectReturnValsMutator": 1
+      },
+      "total_mutations": 65,
+      "test_cases_picked": [
+         2,
+         4,
+         1,
+         5,
+         3
+      ],
+      "test_cases_not_picked": [
+         6
+      ]
+   }
+]=======================================Median run is: {
+   "run_id": 3,
+   "method_name": "decodeName",
+   "coverage_type": "BRANCH",
+   "total_test_cases": 6,
+   "test_suite_strength": 0.8333333333333334,
+   "mutations_not_killed": {
+      "NegateConditionalsMutator": 1
+   },
+   "mutations_killed": {
+      "ConditionalsBoundaryMutator": 2,
+      "ConstructorCallMutator": 1,
+      "InlineConstantMutator": 8,
+      "MathMutator": 5,
+      "NegateConditionalsMutator": 11,
+      "NonVoidMethodCallMutator": 15,
+      "RemoveConditionalMutator_EQUAL_ELSE": 7,
+      "RemoveConditionalMutator_EQUAL_IF": 4,
+      "RemoveConditionalMutator_ORDER_ELSE": 2,
+      "RemoveConditionalMutator_ORDER_IF": 2,
+      "ArgumentPropagationMutator": 1,
+      "NakedReceiverMutator": 5,
+      "EmptyObjectReturnValsMutator": 1
+   },
+   "total_mutations": 65,
+   "test_cases_picked": [
+      1,
+      3,
+      5,
+      2,
+      4
+   ],
+   "test_cases_not_picked": [
+      6
+   ]
+}

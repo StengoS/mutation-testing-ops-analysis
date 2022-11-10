@@ -2,108 +2,7 @@
    {
       "run_id": 1,
       "method_name": "capitalize",
-      "total_test_cases": 6,
-      "test_suite_strength": 0.3333333333333333,
-      "mutations_not_killed": {
-         "InlineConstantMutator": 2,
-         "RemoveConditionalMutator_EQUAL_ELSE": 1,
-         "RemoveConditionalMutator_EQUAL_IF": 1
-      },
-      "mutations_killed": {
-         "ConditionalsBoundaryMutator": 1,
-         "ConstructorCallMutator": 1,
-         "InlineConstantMutator": 3,
-         "NegateConditionalsMutator": 7,
-         "NonVoidMethodCallMutator": 9,
-         "RemoveConditionalMutator_EQUAL_ELSE": 5,
-         "RemoveConditionalMutator_EQUAL_IF": 4,
-         "RemoveConditionalMutator_ORDER_ELSE": 1,
-         "RemoveConditionalMutator_ORDER_IF": 1,
-         "ArgumentPropagationMutator": 1,
-         "NakedReceiverMutator": 3,
-         "EmptyObjectReturnValsMutator": 2
-      },
-      "test_cases_picked": [
-         1,
-         5
-      ],
-      "test_cases_not_picked": [
-         4,
-         2,
-         6,
-         3
-      ]
-   },
-   {
-      "run_id": 2,
-      "method_name": "capitalize",
-      "total_test_cases": 6,
-      "test_suite_strength": 0.5,
-      "mutations_not_killed": {
-         "RemoveConditionalMutator_EQUAL_ELSE": 1,
-         "RemoveConditionalMutator_EQUAL_IF": 1
-      },
-      "mutations_killed": {
-         "ConditionalsBoundaryMutator": 1,
-         "ConstructorCallMutator": 1,
-         "InlineConstantMutator": 5,
-         "NegateConditionalsMutator": 7,
-         "NonVoidMethodCallMutator": 9,
-         "RemoveConditionalMutator_EQUAL_ELSE": 5,
-         "RemoveConditionalMutator_EQUAL_IF": 4,
-         "RemoveConditionalMutator_ORDER_ELSE": 1,
-         "RemoveConditionalMutator_ORDER_IF": 1,
-         "ArgumentPropagationMutator": 1,
-         "NakedReceiverMutator": 3,
-         "EmptyObjectReturnValsMutator": 2
-      },
-      "test_cases_picked": [
-         2,
-         1,
-         4
-      ],
-      "test_cases_not_picked": [
-         3,
-         5,
-         6
-      ]
-   },
-   {
-      "run_id": 3,
-      "method_name": "capitalize",
-      "total_test_cases": 6,
-      "test_suite_strength": 0.5,
-      "mutations_not_killed": {
-         "RemoveConditionalMutator_EQUAL_IF": 1
-      },
-      "mutations_killed": {
-         "ConditionalsBoundaryMutator": 1,
-         "ConstructorCallMutator": 1,
-         "InlineConstantMutator": 5,
-         "NegateConditionalsMutator": 7,
-         "NonVoidMethodCallMutator": 9,
-         "RemoveConditionalMutator_EQUAL_ELSE": 6,
-         "RemoveConditionalMutator_EQUAL_IF": 4,
-         "RemoveConditionalMutator_ORDER_ELSE": 1,
-         "RemoveConditionalMutator_ORDER_IF": 1,
-         "ArgumentPropagationMutator": 1,
-         "NakedReceiverMutator": 3,
-         "EmptyObjectReturnValsMutator": 2
-      },
-      "test_cases_picked": [
-         5,
-         6,
-         2
-      ],
-      "test_cases_not_picked": [
-         3,
-         4,
-         1
-      ]
-   },
-   {
-      "run_id": 4,
-      "method_name": "capitalize",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 6,
       "test_suite_strength": 0.5,
       "mutations_not_killed": {},
@@ -121,20 +20,58 @@
          "NakedReceiverMutator": 3,
          "EmptyObjectReturnValsMutator": 2
       },
+      "total_mutations": 42,
       "test_cases_picked": [
-         1,
          6,
+         1,
          2
       ],
       "test_cases_not_picked": [
          4,
-         5,
-         3
+         3,
+         5
       ]
    },
    {
-      "run_id": 5,
+      "run_id": 2,
       "method_name": "capitalize",
+      "coverage_type": "INSTRUCTION",
+      "total_test_cases": 6,
+      "test_suite_strength": 0.5,
+      "mutations_not_killed": {
+         "RemoveConditionalMutator_EQUAL_ELSE": 1,
+         "RemoveConditionalMutator_EQUAL_IF": 1
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 1,
+         "ConstructorCallMutator": 1,
+         "InlineConstantMutator": 5,
+         "NegateConditionalsMutator": 7,
+         "NonVoidMethodCallMutator": 9,
+         "RemoveConditionalMutator_EQUAL_ELSE": 5,
+         "RemoveConditionalMutator_EQUAL_IF": 4,
+         "RemoveConditionalMutator_ORDER_ELSE": 1,
+         "RemoveConditionalMutator_ORDER_IF": 1,
+         "ArgumentPropagationMutator": 1,
+         "NakedReceiverMutator": 3,
+         "EmptyObjectReturnValsMutator": 2
+      },
+      "total_mutations": 42,
+      "test_cases_picked": [
+         1,
+         2,
+         3
+      ],
+      "test_cases_not_picked": [
+         4,
+         5,
+         6
+      ]
+   },
+   {
+      "run_id": 3,
+      "method_name": "capitalize",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 6,
       "test_suite_strength": 0.5,
       "mutations_not_killed": {
@@ -156,35 +93,108 @@
          "NakedReceiverMutator": 3,
          "EmptyObjectReturnValsMutator": 2
       },
+      "total_mutations": 42,
       "test_cases_picked": [
-         3,
-         5,
-         1
+         1,
+         4,
+         5
       ],
       "test_cases_not_picked": [
+         3,
+         6,
+         2
+      ]
+   },
+   {
+      "run_id": 4,
+      "method_name": "capitalize",
+      "coverage_type": "INSTRUCTION",
+      "total_test_cases": 6,
+      "test_suite_strength": 0.5,
+      "mutations_not_killed": {
+         "RemoveConditionalMutator_EQUAL_ELSE": 1,
+         "RemoveConditionalMutator_EQUAL_IF": 2
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 1,
+         "ConstructorCallMutator": 1,
+         "InlineConstantMutator": 5,
+         "NegateConditionalsMutator": 7,
+         "NonVoidMethodCallMutator": 9,
+         "RemoveConditionalMutator_EQUAL_ELSE": 5,
+         "RemoveConditionalMutator_EQUAL_IF": 3,
+         "RemoveConditionalMutator_ORDER_ELSE": 1,
+         "RemoveConditionalMutator_ORDER_IF": 1,
+         "ArgumentPropagationMutator": 1,
+         "NakedReceiverMutator": 3,
+         "EmptyObjectReturnValsMutator": 2
+      },
+      "total_mutations": 42,
+      "test_cases_picked": [
          4,
-         2,
+         3,
+         2
+      ],
+      "test_cases_not_picked": [
+         1,
+         5,
          6
       ]
+   },
+   {
+      "run_id": 5,
+      "method_name": "capitalize",
+      "coverage_type": "INSTRUCTION",
+      "total_test_cases": 6,
+      "test_suite_strength": 0.5,
+      "mutations_not_killed": {
+         "RemoveConditionalMutator_EQUAL_ELSE": 1,
+         "RemoveConditionalMutator_EQUAL_IF": 2
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 1,
+         "ConstructorCallMutator": 1,
+         "InlineConstantMutator": 5,
+         "NegateConditionalsMutator": 7,
+         "NonVoidMethodCallMutator": 9,
+         "RemoveConditionalMutator_EQUAL_ELSE": 5,
+         "RemoveConditionalMutator_EQUAL_IF": 3,
+         "RemoveConditionalMutator_ORDER_ELSE": 1,
+         "RemoveConditionalMutator_ORDER_IF": 1,
+         "ArgumentPropagationMutator": 1,
+         "NakedReceiverMutator": 3,
+         "EmptyObjectReturnValsMutator": 2
+      },
+      "total_mutations": 42,
+      "test_cases_picked": [
+         3,
+         4,
+         2
+      ],
+      "test_cases_not_picked": [
+         5,
+         6,
+         1
+      ]
    }
-]
-=======================================
-Median run is:
-{
+]=======================================Median run is: {
    "run_id": 3,
    "method_name": "capitalize",
+   "coverage_type": "INSTRUCTION",
    "total_test_cases": 6,
    "test_suite_strength": 0.5,
    "mutations_not_killed": {
+      "InlineConstantMutator": 2,
+      "RemoveConditionalMutator_EQUAL_ELSE": 1,
       "RemoveConditionalMutator_EQUAL_IF": 1
    },
    "mutations_killed": {
       "ConditionalsBoundaryMutator": 1,
       "ConstructorCallMutator": 1,
-      "InlineConstantMutator": 5,
+      "InlineConstantMutator": 3,
       "NegateConditionalsMutator": 7,
       "NonVoidMethodCallMutator": 9,
-      "RemoveConditionalMutator_EQUAL_ELSE": 6,
+      "RemoveConditionalMutator_EQUAL_ELSE": 5,
       "RemoveConditionalMutator_EQUAL_IF": 4,
       "RemoveConditionalMutator_ORDER_ELSE": 1,
       "RemoveConditionalMutator_ORDER_IF": 1,
@@ -192,14 +202,15 @@ Median run is:
       "NakedReceiverMutator": 3,
       "EmptyObjectReturnValsMutator": 2
    },
+   "total_mutations": 42,
    "test_cases_picked": [
-      5,
-      6,
-      2
+      1,
+      4,
+      5
    ],
    "test_cases_not_picked": [
       3,
-      4,
-      1
+      6,
+      2
    ]
 }

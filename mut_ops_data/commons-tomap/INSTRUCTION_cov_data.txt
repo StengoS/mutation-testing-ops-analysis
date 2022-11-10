@@ -1,6 +1,8 @@
 [
    {
       "run_id": 1,
+      "method_name": "toMap",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 5,
       "test_suite_strength": 0.8,
       "mutations_not_killed": {
@@ -22,11 +24,12 @@
          "NakedReceiverMutator": 10,
          "EmptyObjectReturnValsMutator": 2
       },
+      "total_mutations": 56,
       "test_cases_picked": [
-         4,
-         3,
          5,
-         1
+         1,
+         3,
+         4
       ],
       "test_cases_not_picked": [
          2
@@ -34,6 +37,8 @@
    },
    {
       "run_id": 2,
+      "method_name": "toMap",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 5,
       "test_suite_strength": 0.8,
       "mutations_not_killed": {
@@ -55,11 +60,12 @@
          "NakedReceiverMutator": 10,
          "EmptyObjectReturnValsMutator": 2
       },
+      "total_mutations": 56,
       "test_cases_picked": [
-         4,
+         3,
          5,
          1,
-         3
+         4
       ],
       "test_cases_not_picked": [
          2
@@ -67,6 +73,8 @@
    },
    {
       "run_id": 3,
+      "method_name": "toMap",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 5,
       "test_suite_strength": 0.8,
       "mutations_not_killed": {
@@ -88,10 +96,11 @@
          "NakedReceiverMutator": 10,
          "EmptyObjectReturnValsMutator": 2
       },
+      "total_mutations": 56,
       "test_cases_picked": [
+         4,
          5,
          3,
-         4,
          1
       ],
       "test_cases_not_picked": [
@@ -100,6 +109,8 @@
    },
    {
       "run_id": 4,
+      "method_name": "toMap",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 5,
       "test_suite_strength": 0.8,
       "mutations_not_killed": {
@@ -121,11 +132,12 @@
          "NakedReceiverMutator": 10,
          "EmptyObjectReturnValsMutator": 2
       },
+      "total_mutations": 56,
       "test_cases_picked": [
+         5,
          4,
          3,
-         1,
-         5
+         1
       ],
       "test_cases_not_picked": [
          2
@@ -133,6 +145,8 @@
    },
    {
       "run_id": 5,
+      "method_name": "toMap",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 5,
       "test_suite_strength": 0.8,
       "mutations_not_killed": {
@@ -154,21 +168,21 @@
          "NakedReceiverMutator": 10,
          "EmptyObjectReturnValsMutator": 2
       },
+      "total_mutations": 56,
       "test_cases_picked": [
+         4,
          5,
          1,
-         4,
          3
       ],
       "test_cases_not_picked": [
          2
       ]
    }
-]
-=======================================
-Median run is:
-{
+]=======================================Median run is: {
    "run_id": 3,
+   "method_name": "toMap",
+   "coverage_type": "INSTRUCTION",
    "total_test_cases": 5,
    "test_suite_strength": 0.8,
    "mutations_not_killed": {
@@ -190,10 +204,11 @@ Median run is:
       "NakedReceiverMutator": 10,
       "EmptyObjectReturnValsMutator": 2
    },
+   "total_mutations": 56,
    "test_cases_picked": [
+      4,
       5,
       3,
-      4,
       1
    ],
    "test_cases_not_picked": [

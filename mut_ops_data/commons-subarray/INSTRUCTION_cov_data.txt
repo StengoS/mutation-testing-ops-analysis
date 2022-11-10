@@ -1,6 +1,8 @@
 [
    {
       "run_id": 1,
+      "method_name": "subarray",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 4,
       "test_suite_strength": 0.75,
       "mutations_not_killed": {
@@ -20,10 +22,11 @@
          "NakedReceiverMutator": 1,
          "NullReturnValsMutator": 2
       },
+      "total_mutations": 24,
       "test_cases_picked": [
          1,
-         3,
-         2
+         2,
+         3
       ],
       "test_cases_not_picked": [
          4
@@ -31,6 +34,8 @@
    },
    {
       "run_id": 2,
+      "method_name": "subarray",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 4,
       "test_suite_strength": 0.75,
       "mutations_not_killed": {
@@ -50,6 +55,7 @@
          "NakedReceiverMutator": 1,
          "NullReturnValsMutator": 2
       },
+      "total_mutations": 24,
       "test_cases_picked": [
          3,
          2,
@@ -61,6 +67,8 @@
    },
    {
       "run_id": 3,
+      "method_name": "subarray",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 4,
       "test_suite_strength": 0.75,
       "mutations_not_killed": {
@@ -80,10 +88,11 @@
          "NakedReceiverMutator": 1,
          "NullReturnValsMutator": 2
       },
+      "total_mutations": 24,
       "test_cases_picked": [
          2,
-         3,
-         1
+         1,
+         3
       ],
       "test_cases_not_picked": [
          4
@@ -91,6 +100,8 @@
    },
    {
       "run_id": 4,
+      "method_name": "subarray",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 4,
       "test_suite_strength": 0.75,
       "mutations_not_killed": {
@@ -110,10 +121,11 @@
          "NakedReceiverMutator": 1,
          "NullReturnValsMutator": 2
       },
+      "total_mutations": 24,
       "test_cases_picked": [
-         2,
+         1,
          3,
-         1
+         2
       ],
       "test_cases_not_picked": [
          4
@@ -121,6 +133,8 @@
    },
    {
       "run_id": 5,
+      "method_name": "subarray",
+      "coverage_type": "INSTRUCTION",
       "total_test_cases": 4,
       "test_suite_strength": 0.75,
       "mutations_not_killed": {
@@ -140,6 +154,7 @@
          "NakedReceiverMutator": 1,
          "NullReturnValsMutator": 2
       },
+      "total_mutations": 24,
       "test_cases_picked": [
          3,
          1,
@@ -149,11 +164,10 @@
          4
       ]
    }
-]
-=======================================
-Median run is:
-{
+]=======================================Median run is: {
    "run_id": 3,
+   "method_name": "subarray",
+   "coverage_type": "INSTRUCTION",
    "total_test_cases": 4,
    "test_suite_strength": 0.75,
    "mutations_not_killed": {
@@ -173,10 +187,11 @@ Median run is:
       "NakedReceiverMutator": 1,
       "NullReturnValsMutator": 2
    },
+   "total_mutations": 24,
    "test_cases_picked": [
       2,
-      3,
-      1
+      1,
+      3
    ],
    "test_cases_not_picked": [
       4

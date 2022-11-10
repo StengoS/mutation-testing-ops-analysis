@@ -4,7 +4,7 @@ from mutations_stats_script_funcs import *
 
 
 def main():
-    cov_type = "INSTRUCTION"
+    cov_type = "BRANCH"
 
     decodename_tests = [1, 2, 3, 4, 5, 6]
     decodename_data = do_runs("decodeName", decodename_tests, "-Dtest=DecodeNameTest#", "testDecodeName",

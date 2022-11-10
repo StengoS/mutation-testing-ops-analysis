@@ -27,8 +27,64 @@ def clean_target_dir():
     subprocess.run(["mvn", "clean"], shell=True, stdout=subprocess.DEVNULL)
 
 
-def check_mut_op_coverage(cov_type):
-    return False
+def check_mut_op_coverage(cov_type, start_line, end_line, shuffled_cases, test_cases_original, mute_print=True):
+    test_cases_picked = []
+    op_cov_met = False
+
+    while op_cov_met is not True:
+        next_test_case = shuffled_cases.pop(0)
+        test_cases_picked.append(next_test_case)
+
+        if not mute_print:
+            print("Current list of picked test cases: \n" + str(test_cases_picked))
+
+        tree = ET.parse("mutation_matrix/mutations.xml")
+        root = tree.getroot() 
+
+        op_cov_met = True
+        for mutation in root.findall("mutation"):
+            if mutation.get("status") == "KILLED" or mutation.get("status") == "TIMED_OUT":
+
+                mutator_txt = mutation.find("mutator").text
+                line_number_txt = mutation.find("lineNumber").text
+                killing_tests_txt = mutation.find("killingTests").text
+
+                line_number = int(line_number_txt)
+                if start_line > -1 and end_line > -1:
+                    if line_number < start_line or line_number > end_line:
+                        continue
+
+                mutator = mutator_txt.split(".")[-1]
+                if cov_type == "1-OP":
+                    one_op_list = ["RemoveConditionalMutator_EQUAL_ELSE", "RemoveConditionalMutator_EQUAL_IF",
+                        "RemoveConditionalMutator_ORDER_ELSE", "RemoveConditionalMutator_ORDER_IF"]
+                    if mutator not in one_op_list:
+                        continue
+
+                elif cov_type == "2-OP":
+                    two_op_list = []
+                    if mutator not in two_op_list:
+                        continue
+
+                killing_tests = list(map(int, re.findall("\d+", killing_tests_txt)))
+
+                matching_in_lists = set(killing_tests) & set(test_cases_picked)
+
+                if len(matching_in_lists) == 0:
+                    op_cov_met = False
+                    if not mute_print:
+                        print("\tTests not killed: " + str(killing_tests))
+                        print("\t" + mutator + ", " + str(line_number))
+                    break
+        
+        if len(test_cases_picked) == len(test_cases_original):
+            if not mute_print:
+                print("Resetting and generating new list...")
+            test_cases_picked = []
+            shuffled_cases = gen_random_test_case_order(test_cases_original)
+            op_cov_met = False
+
+    return (test_cases_picked, shuffled_cases)
 
 
 def check_coverage_xml(jacoco_xml_path, method_name, mute_print, line_num, cov_type):
@@ -173,8 +229,18 @@ def do_runs(method_name, test_cases_arr, file_name_mvn, test_case_name,
         test_cases_original = test_cases_arr
         shuffled_cases = gen_random_test_case_order(test_cases_original)
 
-        test_suite_info = get_cases_full_conditional_cov(file_name_mvn, test_case_name, 
-            test_cases_original, method_name, shuffled_cases, cov_type, mute_print, line_num=method_line_num)
+        if cov_type == "1-OP" or cov_type == "2-OP":
+            test_suite_info = check_mut_op_coverage(cov_type, start_line, end_line, shuffled_cases, test_cases_original,
+                mute_print=mute_print)
+
+        elif cov_type == "INSTRUCTION" or cov_type == "BRANCH":
+            test_suite_info = get_cases_full_conditional_cov(file_name_mvn, test_case_name, 
+                test_cases_original, method_name, shuffled_cases, cov_type, mute_print, line_num=method_line_num)
+        
+        else:
+            print("Invalid coverage type.")
+            return
+
         test_cases_picked = test_suite_info[0]
 
         run_data["test_cases_picked"] = test_cases_picked

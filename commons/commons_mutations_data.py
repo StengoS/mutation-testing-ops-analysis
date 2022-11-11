@@ -23,15 +23,15 @@ def main():
         #     method_line_num="442")
         # generate_mutations_killed_bar_chart(subarray_data, "% Killed in ArrayUtils.subarray()", cov_type)
 
-        tomap_tests = [1, 2, 3, 4, 5]
-        tomap_data = do_runs("toMap", tomap_tests, "-Dtest=ArrayUtils_toMapTest#", "testToMap", 
-            "mutation_matrix/mutations.xml", cov_type, start_line=235, end_line=262, mute_print=False)
-        generate_mutations_killed_bar_chart(tomap_data, "% Killed in ArrayUtils.toMap()", cov_type)
+        # tomap_tests = [1, 2, 3, 4, 5]
+        # tomap_data = do_runs("toMap", tomap_tests, "-Dtest=ArrayUtils_toMapTest#", "testToMap", 
+        #     "mutation_matrix/mutations.xml", cov_type, start_line=235, end_line=262, mute_print=False)
+        # generate_mutations_killed_bar_chart(tomap_data, "% Killed in ArrayUtils.toMap()", cov_type)
 
-        # wrap_tests = [1, 2, 3, 4, 5, 6]
-        # wrap_data = do_runs("wrap", wrap_tests, "-Dtest=WordUtils_wrapTest#", "testWrap",
-        #   "mutation_matrix/mutations.xml", cov_type, start_line=15, end_line=65, mute_print=False)
-        # generate_mutations_killed_bar_chart(wrap_data, "% Killed in WordUtils.wrap()", cov_type)
+        wrap_tests = [1, 2, 3, 4, 5, 6]
+        wrap_data = do_runs("wrap", wrap_tests, "-Dtest=WordUtils_wrapTest#", "testWrap",
+          "mutation_matrix/mutations.xml", cov_type, start_line=15, end_line=65, mute_print=False)
+        generate_mutations_killed_bar_chart(wrap_data, "% Killed in WordUtils.wrap()", cov_type)
         
 
 if __name__ == "__main__":

@@ -414,16 +414,20 @@ public final class MathUtils {
             v = -v;
         } // make v negative
         // B1. [Find power of 2]
+
         int k = 0;
-        while ((u & 1) == 0 && (v & 1) == 0 && k < 31) { // while u and v are
+        while ((u & 1) == 0 && (v & 1) == 0 /*&& k < 31*/) { // while u and v are
                                                             // both even...
             u /= 2;
             v /= 2;
             k++; // cast out twos.
         }
-        if (k == 31) {
-            throw new ArithmeticException("overflow: gcd is 2^31");
-        }
+
+        // 11/11/22 - Commented out for instruction/branch coverage collection
+        // if (k == 31) {
+        //     throw new ArithmeticException("overflow: gcd is 2^31");
+        // }
+
         // B2. Initialize: u and v have been divided by 2^k and at least
         // one is odd.
         int t = ((u & 1) == 1) ? v : -(u / 2)/* B3 */;

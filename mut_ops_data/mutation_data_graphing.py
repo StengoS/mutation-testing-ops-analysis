@@ -49,39 +49,43 @@ def generate_mutations_combined_bar_chart(run_data, graph_title, cov_type):
 
 def main():
     copied_in_data = {
-        "run_id": 5,
-        "method_name": "sqrt",
-        "coverage_type": "INSTRUCTION",
-        "total_test_cases": 4,
-        "test_suite_strength": 0.25,
-        "mutations_not_killed": {
-            "ConditionalsBoundaryMutator": 1,
-            "InlineConstantMutator": 1,
-            "MathMutator": 1
-        },
-        "mutations_killed": {
-            "MemberVariableMutator": 2,
-            "InlineConstantMutator": 4,
-            "MathMutator": 7,
-            "NegateConditionalsMutator": 3,
-            "NonVoidMethodCallMutator": 1,
-            "RemoveConditionalMutator_ORDER_ELSE": 3,
-            "RemoveConditionalMutator_ORDER_IF": 2,
-            "ArgumentPropagationMutator": 1,
-            "PrimitiveReturnsMutator": 1
-        },
-        "total_mutations": 27,
-        "test_cases_picked": [
-            2
-        ],
-        "test_cases_not_picked": [
-            4,
-            5,
-            1
-        ]
-    }
+   "run_id": 3,
+   "method_name": "decodeName",
+   "coverage_type": "INSTRUCTION",
+   "total_test_cases": 6,
+   "test_suite_strength": 0.8333333333333334,
+   "mutations_not_killed": {
+      "NegateConditionalsMutator": 1
+   },
+   "mutations_killed": {
+      "ConditionalsBoundaryMutator": 2,
+      "ConstructorCallMutator": 1,
+      "InlineConstantMutator": 8,
+      "MathMutator": 5,
+      "NegateConditionalsMutator": 11,
+      "NonVoidMethodCallMutator": 15,
+      "RemoveConditionalMutator_EQUAL_ELSE": 7,
+      "RemoveConditionalMutator_EQUAL_IF": 4,
+      "RemoveConditionalMutator_ORDER_ELSE": 2,
+      "RemoveConditionalMutator_ORDER_IF": 2,
+      "ArgumentPropagationMutator": 1,
+      "NakedReceiverMutator": 5,
+      "EmptyObjectReturnValsMutator": 1
+   },
+   "total_mutations": 65,
+   "test_cases_picked": [
+      1,
+      4,
+      2,
+      3,
+      5
+   ],
+   "test_cases_not_picked": [
+      6
+   ]
+}
 
-    generate_mutations_combined_bar_chart(copied_in_data, "% Killed and Survived in Bisect.sqrt()", "INSTRUCTION")
+    generate_mutations_combined_bar_chart(copied_in_data, "% Killed and Survived in XmlFriendlyNameCoder.decodeName()", "INSTRUCTION")
 
 
 if __name__ == "__main__":

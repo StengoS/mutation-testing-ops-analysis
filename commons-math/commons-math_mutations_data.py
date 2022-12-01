@@ -4,7 +4,7 @@ from mutations_stats_script_funcs import *
 
 
 def main():
-    cov_type = "INSTRUCTION"
+    cov_type = "BRANCH"
 
     # orthogonal_tests = [1, 2, 3, 4, 5, 6, 7, 8]
     # orthogonal_data = do_runs("orthogonal", orthogonal_tests, "-Dtest=Vector3D_orthogonalTest#", "testOrthogonal",

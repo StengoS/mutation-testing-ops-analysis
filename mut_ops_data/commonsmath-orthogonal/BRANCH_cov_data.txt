@@ -1,0 +1,229 @@
+[
+   {
+      "run_id": 1,
+      "method_name": "orthogonal",
+      "coverage_type": "BRANCH",
+      "total_test_cases": 8,
+      "test_suite_strength": 0.625,
+      "mutations_not_killed": {
+         "ConditionalsBoundaryMutator": 2,
+         "InvertNegsMutator": 2,
+         "MathMutator": 2
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 2,
+         "ConstructorCallMutator": 4,
+         "InlineConstantMutator": 8,
+         "InvertNegsMutator": 3,
+         "MathMutator": 17,
+         "NegateConditionalsMutator": 5,
+         "NonVoidMethodCallMutator": 4,
+         "RemoveConditionalMutator_EQUAL_ELSE": 1,
+         "RemoveConditionalMutator_EQUAL_IF": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 4,
+         "RemoveConditionalMutator_ORDER_IF": 4,
+         "ArgumentPropagationMutator": 3,
+         "NullReturnValsMutator": 3
+      },
+      "total_mutations": 65,
+      "test_cases_picked": [
+         8,
+         6,
+         2,
+         1,
+         5
+      ],
+      "test_cases_not_picked": [
+         4,
+         7,
+         3
+      ]
+   },
+   {
+      "run_id": 2,
+      "method_name": "orthogonal",
+      "coverage_type": "BRANCH",
+      "total_test_cases": 8,
+      "test_suite_strength": 0.75,
+      "mutations_not_killed": {
+         "ConditionalsBoundaryMutator": 1,
+         "InvertNegsMutator": 1,
+         "MathMutator": 1
+      },
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 3,
+         "ConstructorCallMutator": 4,
+         "InlineConstantMutator": 8,
+         "InvertNegsMutator": 4,
+         "MathMutator": 18,
+         "NegateConditionalsMutator": 5,
+         "NonVoidMethodCallMutator": 4,
+         "RemoveConditionalMutator_EQUAL_ELSE": 1,
+         "RemoveConditionalMutator_EQUAL_IF": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 4,
+         "RemoveConditionalMutator_ORDER_IF": 4,
+         "ArgumentPropagationMutator": 3,
+         "NullReturnValsMutator": 3
+      },
+      "total_mutations": 65,
+      "test_cases_picked": [
+         7,
+         5,
+         1,
+         8,
+         2,
+         6
+      ],
+      "test_cases_not_picked": [
+         4,
+         3
+      ]
+   },
+   {
+      "run_id": 3,
+      "method_name": "orthogonal",
+      "coverage_type": "BRANCH",
+      "total_test_cases": 8,
+      "test_suite_strength": 0.875,
+      "mutations_not_killed": {},
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 4,
+         "ConstructorCallMutator": 4,
+         "InlineConstantMutator": 8,
+         "InvertNegsMutator": 5,
+         "MathMutator": 19,
+         "NegateConditionalsMutator": 5,
+         "NonVoidMethodCallMutator": 4,
+         "RemoveConditionalMutator_EQUAL_ELSE": 1,
+         "RemoveConditionalMutator_EQUAL_IF": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 4,
+         "RemoveConditionalMutator_ORDER_IF": 4,
+         "ArgumentPropagationMutator": 3,
+         "NullReturnValsMutator": 3
+      },
+      "total_mutations": 65,
+      "test_cases_picked": [
+         8,
+         3,
+         6,
+         2,
+         5,
+         4,
+         1
+      ],
+      "test_cases_not_picked": [
+         7
+      ]
+   },
+   {
+      "run_id": 4,
+      "method_name": "orthogonal",
+      "coverage_type": "BRANCH",
+      "total_test_cases": 8,
+      "test_suite_strength": 0.875,
+      "mutations_not_killed": {},
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 4,
+         "ConstructorCallMutator": 4,
+         "InlineConstantMutator": 8,
+         "InvertNegsMutator": 5,
+         "MathMutator": 19,
+         "NegateConditionalsMutator": 5,
+         "NonVoidMethodCallMutator": 4,
+         "RemoveConditionalMutator_EQUAL_ELSE": 1,
+         "RemoveConditionalMutator_EQUAL_IF": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 4,
+         "RemoveConditionalMutator_ORDER_IF": 4,
+         "ArgumentPropagationMutator": 3,
+         "NullReturnValsMutator": 3
+      },
+      "total_mutations": 65,
+      "test_cases_picked": [
+         3,
+         6,
+         4,
+         7,
+         1,
+         8,
+         5
+      ],
+      "test_cases_not_picked": [
+         2
+      ]
+   },
+   {
+      "run_id": 5,
+      "method_name": "orthogonal",
+      "coverage_type": "BRANCH",
+      "total_test_cases": 8,
+      "test_suite_strength": 0.625,
+      "mutations_not_killed": {},
+      "mutations_killed": {
+         "ConditionalsBoundaryMutator": 4,
+         "ConstructorCallMutator": 4,
+         "InlineConstantMutator": 8,
+         "InvertNegsMutator": 5,
+         "MathMutator": 19,
+         "NegateConditionalsMutator": 5,
+         "NonVoidMethodCallMutator": 4,
+         "RemoveConditionalMutator_EQUAL_ELSE": 1,
+         "RemoveConditionalMutator_EQUAL_IF": 1,
+         "RemoveConditionalMutator_ORDER_ELSE": 4,
+         "RemoveConditionalMutator_ORDER_IF": 4,
+         "ArgumentPropagationMutator": 3,
+         "NullReturnValsMutator": 3
+      },
+      "total_mutations": 65,
+      "test_cases_picked": [
+         5,
+         7,
+         6,
+         1,
+         3
+      ],
+      "test_cases_not_picked": [
+         4,
+         8,
+         2
+      ]
+   }
+]=======================================Median run is: {
+   "run_id": 2,
+   "method_name": "orthogonal",
+   "coverage_type": "BRANCH",
+   "total_test_cases": 8,
+   "test_suite_strength": 0.75,
+   "mutations_not_killed": {
+      "ConditionalsBoundaryMutator": 1,
+      "InvertNegsMutator": 1,
+      "MathMutator": 1
+   },
+   "mutations_killed": {
+      "ConditionalsBoundaryMutator": 3,
+      "ConstructorCallMutator": 4,
+      "InlineConstantMutator": 8,
+      "InvertNegsMutator": 4,
+      "MathMutator": 18,
+      "NegateConditionalsMutator": 5,
+      "NonVoidMethodCallMutator": 4,
+      "RemoveConditionalMutator_EQUAL_ELSE": 1,
+      "RemoveConditionalMutator_EQUAL_IF": 1,
+      "RemoveConditionalMutator_ORDER_ELSE": 4,
+      "RemoveConditionalMutator_ORDER_IF": 4,
+      "ArgumentPropagationMutator": 3,
+      "NullReturnValsMutator": 3
+   },
+   "total_mutations": 65,
+   "test_cases_picked": [
+      7,
+      5,
+      1,
+      8,
+      2,
+      6
+   ],
+   "test_cases_not_picked": [
+      4,
+      3
+   ]
+}

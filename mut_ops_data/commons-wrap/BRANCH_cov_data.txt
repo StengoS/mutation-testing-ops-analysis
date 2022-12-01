@@ -1,0 +1,223 @@
+[
+   {
+      "run_id": 1,
+      "method_name": "wrap",
+      "coverage_type": "BRANCH",
+      "total_test_cases": 6,
+      "test_suite_strength": 0.8333333333333334,
+      "mutations_not_killed": {},
+      "mutations_killed": {
+         "InlineConstantMutator": 9,
+         "NonVoidMethodCallMutator": 19,
+         "ArgumentPropagationMutator": 3,
+         "EmptyObjectReturnValsMutator": 3,
+         "ConditionalsBoundaryMutator": 1,
+         "ConstructorCallMutator": 1,
+         "IncrementsMutator": 1,
+         "MathMutator": 8,
+         "NegateConditionalsMutator": 8,
+         "RemoveConditionalMutator_EQUAL_ELSE": 4,
+         "RemoveConditionalMutator_EQUAL_IF": 4,
+         "RemoveConditionalMutator_ORDER_ELSE": 4,
+         "RemoveConditionalMutator_ORDER_IF": 4,
+         "NakedReceiverMutator": 13,
+         "RemoveIncrementsMutator": 1
+      },
+      "total_mutations": 83,
+      "test_cases_picked": [
+         6,
+         3,
+         5,
+         1,
+         4
+      ],
+      "test_cases_not_picked": [
+         2
+      ]
+   },
+   {
+      "run_id": 2,
+      "method_name": "wrap",
+      "coverage_type": "BRANCH",
+      "total_test_cases": 6,
+      "test_suite_strength": 0.6666666666666666,
+      "mutations_not_killed": {
+         "InlineConstantMutator": 1,
+         "EmptyObjectReturnValsMutator": 1,
+         "ConditionalsBoundaryMutator": 1,
+         "NonVoidMethodCallMutator": 2,
+         "NakedReceiverMutator": 2
+      },
+      "mutations_killed": {
+         "NonVoidMethodCallMutator": 17,
+         "ArgumentPropagationMutator": 3,
+         "ConstructorCallMutator": 1,
+         "IncrementsMutator": 1,
+         "InlineConstantMutator": 8,
+         "MathMutator": 8,
+         "NegateConditionalsMutator": 8,
+         "RemoveConditionalMutator_EQUAL_ELSE": 4,
+         "RemoveConditionalMutator_EQUAL_IF": 4,
+         "RemoveConditionalMutator_ORDER_ELSE": 4,
+         "RemoveConditionalMutator_ORDER_IF": 4,
+         "NakedReceiverMutator": 11,
+         "RemoveIncrementsMutator": 1,
+         "EmptyObjectReturnValsMutator": 2
+      },
+      "total_mutations": 83,
+      "test_cases_picked": [
+         4,
+         1,
+         2,
+         3
+      ],
+      "test_cases_not_picked": [
+         6,
+         5
+      ]
+   },
+   {
+      "run_id": 3,
+      "method_name": "wrap",
+      "coverage_type": "BRANCH",
+      "total_test_cases": 6,
+      "test_suite_strength": 0.8333333333333334,
+      "mutations_not_killed": {},
+      "mutations_killed": {
+         "InlineConstantMutator": 9,
+         "NonVoidMethodCallMutator": 19,
+         "ArgumentPropagationMutator": 3,
+         "EmptyObjectReturnValsMutator": 3,
+         "ConditionalsBoundaryMutator": 1,
+         "ConstructorCallMutator": 1,
+         "IncrementsMutator": 1,
+         "MathMutator": 8,
+         "NegateConditionalsMutator": 8,
+         "RemoveConditionalMutator_EQUAL_ELSE": 4,
+         "RemoveConditionalMutator_EQUAL_IF": 4,
+         "RemoveConditionalMutator_ORDER_ELSE": 4,
+         "RemoveConditionalMutator_ORDER_IF": 4,
+         "NakedReceiverMutator": 13,
+         "RemoveIncrementsMutator": 1
+      },
+      "total_mutations": 83,
+      "test_cases_picked": [
+         4,
+         1,
+         3,
+         6,
+         5
+      ],
+      "test_cases_not_picked": [
+         2
+      ]
+   },
+   {
+      "run_id": 4,
+      "method_name": "wrap",
+      "coverage_type": "BRANCH",
+      "total_test_cases": 6,
+      "test_suite_strength": 0.6666666666666666,
+      "mutations_not_killed": {
+         "ConditionalsBoundaryMutator": 1
+      },
+      "mutations_killed": {
+         "InlineConstantMutator": 9,
+         "NonVoidMethodCallMutator": 19,
+         "ArgumentPropagationMutator": 3,
+         "EmptyObjectReturnValsMutator": 3,
+         "ConstructorCallMutator": 1,
+         "IncrementsMutator": 1,
+         "MathMutator": 8,
+         "NegateConditionalsMutator": 8,
+         "RemoveConditionalMutator_EQUAL_ELSE": 4,
+         "RemoveConditionalMutator_EQUAL_IF": 4,
+         "RemoveConditionalMutator_ORDER_ELSE": 4,
+         "RemoveConditionalMutator_ORDER_IF": 4,
+         "NakedReceiverMutator": 13,
+         "RemoveIncrementsMutator": 1
+      },
+      "total_mutations": 83,
+      "test_cases_picked": [
+         5,
+         4,
+         1,
+         3
+      ],
+      "test_cases_not_picked": [
+         2,
+         6
+      ]
+   },
+   {
+      "run_id": 5,
+      "method_name": "wrap",
+      "coverage_type": "BRANCH",
+      "total_test_cases": 6,
+      "test_suite_strength": 0.8333333333333334,
+      "mutations_not_killed": {},
+      "mutations_killed": {
+         "InlineConstantMutator": 9,
+         "NonVoidMethodCallMutator": 19,
+         "ArgumentPropagationMutator": 3,
+         "EmptyObjectReturnValsMutator": 3,
+         "ConditionalsBoundaryMutator": 1,
+         "ConstructorCallMutator": 1,
+         "IncrementsMutator": 1,
+         "MathMutator": 8,
+         "NegateConditionalsMutator": 8,
+         "RemoveConditionalMutator_EQUAL_ELSE": 4,
+         "RemoveConditionalMutator_EQUAL_IF": 4,
+         "RemoveConditionalMutator_ORDER_ELSE": 4,
+         "RemoveConditionalMutator_ORDER_IF": 4,
+         "NakedReceiverMutator": 13,
+         "RemoveIncrementsMutator": 1
+      },
+      "total_mutations": 83,
+      "test_cases_picked": [
+         4,
+         5,
+         6,
+         1,
+         3
+      ],
+      "test_cases_not_picked": [
+         2
+      ]
+   }
+]=======================================Median run is: {
+   "run_id": 1,
+   "method_name": "wrap",
+   "coverage_type": "BRANCH",
+   "total_test_cases": 6,
+   "test_suite_strength": 0.8333333333333334,
+   "mutations_not_killed": {},
+   "mutations_killed": {
+      "InlineConstantMutator": 9,
+      "NonVoidMethodCallMutator": 19,
+      "ArgumentPropagationMutator": 3,
+      "EmptyObjectReturnValsMutator": 3,
+      "ConditionalsBoundaryMutator": 1,
+      "ConstructorCallMutator": 1,
+      "IncrementsMutator": 1,
+      "MathMutator": 8,
+      "NegateConditionalsMutator": 8,
+      "RemoveConditionalMutator_EQUAL_ELSE": 4,
+      "RemoveConditionalMutator_EQUAL_IF": 4,
+      "RemoveConditionalMutator_ORDER_ELSE": 4,
+      "RemoveConditionalMutator_ORDER_IF": 4,
+      "NakedReceiverMutator": 13,
+      "RemoveIncrementsMutator": 1
+   },
+   "total_mutations": 83,
+   "test_cases_picked": [
+      6,
+      3,
+      5,
+      1,
+      4
+   ],
+   "test_cases_not_picked": [
+      2
+   ]
+}

@@ -1,0 +1,4 @@
+file,class,method,variable,usage
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\bisect\src\main\java\bis\Bisect.java,bis.Bisect,sqrt/1[double],mResult,1
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\bisect\src\main\java\bis\Bisect.java,bis.Bisect,sqrt/1[double],mEpsilon,1
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\bisect\src\main\java\bis\Bisect.java,bis.Bisect,setEpsilon/1[double],mEpsilon,1

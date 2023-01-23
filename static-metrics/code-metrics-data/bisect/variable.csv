@@ -1,0 +1,8 @@
+file,class,method,variable,usage
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\bisect\src\main\java\bis\Bisect.java,bis.Bisect,sqrt/1[double],r,3
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\bisect\src\main\java\bis\Bisect.java,bis.Bisect,sqrt/1[double],x,12
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\bisect\src\main\java\bis\Bisect.java,bis.Bisect,sqrt/1[double],diff,4
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\bisect\src\main\java\bis\Bisect.java,bis.Bisect,sqrt/1[double],M,2
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\bisect\src\main\java\bis\Bisect.java,bis.Bisect,sqrt/1[double],m,2
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\bisect\src\main\java\bis\Bisect.java,bis.Bisect,sqrt/1[double],N,4
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\bisect\src\main\java\bis\Bisect.java,bis.Bisect,setEpsilon/1[double],epsilon,1

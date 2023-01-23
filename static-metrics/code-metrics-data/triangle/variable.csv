@@ -1,0 +1,5 @@
+file,class,method,variable,usage
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\triangle\src\main\java\tr\Triangle.java,tr.Triangle,"classify/3[int,int,int]",trian,12
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\triangle\src\main\java\tr\Triangle.java,tr.Triangle,"classify/3[int,int,int]",a,9
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\triangle\src\main\java\tr\Triangle.java,tr.Triangle,"classify/3[int,int,int]",b,9
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\triangle\src\main\java\tr\Triangle.java,tr.Triangle,"classify/3[int,int,int]",c,9

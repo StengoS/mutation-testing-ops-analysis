@@ -1,0 +1,5 @@
+file,class,method,variable,usage
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\triangle\src\main\java\tr\Triangle.java,tr.Triangle,"classify/3[int,int,int]",SCALENE,1
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\triangle\src\main\java\tr\Triangle.java,tr.Triangle,"classify/3[int,int,int]",EQUILATERAL,1
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\triangle\src\main\java\tr\Triangle.java,tr.Triangle,"classify/3[int,int,int]",INVALID,3
+C:\Users\steng\Desktop\mutation-analysis\kintis-funcs-updated\static-metrics\ck\target\..\..\..\triangle\src\main\java\tr\Triangle.java,tr.Triangle,"classify/3[int,int,int]",ISOSCELES,3

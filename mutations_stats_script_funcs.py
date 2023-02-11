@@ -11,6 +11,11 @@ def gen_random_test_case_order(original_list):
     """
     Given a list of test cases represented as integers, create and return a deep copy of
     the list but randomly shuffled.
+
+    Args:
+        - original_list {list} - all test cases associated with a method
+    Returns: 
+        - ran_list {list} - randomized test cases, to be ran individually, left-to-right
     """
     ran_list = original_list.copy()
     random.shuffle(ran_list)
@@ -28,6 +33,28 @@ def clean_target_dir():
 
 
 def check_mut_op_coverage(cov_type, start_line, end_line, shuffled_cases, test_cases_original, mute_print=True):
+    """
+    Incrementally checks if the randomized list of test cases reaches the specified coverage type. 
+    While checking, a subset of the full original list of test cases is built, and will reset if the
+    subset length equals the original list length. If a randomized subset list of test cases meets
+    the coverage type while having a length less than the original list length, then the process 
+    completes and the randomized subset is returned along with the full randomized list.
+
+    This version is for '1-OP' cov_type, as the process looks at the mutation matrix and tests if a
+    subset list of test cases kills all RemoveConditionalOperator's.
+
+    Args:
+        - cov_type {string} - hardcoded string specifying coverage type; supports '1-OP'
+        - start_line {int} - first line of code of method being tested
+        - end_line {int} - last line of code of method being tested
+        - shuffled_cases {list} - randomized test cases of test_cases_original
+        - test_cases_original {list} - all test cases associated with a method
+        - mute_print {boolean} - specifies whether to print to output progress of checking, default to True
+    Returns:
+        - (test_cases_picked, shuffled_cases) {tuple}
+            -  test_cases_picked {list} - subset of randomized list of test cases that meets specified coverage
+            - shuffled_cases {list} - randomized test cases of test_cases_original
+    """
     test_cases_picked = []
     op_cov_met = False
 
@@ -61,10 +88,11 @@ def check_mut_op_coverage(cov_type, start_line, end_line, shuffled_cases, test_c
                     if mutator not in one_op_list:
                         continue
 
-                elif cov_type == "2-OP":
-                    two_op_list = []
-                    if mutator not in two_op_list:
-                        continue
+                # 2-OP not currently supported due to AOD not being a valid mutation operator in PIT
+                # elif cov_type == "2-OP":
+                #     two_op_list = []
+                #     if mutator not in two_op_list:
+                #         continue
 
                 killing_tests = list(map(int, re.findall("\d+", killing_tests_txt)))
 
@@ -88,6 +116,9 @@ def check_mut_op_coverage(cov_type, start_line, end_line, shuffled_cases, test_c
 
 
 def check_coverage_xml(jacoco_xml_path, method_name, mute_print, line_num, cov_type):
+    """
+
+    """
     tree = ET.parse(jacoco_xml_path)
     root = tree.getroot()
 
@@ -111,13 +142,25 @@ def check_coverage_xml(jacoco_xml_path, method_name, mute_print, line_num, cov_t
     return False
 
 
-"""
-Until conditional coverage at 100%, picks the next test case in the shuffled test case list and
-runs Jacoco coverage tool with all tests in test_cases_picked. Resets and makes a new shuffled
-test case list if it ends up picking all original test cases.
-"""
 def get_cases_full_conditional_cov(mvn_test_cases_flag, unit_test_name, test_cases_original, 
         method_name, shuffled_cases, cov_type, mute_print=True, line_num="-1"):
+    """
+    Incrementally checks if the randomized list of test cases reaches the specified coverage type. 
+    While checking, a subset of the full original list of test cases is built, and will reset if the
+    subset length equals the original list length. If a randomized subset list of test cases meets
+    the coverage type while having a length less than the original list length, then the process 
+    completes and the randomized subset is returned along with the full randomized list.
+
+    This version is for 'BRANCH' and 'INSTRUCTION' cov_type. 
+    For example, until conditional coverage at 100%, picks the next test case in the shuffled test 
+    case list and runs Jacoco coverage tool with all tests in test_cases_picked. Resets and makes 
+    a new shuffled test case list if it ends up picking all original test cases.
+
+    Args:
+        - 
+    Returns:
+        - 
+    """
     mvn_flag_original = mvn_test_cases_flag
     test_cases_picked = []
     conditional_cov_met = False
@@ -211,6 +254,18 @@ def parse_mutation_matrix(matrix_file_path, test_cases_picked, mute_print=True,
 
 def do_runs(method_name, test_cases_arr, file_name_mvn, test_case_name, 
     mut_matrix_file, cov_type, start_line=-1, end_line=-1, mute_print=False, method_line_num="-1"):
+    """
+    Primary function to be used elsewhere for generating percentage of mutations killed/not killed
+    in subset lists of test cases that meet a specified coverage type (assessing strength of subsets
+    of the full test suite, e.g., imitating a developer stopping unit testing when they have met
+    100% conditional coverage then assessing that imitated test suite). This does five complete runs
+    and selects the run with the median test_suite_strength across all runs.
+
+    Args:
+        -
+    Returns:
+        - 
+    """
     runs = []
     for run_id in range(1, 6):
         run_data = {
@@ -280,6 +335,9 @@ def do_runs(method_name, test_cases_arr, file_name_mvn, test_case_name,
 
 
 def generate_mutations_killed_bar_chart(run_data, graph_title, cov_type):
+    """
+    
+    """
     mutations_killed = run_data["mutations_killed"]
     total_mutations = run_data["total_mutations"]
 

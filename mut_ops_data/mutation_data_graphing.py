@@ -3,6 +3,12 @@ import pandas
 import matplotlib.pyplot as plt
 import numpy as np
 
+"""
+Used to generate bar graphs of mutations killed/not killed data, written in style of
+throw-away code
+TODO: Get JSON of individual methods into .json file that can be more easily worked with
+TODO: Create way to quickly take data from .json file and graph, as modular as possible
+"""
 
 def generate_mutations_combined_bar_chart(run_data, graph_title, cov_type):
     mutations_survived = run_data["mutations_not_killed"]
